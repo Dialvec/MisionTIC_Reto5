@@ -1,2 +1,8 @@
 # MisionTIC_Reto5
-Avance del reto 5 de MinTIC
+reto 5 MisionTIC cohorte 2022
+
+Integrantes:
+* Cristian Buitrago
+* Diego Velandia
+
+Docente: Helio Henry Ramírez

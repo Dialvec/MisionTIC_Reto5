@@ -43,8 +43,10 @@ public class ConnectionDB {
             String dbURL = "jdbc:mysql://" + host + ":" + port + "/" + BikeShopParameters.SCHEMA;
             
             conn = DriverManager.getConnection(dbURL, username, password);
+            /*
             if( conn != null ) 
                 System.out.println ( "Conectado" );
+            */
         } 
         catch( SQLException | FileNotFoundException ex ) {
             ex.printStackTrace();

@@ -1,4 +1,3 @@
-USE datos;
 CREATE TABLE bicicleta (
 	id_bicicleta INT AUTO_INCREMENT PRIMARY KEY,
 	fabricante_fk VARCHAR(50) UNIQUE NULL,
