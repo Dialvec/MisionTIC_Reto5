@@ -15,15 +15,18 @@ public class ModelCliente {
     private final String apellidos;
     private String email;
     private int contrasena;
+    private String celular;
     private String dob;
+
     
     // Constructor completo
-    public ModelCliente(String alias, String nombres, String apellidos, String email, int contrasena, String dob) {
+    public ModelCliente(String alias, String nombres, String apellidos, String email, int contrasena, String celular, String dob) {
         this.alias = alias;
         this.nombres = nombres;
         this.apellidos = apellidos;
         this.email = email;
         this.contrasena = contrasena;
+        this.celular = celular;
         this.dob = dob;
     }
     
@@ -33,7 +36,16 @@ public class ModelCliente {
         this.nombres = nombres;
         this.apellidos = apellidos;
     }
-    //Constructor sin fecha de nacimiento
+    
+    // Constructor con alias, nombre, apellido y celular
+    public ModelCliente(String alias, String nombres, String apellidos, String celular){
+        this.alias = alias;
+        this.nombres = nombres;
+        this.apellidos = apellidos;
+        this.celular = celular;
+    }
+    
+    //Constructor  con email y contraseña
     public ModelCliente(String alias, String nombres, String apellidos, String email, int contrasena) {
         this.alias = alias;
         this.nombres = nombres;
@@ -42,14 +54,6 @@ public class ModelCliente {
         this.contrasena = contrasena;
     }
     
-    //Constructor sin correo y contraseña
-    public ModelCliente(String alias, String nombres, String apellidos, String dob) {
-        this.alias = alias;
-        this.nombres = nombres;
-        this.apellidos = apellidos;
-        this.dob = dob;
-    }
-
     /**
      * @return the alias
      */
@@ -117,5 +121,19 @@ public class ModelCliente {
     public Object[] toArray(){
         Object[] data = {alias, nombres, apellidos, email, contrasena, dob};
         return data;
+    }
+
+    /**
+     * @return the celular
+     */
+    public String getCelular() {
+        return celular;
+    }
+
+    /**
+     * @param celular the celular to set
+     */
+    public void setCelular(String celular) {
+        this.celular = celular;
     }
 }
