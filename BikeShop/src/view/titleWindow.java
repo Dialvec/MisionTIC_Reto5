@@ -20,9 +20,6 @@ import org.netbeans.lib.awtextra.AbsoluteConstraints;
  */
 public class TitleWindow extends JFrame {
 
-    /**
-     * Creates new form title
-     */
     public TitleWindow() {
         initComponents();
     }
@@ -63,7 +60,6 @@ public class TitleWindow extends JFrame {
     private javax.swing.JButton JButtonIngresoAdmin;
     private javax.swing.JButton JButtonIngresoVentas;
     private javax.swing.JLabel jLabelMainTitle;
-    // End of variables declaration
 
     /**
      * @return the JButtonIngresoAdmin

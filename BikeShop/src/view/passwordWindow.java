@@ -3,6 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
+
 package view;
 
 import java.awt.Font;
@@ -23,6 +24,7 @@ import javax.swing.UIManager;
  */
 public class PasswordWindow extends JFrame {
 
+    
     public PasswordWindow() {
         initComponents();
     }

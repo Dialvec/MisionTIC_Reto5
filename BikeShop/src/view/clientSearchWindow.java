@@ -22,9 +22,6 @@ import javax.swing.WindowConstants;
  */
 public class ClientSearchWindow extends JFrame {
 
-    /**
-     * Creates new form clientSearch
-     */
     public ClientSearchWindow() {
         initComponents();
     }

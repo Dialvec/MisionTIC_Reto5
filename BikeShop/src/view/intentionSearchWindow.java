@@ -16,9 +16,6 @@ import javax.swing.WindowConstants;
  */
 public class IntentionSearchWindow extends JFrame {
 
-    /**
-     * Creates new form clientSearch
-     */
     public IntentionSearchWindow() {
         initComponents();
     }

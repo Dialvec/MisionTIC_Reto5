@@ -5,7 +5,11 @@
  */
 package controller;
 
+import java.io.FileReader;
+import javax.swing.JFrame;
+import java.io.IOException;
 import java.util.ArrayList;
+import javax.swing.JOptionPane;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
@@ -22,6 +26,10 @@ import model.ModelIntencion;
 import model.ModelBicicleta;
 import model.ModelMotoElectrica;
 import model.ModelProveedorMotor;
+import org.json.simple.JSONObject;
+import org.json.simple.parser.JSONParser;
+import org.json.simple.parser.ParseException;
+import utils.BikeShopParameters;
 
 
 /**
@@ -31,8 +39,8 @@ import model.ModelProveedorMotor;
 public class ClickEvent implements ActionListener{
     
     private MainWindow mainWindow;
-    private TitleWindow titlewindow;
-    private PasswordWindow passwordwindow;
+    private TitleWindow titleWindow;
+    private PasswordWindow passwordWindow;
     private ClientSearchWindow clientSearchWindow;
     private VehicleSearchWindow vehicleSearchWindow;
     private IntentionSearchWindow intentionSearchWindow;
@@ -43,11 +51,11 @@ public class ClickEvent implements ActionListener{
     }
 
     public ClickEvent(TitleWindow titlewindow) {
-        this.titlewindow = titlewindow;
+        this.titleWindow = titlewindow;
     }
 
     public ClickEvent(PasswordWindow passwordwindow) {
-        this.passwordwindow = passwordwindow;
+        this.passwordWindow = passwordwindow;
     }
 
     public ClickEvent(ClientSearchWindow clientSearchWindow) {
@@ -67,12 +75,45 @@ public class ClickEvent implements ActionListener{
     @Override
     public void actionPerformed(ActionEvent actionEvent) {
         
-        //Boton Buscar
-        if(actionEvent.getSource() == this.mainWindow.getjButtonBuscar()){
-        
+        // Solicitar sesion como ventas
+        if(actionEvent.getSource() == this.titleWindow.getJButtonIngresoVentas()){
+            mainWindow = new MainWindow(false);    
+        }
+        // Solicitar sesión como administrador
+        else if(actionEvent.getSource() == this.titleWindow.getJButtonIngresoAdmin() ){
+            passwordWindow = new PasswordWindow();
+        }
+        // Intentar ingreso de contraseña
+        else if(actionEvent.getSource() == this.passwordWindow.getjButtonPassOk() ){
+            String passwordInput = String.valueOf(this.passwordWindow.getjPasswordField().getPassword());
+            String truePassword = getPassword();
+            // Iniciar sesión como administrador
+            if(passwordInput.equals(truePassword)){
+                mainWindow = new MainWindow(true);
+            }
+            // Contraseña incorrecta
+            else{
+                String message = "La contrseña ingresada no es correcta";
+                JOptionPane.showMessageDialog(new JFrame(), message, "Contraseña Incorrecta", JOptionPane.ERROR_MESSAGE);
+            }
+            
+        }
+    }
+    
+    public static String getPassword() {
+        JSONParser parser = new JSONParser();
+        String pswrd = null;
+        try {
+            String credentials_path = System.getProperty("user.dir") + BikeShopParameters.PW_PATH;
+            JSONObject jsonObject = (JSONObject)parser.parse(new FileReader(credentials_path));
+            
+            pswrd = (String)jsonObject.get("pswrd");
+        } 
+        catch (IOException | ParseException ex) {
+            ex.printStackTrace();
         }
         
-        throw new UnsupportedOperationException("Not supported yet.");
+        return pswrd;
     }
     
 }

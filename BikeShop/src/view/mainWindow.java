@@ -32,7 +32,6 @@ public class MainWindow extends JFrame {
         setjButtonEliminarEnabled(adminsession);
     }
 
-    
     private void initComponents() {
 
         buttonGroupSelection = new ButtonGroup();
@@ -191,9 +190,7 @@ public class MainWindow extends JFrame {
 
         pack();
     }
-    
-    
-                   
+             
     private JPanel PanelControles;
     private ButtonGroup buttonGroupSelection;
     private JButton jButtonBuscar;
