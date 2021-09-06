@@ -24,9 +24,12 @@ public class mainWindow extends JFrame {
 
     /**
      * Creates new form operations
+     * @param adminsession
      */
-    public mainWindow() {
+    public mainWindow(boolean adminsession) {
         initComponents();
+        setjButtonModificarEnabled(adminsession);
+        setjButtonEliminarEnabled(adminsession);
     }
 
     
@@ -280,6 +283,14 @@ public class mainWindow extends JFrame {
      */
     public void setjTableData(JTable jTableData) {
         this.jTableData = jTableData;
+    }
+    
+    private void setjButtonEliminarEnabled(boolean enabled){
+        jButtonEliminar.setEnabled(enabled);
+    }
+    
+    private void setjButtonModificarEnabled(boolean enabled){
+        jButtonModificar.setEnabled(enabled);
     }
                  
 }
