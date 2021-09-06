@@ -15,12 +15,12 @@ import javax.swing.WindowConstants;
  *
  * @author Dialvec
  */
-public class vehicleSearchWindow extends JFrame {
+public class VehicleSearchWindow extends JFrame {
 
     /**
      * Creates new form clientSearch
      */
-    public vehicleSearchWindow() {
+    public VehicleSearchWindow() {
         initComponents();
     }
                     
@@ -39,6 +39,8 @@ public class vehicleSearchWindow extends JFrame {
         jButtonSearchBicycle1 = new JButton();
 
         setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
+        setResizable(false);
+        setVisible(true);
 
         jLabelTituloBuscarCliente.setFont(new Font("Tahoma", 1, 14)); // NOI18N
         jLabelTituloBuscarCliente.setHorizontalAlignment(SwingConstants.CENTER);

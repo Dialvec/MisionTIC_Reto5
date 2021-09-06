@@ -12,11 +12,13 @@ package model;
 public class ModelBicicleta {
     private final int id_bicicleta;
     private final String fabricante_fk;
+    private int precio;
     private int anio_fabrica;
 
-    public ModelBicicleta(int id_bicicleta, String fabricante_fk, int anio_fabrica) {
+    public ModelBicicleta(int id_bicicleta, String fabricante_fk, int precio, int anio_fabrica) {
         this.id_bicicleta = id_bicicleta;
         this.fabricante_fk = fabricante_fk;
+        this.precio = precio;
         this.anio_fabrica = anio_fabrica;
     }
 
@@ -33,6 +35,22 @@ public class ModelBicicleta {
     public String getFabricante_fk() {
         return fabricante_fk;
     }
+    
+    /**
+     * @return the precio
+     */
+    public int getPrecio() {
+        return precio;
+    }
+    
+    /**
+     * @param precio the precio to set
+     */
+    public void setPrecio(int precio) {
+        this.precio = precio;
+    }
+    
+    
 
     /**
      * @return the anio_fabrica
@@ -50,7 +68,7 @@ public class ModelBicicleta {
     
     // Retorma arreglo con campos de la clase
     public Object[] toArray(){
-        Object[] data = {id_bicicleta, fabricante_fk, anio_fabrica};
+        Object[] data = {id_bicicleta, fabricante_fk, precio, anio_fabrica};
         return data;
     }
     

@@ -12,12 +12,21 @@ package model;
 public class ModelMotoElectrica {
     private final int id_moto;
     private final String fabricante_fk;
+    private int precio;
     private final String proveedor_motor_fk;
     private int autonomia;
 
     public ModelMotoElectrica(int id_moto, String fabaricante_fk, String proveedor_motor_fk, int autonomia) {
         this.id_moto = id_moto;
         this.fabricante_fk = fabaricante_fk;
+        this.proveedor_motor_fk = proveedor_motor_fk;
+        this.autonomia = autonomia;
+    }
+    
+    public ModelMotoElectrica(int id_moto, String fabaricante_fk, int precio, String proveedor_motor_fk, int autonomia) {
+        this.id_moto = id_moto;
+        this.fabricante_fk = fabaricante_fk;
+        this.precio = precio;
         this.proveedor_motor_fk = proveedor_motor_fk;
         this.autonomia = autonomia;
     }
@@ -34,6 +43,20 @@ public class ModelMotoElectrica {
      */
     public String getFabaricante_fk() {
         return fabricante_fk;
+    }
+    
+    /**
+     * @return the precio
+     */
+    public int getFPrecio() {
+        return precio;
+    }
+    
+    /**
+     * @param precio the precio to set
+     */
+    public void setPrecio(int precio) {
+        this.precio = precio;
     }
 
     /**
@@ -59,7 +82,7 @@ public class ModelMotoElectrica {
     
     // Retorma arreglo con campos de la clase
     public Object[] toArray(){
-        Object[] data = {id_moto, fabricante_fk, proveedor_motor_fk, autonomia};
+        Object[] data = {id_moto, fabricante_fk, precio, proveedor_motor_fk, autonomia};
         return data;
     }
 }

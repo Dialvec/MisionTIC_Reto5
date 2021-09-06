@@ -14,12 +14,12 @@ import javax.swing.WindowConstants;
  *
  * @author Dialvec
  */
-public class intentionSearchWindow extends JFrame {
+public class IntentionSearchWindow extends JFrame {
 
     /**
      * Creates new form clientSearch
      */
-    public intentionSearchWindow() {
+    public IntentionSearchWindow() {
         initComponents();
     }
                         
@@ -35,6 +35,7 @@ public class intentionSearchWindow extends JFrame {
 
         setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         setResizable(false);
+        setVisible(true);
 
         jLabelTituloBuscarCliente.setFont(new Font("Tahoma", 1, 14)); // NOI18N
         jLabelTituloBuscarCliente.setHorizontalAlignment(SwingConstants.CENTER);

@@ -18,12 +18,12 @@ import org.netbeans.lib.awtextra.AbsoluteConstraints;
  *
  * @author Dialvec
  */
-public class titleWindow extends JFrame {
+public class TitleWindow extends JFrame {
 
     /**
      * Creates new form title
      */
-    public titleWindow() {
+    public TitleWindow() {
         initComponents();
     }
     
@@ -32,6 +32,7 @@ public class titleWindow extends JFrame {
         setSize(new Dimension(400, 100));
         setResizable(false);
         setBackground(new Color(235, 235, 235));
+        setVisible(true);
         setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         
         jLabelMainTitle = new JLabel();

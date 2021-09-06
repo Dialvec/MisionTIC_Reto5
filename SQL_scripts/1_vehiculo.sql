@@ -1,15 +1,15 @@
 CREATE TABLE vehiculo (
-	fabricante VARCHAR(50) UNIQUE PRIMARY KEY,
-    precio INT UNIQUE NOT NULL);
+	fabricante VARCHAR(50) UNIQUE PRIMARY KEY
+    );
     
-INSERT INTO vehiculo (fabricante, precio) VALUES ("Cannondale", 1200000);
-INSERT INTO vehiculo (fabricante, precio) VALUES ("Trek", 1450000);
-INSERT INTO vehiculo (fabricante, precio) VALUES ("Yeti", 2000000);
-INSERT INTO vehiculo (fabricante, precio) VALUES ("Fuji", 950000);
-INSERT INTO vehiculo (fabricante, precio) VALUES ("Bmc", 1950000);
-INSERT INTO vehiculo (fabricante, precio) VALUES ("Starker", 4200000);
-INSERT INTO vehiculo (fabricante, precio) VALUES ("Lucky Lion", 5600000);
-INSERT INTO vehiculo (fabricante, precio) VALUES ("Be Electric", 4600000);
-INSERT INTO vehiculo (fabricante, precio) VALUES ("Aima", 8000000);
-INSERT INTO vehiculo (fabricante, precio) VALUES ("Mec de Colombia", 5900000);
-INSERT INTO vehiculo (fabricante, precio) VALUES ("Atom Electric", 4500000);
+INSERT INTO vehiculo (fabricante) VALUES ("Cannondale");
+INSERT INTO vehiculo (fabricante) VALUES ("Trek");
+INSERT INTO vehiculo (fabricante) VALUES ("Yeti");
+INSERT INTO vehiculo (fabricante) VALUES ("Fuji");
+INSERT INTO vehiculo (fabricante) VALUES ("Bmc");
+INSERT INTO vehiculo (fabricante) VALUES ("Starker");
+INSERT INTO vehiculo (fabricante) VALUES ("Lucky Lion");
+INSERT INTO vehiculo (fabricante) VALUES ("Be Electric");
+INSERT INTO vehiculo (fabricante) VALUES ("Aima");
+INSERT INTO vehiculo (fabricante) VALUES ("Mec de Colombia");
+INSERT INTO vehiculo (fabricante) VALUES ("Atom Electric");

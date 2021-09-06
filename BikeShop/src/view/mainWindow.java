@@ -20,13 +20,13 @@ import javax.swing.WindowConstants;
  *
  * @author Dialvec
  */
-public class mainWindow extends JFrame {
+public class MainWindow extends JFrame {
 
     /**
      * Creates new form operations
      * @param adminsession
      */
-    public mainWindow(boolean adminsession) {
+    public MainWindow(boolean adminsession) {
         initComponents();
         setjButtonModificarEnabled(adminsession);
         setjButtonEliminarEnabled(adminsession);
@@ -51,6 +51,7 @@ public class mainWindow extends JFrame {
 
         setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         setResizable(false);
+        setVisible(true);
 
         getjButtonEliminar().setBackground(UIManager.getDefaults().getColor("nb.errorForeground"));
         getjButtonEliminar().setFont(new Font("Tahoma", 1, 14)); // NOI18N
@@ -76,7 +77,6 @@ public class mainWindow extends JFrame {
         getButtonGroupSelection().add(getjRadioButtonCliente());
         getjRadioButtonCliente().setFont(new Font("Tahoma", 1, 14)); // NOI18N
         getjRadioButtonCliente().setText("Cliente");
-        getjRadioButtonCliente().setToolTipText("");
 
         getButtonGroupSelection().add(getjRadioButtonVehiculo());
         getjRadioButtonVehiculo().setFont(new Font("Tahoma", 1, 14)); // NOI18N

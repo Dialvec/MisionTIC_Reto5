@@ -21,9 +21,9 @@ import javax.swing.UIManager;
  *
  * @author Dialvec
  */
-public class passwordWindow extends JFrame {
+public class PasswordWindow extends JFrame {
 
-    public passwordWindow() {
+    public PasswordWindow() {
         initComponents();
     }
                         
@@ -31,6 +31,7 @@ public class passwordWindow extends JFrame {
         
         setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         setResizable(false);
+        setVisible(true);
 
         jLabelPasswordTitle = new JLabel();
         jButtonPassOk = new JButton();

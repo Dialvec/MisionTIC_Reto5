@@ -20,12 +20,12 @@ import javax.swing.WindowConstants;
  *
  * @author Dialvec
  */
-public class clientSearchWindow extends JFrame {
+public class ClientSearchWindow extends JFrame {
 
     /**
      * Creates new form clientSearch
      */
-    public clientSearchWindow() {
+    public ClientSearchWindow() {
         initComponents();
     }
                        
@@ -43,6 +43,7 @@ public class clientSearchWindow extends JFrame {
 
         setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         setResizable(false);
+        setVisible(true);
 
         jLabelTituloBuscarCliente.setFont(new Font("Tahoma", 1, 14)); // NOI18N
         jLabelTituloBuscarCliente.setHorizontalAlignment(SwingConstants.CENTER);
