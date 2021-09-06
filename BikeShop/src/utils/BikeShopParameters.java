@@ -11,6 +11,7 @@ package utils;
  */
 public interface BikeShopParameters {
     public final String DB_CRED_PATH = "/src/utils/db_credentials.json";
+    public final String PW_PATH = "/src/utils/psrd.json";
     public final String SCHEMA = "datos";
     
 }

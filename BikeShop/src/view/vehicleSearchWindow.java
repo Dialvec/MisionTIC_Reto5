@@ -17,9 +17,6 @@ import javax.swing.WindowConstants;
  */
 public class VehicleSearchWindow extends JFrame {
 
-    /**
-     * Creates new form clientSearch
-     */
     public VehicleSearchWindow() {
         initComponents();
     }
@@ -36,7 +33,7 @@ public class VehicleSearchWindow extends JFrame {
         jLabelBicicletas = new JLabel();
         jTextFieldBVMAutonomia = new JTextField();
         jLabelBicicletas1 = new JLabel();
-        jButtonSearchBicycle1 = new JButton();
+        jButtonSearchMotorcycle = new JButton();
 
         setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         setResizable(false);
@@ -76,11 +73,11 @@ public class VehicleSearchWindow extends JFrame {
         jLabelBicicletas1.setFont(new Font("Tahoma", 1, 14)); // NOI18N
         jLabelBicicletas1.setText("Motos Eléctricas");
 
-        getjButtonSearchBicycle1().setBackground(UIManager.getDefaults().getColor("InternalFrame.activeTitleGradient"));
-        getjButtonSearchBicycle1().setFont(new Font("Tahoma", 0, 12)); // NOI18N
-        getjButtonSearchBicycle1().setText("Buscar Moto");
-        getjButtonSearchBicycle1().setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
-        getjButtonSearchBicycle1().setBorderPainted(false);
+        getjButtonSearchMotorcycle().setBackground(UIManager.getDefaults().getColor("InternalFrame.activeTitleGradient"));
+        getjButtonSearchMotorcycle().setFont(new Font("Tahoma", 0, 12)); // NOI18N
+        getjButtonSearchMotorcycle().setText("Buscar Moto");
+        getjButtonSearchMotorcycle().setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        getjButtonSearchMotorcycle().setBorderPainted(false);
 
         GroupLayout layout = new GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -100,7 +97,7 @@ public class VehicleSearchWindow extends JFrame {
                         .addGap(14, 14, 14)
                         .addComponent(getjButtonSearchBicycle(), GroupLayout.PREFERRED_SIZE, 126, GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED, 63, Short.MAX_VALUE)
-                        .addComponent(getjButtonSearchBicycle1(), GroupLayout.PREFERRED_SIZE, 126, GroupLayout.PREFERRED_SIZE)
+                        .addComponent(getjButtonSearchMotorcycle(), GroupLayout.PREFERRED_SIZE, 126, GroupLayout.PREFERRED_SIZE)
                         .addGap(17, 17, 17))
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(getjTextFieldBVBanio(), GroupLayout.PREFERRED_SIZE, 159, GroupLayout.PREFERRED_SIZE)
@@ -139,7 +136,7 @@ public class VehicleSearchWindow extends JFrame {
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(GroupLayout.Alignment.BASELINE)
                     .addComponent(getjButtonSearchBicycle())
-                    .addComponent(getjButtonSearchBicycle1()))
+                    .addComponent(getjButtonSearchMotorcycle()))
                 .addContainerGap(GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -147,7 +144,7 @@ public class VehicleSearchWindow extends JFrame {
     }                                                     
                     
     private JButton jButtonSearchBicycle;
-    private JButton jButtonSearchBicycle1;
+    private JButton jButtonSearchMotorcycle;
     private JLabel jLabelBicicletas;
     private JLabel jLabelBicicletas1;
     private JLabel jLabelInstrBuscarCliente;
@@ -168,8 +165,8 @@ public class VehicleSearchWindow extends JFrame {
     /**
      * @return the jButtonSearchBicycle1
      */
-    public JButton getjButtonSearchBicycle1() {
-        return jButtonSearchBicycle1;
+    public JButton getjButtonSearchMotorcycle() {
+        return jButtonSearchMotorcycle;
     }
 
     /**
