@@ -5,7 +5,7 @@ CREATE TABLE moto_electrica (
     precio INT,
     proveedor_motor VARCHAR(50) NOT NULL,
     autonomia INT,
-    FOREIGN KEY (fabricante) REFERENCES vehiculo(fabricante),
+    FOREIGN KEY (fabricante_fk) REFERENCES vehiculo(fabricante),
     FOREIGN KEY (proveedor_motor) REFERENCES proveedor_motor(nombre));
     
 INSERT INTO moto_electrica (fabricante_fk, precio, autonomia, proveedor_motor) VALUES ("Starker", 4200000, 18, "Auteco");
