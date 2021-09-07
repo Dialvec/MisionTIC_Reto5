@@ -1,4 +1,4 @@
-package access;
+package acess;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -7,9 +7,9 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 import javax.swing.JOptionPane;
-import model.ModelCliente;
+import model.motoElectricaModel;
 
-public class clienteDAO {
+public class motoElectricaDAO {
     
 private Connection conn = null;
         
@@ -17,39 +17,36 @@ private Connection conn = null;
      * 
      * @return 
      */
-    public ArrayList<ModelCliente> getAllClientes() {
-        ArrayList<ModelCliente> clientes = new ArrayList();
+    public ArrayList<motoElectricaModel> getAllMotos() {
+        ArrayList<motoElectricaModel> motos = new ArrayList();
         try {
             if(conn == null)
                 conn = ConnectionDB.getConnection();
             
-            String sql          = "SELECT * FROM cliente;";
+            String sql          = "SELECT * FROM moto_electrica;";
             Statement statement = conn.createStatement();
             ResultSet result    = statement.executeQuery(sql);
             
             while (result.next()) {
-                ModelCliente cliente = new ModelCliente(result.getString(1), result.getString(2),result.getString(3),result.getString(4),result.getString(5),result.getString(6),result.getString(7));
-                clientes.add(cliente);
+                motoElectricaModel moto = new motoElectricaModel(result.getInt(1), result.getString(2),result.getInt(3),result.getString(4), result.getString(5));
+                motos.add(moto);
             }
         } 
         catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, "Código : " + ex.getErrorCode() 
                                         + "\nError :" + ex.getMessage());
         }
-        return clientes;
+        return motos;
     }
 
-    public static void create (Connection conn, String alias, String nombres,String apellidos, String email, int contraseña, String celular, String dob) throws SQLException
+    public static void create (Connection conn,int id_moto, String fabricante,int precio, String proveedor_motor, String autonomia) throws SQLException
     {
-        String create = "INSERT INTO cliente(alias, nombres, apellidos, email, contraseña, celular, dob) VALUES (?,?,?,?,?,?,?)";
+        String create = "INSERT INTO moto_electrica(fabricante, precio, proveedor_motor, autonomia) VALUES (?,?,?,?)";
         PreparedStatement Statement = conn.prepareStatement(create);
-        Statement.setString(1, alias);
-        Statement.setString(2, nombres);
-        Statement.setString(3, apellidos);
-        Statement.setString(4, email);
-        Statement.setInt(5, contraseña);
-        Statement.setString(6, celular);
-        Statement.setString(7, dob);
+        Statement.setString(1, fabricante);
+        Statement.setInt(2, precio);
+        Statement.setString(3, proveedor_motor);
+        Statement.setString(4,autonomia);
         int arrows = Statement.executeUpdate();
         if (arrows > 0)
         {
@@ -59,22 +56,19 @@ private Connection conn = null;
 
     /**
      * 
-     * @param clientes 
+     * @param motos 
      */
-    public void updateClientes(ModelCliente clientes) {
+    public void updateMotos(motoElectricaModel motos) {
         try {
             if(conn == null)
                 conn = ConnectionDB.getConnection();
             
-            String sql = "UPDATE cliente SET alias =?, nombres=?, apellidos =?, email =?, contraseña =?, celular =?, dob =? WHERE alias=?;";
+            String sql = "UPDATE moto_electrica SET fabricante =?, precio =?, proveedor_motor=?, autonomia=? WHERE fabricante=?;";
             PreparedStatement statement = conn.prepareStatement(sql);
-            statement.setString(1, clientes.getAlias());
-            statement.setString(2, clientes.getNombres());
-            statement.setString(3, clientes.getApellidos());
-            statement.setString(4, clientes.getEmail());
-            statement.setInt(5, clientes.getContrasena());
-            statement.setString(6, clientes.getCelular());
-            statement.setString(7, clientes.getDob());
+            statement.setString(1, motos.getFabricante());
+            statement.setInt(2, motos.getPrecio());
+            statement.setString(3, motos.getProveedor_motor());
+            statement.setString(4, motos.getAutonomia());
             
             int rowsUpdated = statement.executeUpdate();
             if (rowsUpdated > 0) 
@@ -88,16 +82,16 @@ private Connection conn = null;
     
     /**
      * 
-     * @param alias 
+     * @param id_moto 
      */
-    public void deleteClientes(String alias) {
+    public void deleteMoto(int id_moto) {
         try {
             if(conn == null)
                 conn = ConnectionDB.getConnection();
             
-            String sql = "DELETE FROM cliente WHERE alias=?;";
+            String sql = "DELETE FROM moto_electrica WHERE id_moto=?;";
             PreparedStatement statement = conn.prepareStatement(sql);
-            statement.setString(1, alias);
+            statement.setInt(1, id_moto);
             int rowsDeleted = statement.executeUpdate();
             if (rowsDeleted > 0) {
                 JOptionPane.showMessageDialog(null, "El registro fue borrado exitosamente !");

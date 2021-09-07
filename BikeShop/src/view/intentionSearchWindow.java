@@ -10,6 +10,9 @@ import javax.swing.LayoutStyle;
 import javax.swing.GroupLayout;
 import javax.swing.SwingConstants;
 import javax.swing.WindowConstants;
+
+import utils.BikeShopParameters;
+
 /**
  *
  * @author Dialvec
@@ -36,26 +39,26 @@ public class IntentionSearchWindow extends JFrame {
 
         jLabelTituloBuscarCliente.setFont(new Font("Tahoma", 1, 14)); // NOI18N
         jLabelTituloBuscarCliente.setHorizontalAlignment(SwingConstants.CENTER);
-        jLabelTituloBuscarCliente.setText("Buscar Intención de Compra");
+        jLabelTituloBuscarCliente.setText(BikeShopParameters.BUSCAR_INTENCION);
 
         jLabelInstrBuscarCliente.setFont(new Font("Tahoma", 0, 12)); // NOI18N
-        jLabelInstrBuscarCliente.setText("Indique información de la búsqueda.");
+        jLabelInstrBuscarCliente.setText(BikeShopParameters.BUSCAR_INTENCION_INSTR);
 
         getjTextFieldBINombre().setFont(new Font("Tahoma", 0, 12)); // NOI18N
-        getjTextFieldBINombre().setText("nombre cliente");
+        getjTextFieldBINombre().setText(BikeShopParameters.NOMBRE_CLIENTE);
 
         getjTextFieldBIAlias().setFont(new Font("Tahoma", 0, 12)); // NOI18N
-        getjTextFieldBIAlias().setText("alias cliente");
+        getjTextFieldBIAlias().setText(BikeShopParameters.ALIAS_CLIENTE);
 
         getjTextFieldBIApellido().setFont(new Font("Tahoma", 0, 12)); // NOI18N
-        getjTextFieldBIApellido().setText("apellido cliente");
+        getjTextFieldBIApellido().setText(BikeShopParameters.APELLIDO_CLIENTE);
 
         getjTextFieldBIFabricante().setFont(new Font("Tahoma", 0, 12)); // NOI18N
-        getjTextFieldBIFabricante().setText("fabricante vehículo");
+        getjTextFieldBIFabricante().setText(BikeShopParameters.FABRICANTE);
 
         getjButtonSearchClient().setBackground(UIManager.getDefaults().getColor("InternalFrame.activeTitleGradient"));
         getjButtonSearchClient().setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
-        getjButtonSearchClient().setText("Buscar");
+        getjButtonSearchClient().setText(BikeShopParameters.BOTON_BUSCAR);
         getjButtonSearchClient().setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
         getjButtonSearchClient().setBorderPainted(false);
 

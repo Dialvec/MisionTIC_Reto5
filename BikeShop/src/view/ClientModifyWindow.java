@@ -16,6 +16,8 @@ import javax.swing.GroupLayout;
 import javax.swing.SwingConstants;
 import javax.swing.WindowConstants;
 
+import utils.BikeShopParameters;
+
 import controller.ClickEvent;
 
 /**
@@ -49,7 +51,7 @@ public class ClientModifyWindow extends JFrame{
 
         jLabelTituloBuscarCliente.setFont(new Font("Tahoma", 1, 14)); // NOI18N
         jLabelTituloBuscarCliente.setHorizontalAlignment(SwingConstants.CENTER);
-        jLabelTituloBuscarCliente.setText("Modificar Cliente");
+        jLabelTituloBuscarCliente.setText(BikeShopParameters.MODIF_CLIENTE);
 
         jTextFieldBCNombre.setFont(new Font("Tahoma", 0, 12)); // NOI18N
 
@@ -66,36 +68,35 @@ public class ClientModifyWindow extends JFrame{
 
         jButtonModify.setBackground(UIManager.getDefaults().getColor("InternalFrame.activeTitleGradient"));
         jButtonModify.setFont(new Font("Tahoma", 0, 12)); // NOI18N
-        jButtonModify.setText("Guardar Cambios");
+        jButtonModify.setText(BikeShopParameters.GUARDAR_CAMBIOS);
         jButtonModify.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
         jButtonModify.setBorderPainted(false);
         jButtonModify.addActionListener(clickEvent);
 
         jLabelAlias.setFont(new Font("Tahoma", 0, 14)); // NOI18N
-        jLabelAlias.setText("Alias");
+        jLabelAlias.setText(BikeShopParameters.ALIAS_CLIENTE);
 
         jLabelNombre.setFont(new Font("Tahoma", 0, 14)); // NOI18N
-        jLabelNombre.setText("Nombre");
+        jLabelNombre.setText(BikeShopParameters.NOMBRE_CLIENTE);
 
         jLabelApellido.setFont(new Font("Tahoma", 0, 14)); // NOI18N
-        jLabelApellido.setText("Apellido");
+        jLabelApellido.setText(BikeShopParameters.APELLIDO_CLIENTE);
 
         jLabelemail.setFont(new Font("Tahoma", 0, 14)); // NOI18N
-        jLabelemail.setText("e-mail");
+        jLabelemail.setText(BikeShopParameters.MAIL);
 
         jLabelCelular.setFont(new Font("Tahoma", 0, 14)); // NOI18N
-        jLabelCelular.setText("Celular");
+        jLabelCelular.setText(BikeShopParameters.CELULAR);
 
         jLabelDob.setFont(new Font("Tahoma", 0, 14)); // NOI18N
-        jLabelDob.setText("Fecha nacimiento");
+        jLabelDob.setText(BikeShopParameters.DOB);
 
         GroupLayout layout = new GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(GroupLayout.Alignment.LEADING)
+        layout.setHorizontalGroup(layout.createParallelGroup(GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addGap(59, 59, 59)
-                .addComponent(jButtonModify, GroupLayout.PREFERRED_SIZE, 150, GroupLayout.PREFERRED_SIZE)
+                .addComponent(getjButtonModify(), GroupLayout.PREFERRED_SIZE, 150, GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
@@ -111,53 +112,54 @@ public class ClientModifyWindow extends JFrame{
                             .addComponent(jLabelDob))
                         .addGap(14, 14, 14)
                         .addGroup(layout.createParallelGroup(GroupLayout.Alignment.LEADING)
-                            .addComponent(jTextFieldBCDob, GroupLayout.Alignment.TRAILING)
-                            .addComponent(jTextFieldBCCelular)
+                            .addComponent(getjTextFieldBCDob(), GroupLayout.Alignment.TRAILING)
+                            .addComponent(getjTextFieldBCCelular())
                             .addGroup(layout.createSequentialGroup()
                                 .addGroup(layout.createParallelGroup(GroupLayout.Alignment.LEADING, false)
-                                    .addComponent(jTextFieldBCAlias, GroupLayout.DEFAULT_SIZE, 149, Short.MAX_VALUE)
-                                    .addComponent(jTextFieldBCApellido)
-                                    .addComponent(jTextFieldBCEmail)
-                                    .addComponent(jTextFieldBCNombre))
+                                    .addComponent(getjTextFieldBCAlias(), GroupLayout.DEFAULT_SIZE, 149, Short.MAX_VALUE)
+                                    .addComponent(getjTextFieldBCApellido())
+                                    .addComponent(getjTextFieldBCEmail())
+                                    .addComponent(getjTextFieldBCNombre()))
                                 .addGap(0, 0, Short.MAX_VALUE)))))
                 .addContainerGap())
         );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(GroupLayout.Alignment.LEADING)
+        layout.setVerticalGroup(layout.createParallelGroup(GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jLabelTituloBuscarCliente)
                 .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(GroupLayout.Alignment.BASELINE)
-                    .addComponent(jTextFieldBCAlias, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+                    .addComponent(getjTextFieldBCAlias(), GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabelAlias))
                 .addGap(11, 11, 11)
                 .addGroup(layout.createParallelGroup(GroupLayout.Alignment.BASELINE)
-                    .addComponent(jTextFieldBCNombre, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+                    .addComponent(getjTextFieldBCNombre(), GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabelNombre))
                 .addGap(11, 11, 11)
                 .addGroup(layout.createParallelGroup(GroupLayout.Alignment.BASELINE)
-                    .addComponent(jTextFieldBCApellido, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+                    .addComponent(getjTextFieldBCApellido(), GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabelApellido))
                 .addGap(9, 9, 9)
                 .addGroup(layout.createParallelGroup(GroupLayout.Alignment.BASELINE)
-                    .addComponent(jTextFieldBCEmail, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+                    .addComponent(getjTextFieldBCEmail(), GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabelemail))
                 .addGap(11, 11, 11)
                 .addGroup(layout.createParallelGroup(GroupLayout.Alignment.BASELINE)
-                    .addComponent(jTextFieldBCCelular, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+                    .addComponent(getjTextFieldBCCelular(), GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabelCelular))
                 .addGap(11, 11, 11)
                 .addGroup(layout.createParallelGroup(GroupLayout.Alignment.BASELINE)
-                    .addComponent(jTextFieldBCDob, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+                    .addComponent(getjTextFieldBCDob(), GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabelDob))
                 .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED, 11, Short.MAX_VALUE)
-                .addComponent(jButtonModify)
+                .addComponent(getjButtonModify())
                 .addContainerGap())
         );
         setVisible(true);
         pack();
     }
+    
+    
     
     private JLabel jLabelTituloBuscarCliente;
     private JTextField jTextFieldBCNombre;
@@ -174,5 +176,96 @@ public class ClientModifyWindow extends JFrame{
     private JLabel jLabelCelular;
     private JLabel jLabelDob;
     private ClickEvent clickEvent;
+
+    /**
+     * @return the jTextFieldBCNombre
+     */
+    public JTextField getjTextFieldBCNombre() {
+        return jTextFieldBCNombre;
+    }
+
+    /**
+     * @param jTextFieldBCNombre the jTextFieldBCNombre to set
+     */
+    public void setjTextFieldBCNombre(JTextField jTextFieldBCNombre) {
+        this.jTextFieldBCNombre = jTextFieldBCNombre;
+    }
+
+    /**
+     * @return the jTextFieldBCAlias
+     */
+    public JTextField getjTextFieldBCAlias() {
+        return jTextFieldBCAlias;
+    }
+
+    /**
+     * @param jTextFieldBCAlias the jTextFieldBCAlias to set
+     */
+    public void setjTextFieldBCAlias(JTextField jTextFieldBCAlias) {
+        this.jTextFieldBCAlias = jTextFieldBCAlias;
+    }
+
+    /**
+     * @return the jTextFieldBCApellido
+     */
+    public JTextField getjTextFieldBCApellido() {
+        return jTextFieldBCApellido;
+    }
+
+    /**
+     * @param jTextFieldBCApellido the jTextFieldBCApellido to set
+     */
+    public void setjTextFieldBCApellido(JTextField jTextFieldBCApellido) {
+        this.jTextFieldBCApellido = jTextFieldBCApellido;
+    }
+
+    /**
+     * @return the jTextFieldBCEmail
+     */
+    public JTextField getjTextFieldBCEmail() {
+        return jTextFieldBCEmail;
+    }
+
+    /**
+     * @param jTextFieldBCEmail the jTextFieldBCEmail to set
+     */
+    public void setjTextFieldBCEmail(JTextField jTextFieldBCEmail) {
+        this.jTextFieldBCEmail = jTextFieldBCEmail;
+    }
+
+    /**
+     * @return the jTextFieldBCCelular
+     */
+    public JTextField getjTextFieldBCCelular() {
+        return jTextFieldBCCelular;
+    }
+
+    /**
+     * @param jTextFieldBCCelular the jTextFieldBCCelular to set
+     */
+    public void setjTextFieldBCCelular(JTextField jTextFieldBCCelular) {
+        this.jTextFieldBCCelular = jTextFieldBCCelular;
+    }
+
+    /**
+     * @return the jTextFieldBCDob
+     */
+    public JTextField getjTextFieldBCDob() {
+        return jTextFieldBCDob;
+    }
+
+    /**
+     * @param jTextFieldBCDob the jTextFieldBCDob to set
+     */
+    public void setjTextFieldBCDob(JTextField jTextFieldBCDob) {
+        this.jTextFieldBCDob = jTextFieldBCDob;
+    }
+
+    /**
+     * @return the jButtonModify
+     */
+    public JButton getjButtonModify() {
+        return jButtonModify;
+    }
     
 }

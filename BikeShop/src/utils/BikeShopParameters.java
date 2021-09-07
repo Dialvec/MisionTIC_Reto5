@@ -28,6 +28,10 @@ public interface BikeShopParameters {
     public final String BUSCAR_CLIENTE_INSTR = "Indique información del cliente que busca.";
     public final String BOTON_BUSCAR = "Buscar";
     
+    //Ventana Modificar Cliente
+    public final String MODIF_CLIENTE = "Modificar Cliente";
+    public final String GUARDAR_CAMBIOS = "Guardar Cambios";
+    
     //Vehículo
     public final String FABRICANTE = "fabricante vehículo";
     public final String PRECIO = "precio";
@@ -45,5 +49,18 @@ public interface BikeShopParameters {
     //Motos
     public final String BUSCAR_MOTO = "Buscar Moto";
     
+    //Ventana Editar Vehiculo
+    public final String EDITAR_VEHICULO = "Editar vehículo";
+    public final String EDITAR_VEHICULO_INSTR = "Indique información de vehículo a editar";
+    
+    
     //Ventana Buscar Intención Compra
+    public final String BUSCAR_INTENCION = "Buscar Intención de Compra";
+    public final String BUSCAR_INTENCION_INSTR = "Indique información de la búsqueda.";
+    
+    //Ventana Contraseñas
+    public final String WRONG_PASS_MSG = "La contrseña ingresada no es correcta";
+    public final String WRONG_PASS_TITLE = "La contrseña ingresada no es correcta";
+    
+    
 }

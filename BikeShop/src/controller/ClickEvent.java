@@ -22,19 +22,13 @@ import utils.utils;
 import view.MainWindow;
 import view.TitleWindow;
 import view.PasswordWindow;
-import view.ClientModifyWindow;
 import view.ClientSearchWindow;
+import view.ClientModifyWindow;
 import view.VehicleSearchWindow;
+import view.VehicleModifyWindow;
 import view.IntentionSearchWindow;
 
-import model.ModelCliente;
-import model.ModelVehiculo;
-import model.ModelIntencion;
-import model.ModelBicicleta;
-import model.ModelMotoElectrica;
-import model.ModelProveedorMotor;
 import utils.BikeShopParameters;
-
 
 /**
  *
@@ -50,6 +44,7 @@ public class ClickEvent implements ActionListener{
     private VehicleSearchWindow vehicleSearchWindow; //mode 5
     private IntentionSearchWindow intentionSearchWindow; //mode 6
     private ClientModifyWindow clientModifyWindow; //mode 7
+    private VehicleModifyWindow vehicleModifyWindow; //mode 8
     
     
     //Constructors
@@ -87,6 +82,11 @@ public class ClickEvent implements ActionListener{
         this.clientModifyWindow = clientModifyWindow;
         this.mode = 7;
     }
+    
+    public ClickEvent(VehicleModifyWindow vehicleModifyWindow) {
+        this.vehicleModifyWindow = vehicleModifyWindow;
+        this.mode = 8;
+    }
 
         
 
@@ -102,16 +102,17 @@ public class ClickEvent implements ActionListener{
             case 5: processVehicleSearchWindowActionEvents(actionEvent); break;
             case 6: processIntentionSearchWindowActionEvents(actionEvent); break;
             case 7: processClientModifyWindowActionEvents(actionEvent); break;
+            case 8: processVehicleModifyWindowActionEvents(actionEvent); break;
         }
         
     }
     
-    
+    // mode 1
     private void processMainWindowActionEvents(ActionEvent actionEvent){
         
     }
     
-    
+    // mode 2 
     private void processTitleWindowActionEvents(ActionEvent actionEvent){
         // Solicitar sesion como ventas
         if(actionEvent.getSource() == getTitleWindow().getJButtonIngresoVentas()){
@@ -124,7 +125,7 @@ public class ClickEvent implements ActionListener{
         } // Solicitar sesión como administrador
     }
     
-    
+    // mode 3
     private void processPasswordWindowActionEvents(ActionEvent actionEvent){
         if(actionEvent.getSource() == getPasswordWindow().getjButtonPasswordOk() ){
             String passwordInput = String.valueOf(getPasswordWindow().getjPasswordFieldAdmin().getPassword());
@@ -136,14 +137,13 @@ public class ClickEvent implements ActionListener{
             } // Contraseña correcta. Iniciar sesión como administrador
             
             else{ // Contraseña incorrecta
-                String message = "La contrseña ingresada no es correcta";
-                JOptionPane.showMessageDialog(new JFrame(), message, "Contraseña Incorrecta", JOptionPane.INFORMATION_MESSAGE);
+                JOptionPane.showMessageDialog(new JFrame(), BikeShopParameters.WRONG_PASS_MSG, BikeShopParameters.WRONG_PASS_TITLE, JOptionPane.INFORMATION_MESSAGE);
             }// Contraseña incorrecta
             
         }// Intentar ingreso de contraseña
     }
     
-    
+    // mode 4
     private void processClientSearchWindowActionEvents(ActionEvent actionEvent){
         if(actionEvent.getSource() == getClientSearchWindow().getjButtonSearchClient() ){
             String alias = (String) getClientSearchWindow().getjTextFieldBCAlias().getText();
@@ -153,18 +153,18 @@ public class ClickEvent implements ActionListener{
             String celular = (String) getClientSearchWindow().getjTextFieldBCCelular().getText();
             String dob = (String) getClientSearchWindow().getjTextFieldBCDob().getText();
             
-            alias = utils.filterJTextField(alias, "alias");
-            nombre = utils.filterJTextField(nombre, "nombre");
-            apellido = utils.filterJTextField(apellido, "apellido");
-            email = utils.filterJTextField(email, "e-mail");
-            celular = utils.filterJTextField(celular, "celular");
-            dob = utils.filterJTextField(dob, "fecha de nacimiento");
+            alias = utils.filterJTextField(alias, BikeShopParameters.ALIAS_CLIENTE);
+            nombre = utils.filterJTextField(nombre, BikeShopParameters.NOMBRE_CLIENTE);
+            apellido = utils.filterJTextField(apellido, BikeShopParameters.APELLIDO_CLIENTE);
+            email = utils.filterJTextField(email, BikeShopParameters.MAIL);
+            celular = utils.filterJTextField(celular, BikeShopParameters.CELULAR);
+            dob = utils.filterJTextField(dob, BikeShopParameters.DOB);
             
             //DAO de Cliente
         }
     }
     
-    
+    // mode 5
     private void processVehicleSearchWindowActionEvents(ActionEvent actionEvent){
         
         String fabricante = null;
@@ -175,9 +175,9 @@ public class ClickEvent implements ActionListener{
             precio = (String) getVehicleSearchWindow().getjTextFieldBVPrecio().getText();
             String anio_fab = (String) getVehicleSearchWindow().getjTextFieldBVBanio().getText();
             
-            fabricante = utils.filterJTextField(fabricante, "fabricante");
-            precio = utils.filterJTextField(precio, "precio");
-            anio_fab = utils.filterJTextField(anio_fab, "año de fabricación");
+            fabricante = utils.filterJTextField(fabricante, BikeShopParameters.FABRICANTE);
+            precio = utils.filterJTextField(precio, BikeShopParameters.PRECIO);
+            anio_fab = utils.filterJTextField(anio_fab, BikeShopParameters.ANIO_FABRICACION);
             
             //DAO Bicicletas
         }
@@ -187,16 +187,16 @@ public class ClickEvent implements ActionListener{
             String prov_mot = (String) getVehicleSearchWindow().getjTextFieldBVMProveedor().getText();
             String autonomia = (String) getVehicleSearchWindow().getjTextFieldBVMAutonomia().getText();
             
-            fabricante = utils.filterJTextField(fabricante, "fabricante");
-            precio = utils.filterJTextField(precio, "precio");
-            prov_mot = utils.filterJTextField(prov_mot, "proveedor del motor");
-            autonomia = utils.filterJTextField(autonomia, "horas autonomía");
+            fabricante = utils.filterJTextField(fabricante, BikeShopParameters.FABRICANTE);
+            precio = utils.filterJTextField(precio, BikeShopParameters.PRECIO);
+            prov_mot = utils.filterJTextField(prov_mot, BikeShopParameters.PROVEEDOR_MOTOR);
+            autonomia = utils.filterJTextField(autonomia, BikeShopParameters.AUTONOMIA);
             
             //DAO Motos Eléctricas
         }
     }
     
-    
+    // mode 6
     private void processIntentionSearchWindowActionEvents(ActionEvent actionEvent){
         
         if(actionEvent.getSource() == getIntentionSearchWindow().getjButtonSearchClient() ){
@@ -205,18 +205,67 @@ public class ClickEvent implements ActionListener{
             String apellido = (String) getIntentionSearchWindow().getjTextFieldBIApellido().getText();
             String fabricante = (String) getIntentionSearchWindow().getjTextFieldBIFabricante().getText();
             
-            alias = utils.filterJTextField(alias, "alias cliente");
-            nombre = utils.filterJTextField(nombre, "nombre cliente");
-            apellido = utils.filterJTextField(apellido, "apellido cliente");
-            fabricante = utils.filterJTextField(fabricante, "fabricante vehículo");
+            alias = utils.filterJTextField(alias, BikeShopParameters.ALIAS_CLIENTE);
+            nombre = utils.filterJTextField(nombre, BikeShopParameters.NOMBRE_CLIENTE);
+            apellido = utils.filterJTextField(apellido, BikeShopParameters.APELLIDO_CLIENTE);
+            fabricante = utils.filterJTextField(fabricante, BikeShopParameters.FABRICANTE);
         }
+        
+        //DAO Buscar Intención
 
     }
     
-    
+    // mode 7
     private void processClientModifyWindowActionEvents(ActionEvent actionEvent){
-    
+        if(actionEvent.getSource() == getClientModifyWindow().getjButtonModify() ){
+            String alias = (String) getClientModifyWindow().getjTextFieldBCAlias().getText();
+            String nombre = (String) getClientModifyWindow().getjTextFieldBCNombre().getText();
+            String apellido = (String) getClientModifyWindow().getjTextFieldBCApellido().getText();
+            String email = (String) getClientModifyWindow().getjTextFieldBCEmail().getText();
+            String celular = (String) getClientModifyWindow().getjTextFieldBCCelular().getText();
+            String dob = (String) getClientModifyWindow().getjTextFieldBCDob().getText();
+            
+            //DAO Modificar Cliente
+        }
     }
+    
+    
+    // mode 8
+    private void processVehicleModifyWindowActionEvents(ActionEvent actionEvent){
+        int idVehiculo;
+        int precio;
+        int anio;
+        int autonomia;
+        String fabricante = null;
+        String proveedor = null;
+        String tipoVehiculo = null;
+        
+        if(actionEvent.getSource() == getVehicleModifyWindow().getjButtonModifyVehicle() ){
+            idVehiculo = getVehicleModifyWindow().getIdVehiculo();
+            fabricante = (String) getVehicleModifyWindow().getjTextFieldBVFabricante().getText();
+            precio = Integer.parseInt(getVehicleModifyWindow().getjTextFieldBVPrecio().getText());
+            
+            tipoVehiculo = getVehicleModifyWindow().getTipoVehiculo();
+            if(tipoVehiculo.equals(BikeShopParameters.BICICLETAS)){
+                anio = Integer.parseInt(getVehicleModifyWindow().getjTextFieldBVBanio().getText());
+                
+                //DAO Modificar Bicicleta
+            }
+            else if(tipoVehiculo.equals(BikeShopParameters.MOTOS)){
+                proveedor = (String) getVehicleModifyWindow().getjTextFieldBVMProveedor().getText();
+                autonomia = Integer.parseInt(getVehicleModifyWindow().getjTextFieldBVMAutonomia().getText());
+                
+                //DAO Modificar Moto
+            }
+        }
+    }
+    
+    
+    //mode 9
+    private void processIntetionModifyWindowActionEvents(ActionEvent actionEvent){
+    }
+    
+    
     
     public static String getPassword() {
         JSONParser parser = new JSONParser();
@@ -234,8 +283,6 @@ public class ClickEvent implements ActionListener{
         return pswrd;
     }
     
-    
-
     /**
      * @return the mode
      */
@@ -290,6 +337,13 @@ public class ClickEvent implements ActionListener{
      */
     public ClientModifyWindow getClientModifyWindow() {
         return clientModifyWindow;
+    }
+
+    /**
+     * @return the vehicleModifyWindow
+     */
+    public VehicleModifyWindow getVehicleModifyWindow() {
+        return vehicleModifyWindow;
     }
     
     

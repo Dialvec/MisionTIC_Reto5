@@ -1,4 +1,4 @@
-package access;
+package acess;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -8,6 +8,8 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import javax.swing.JOptionPane;
 import model.ModelBicicleta;
+
+import utils.ConnectionDB;
 
 public class bicicletaDAO {
     
