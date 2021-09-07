@@ -16,6 +16,7 @@ import javax.swing.GroupLayout;
 import javax.swing.SwingConstants;
 import javax.swing.WindowConstants;
 
+import utils.BikeShopParameters;
 /**
  *
  * @author Dialvec
@@ -38,38 +39,38 @@ public class ClientSearchWindow extends JFrame {
         jTextFieldBCDob = new JTextField();
         jButtonSearchClient = new JButton();
 
-        setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
         setResizable(false);
         setVisible(true);
 
         jLabelTituloBuscarCliente.setFont(new Font("Tahoma", 1, 14)); // NOI18N
         jLabelTituloBuscarCliente.setHorizontalAlignment(SwingConstants.CENTER);
-        jLabelTituloBuscarCliente.setText("Buscar Cliente");
+        jLabelTituloBuscarCliente.setText(BikeShopParameters.BUSCAR_CLIENTE);
 
         jLabelInstrBuscarCliente.setFont(new Font("Tahoma", 0, 12)); // NOI18N
-        jLabelInstrBuscarCliente.setText("Indique información del cliente que busca.");
+        jLabelInstrBuscarCliente.setText(BikeShopParameters.BUSCAR_CLIENTE_INSTR);
 
         getjTextFieldBCNombre().setFont(new Font("Tahoma", 0, 12)); // NOI18N
-        getjTextFieldBCNombre().setText("nombre");
+        getjTextFieldBCNombre().setText(BikeShopParameters.NOMBRE_CLIENTE);
 
         getjTextFieldBCAlias().setFont(new Font("Tahoma", 0, 12)); // NOI18N
-        getjTextFieldBCAlias().setText("alias");
+        getjTextFieldBCAlias().setText(BikeShopParameters.ALIAS_CLIENTE);
 
         getjTextFieldBCApellido().setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
-        getjTextFieldBCApellido().setText("apellido");
+        getjTextFieldBCApellido().setText(BikeShopParameters.APELLIDO_CLIENTE);
 
         getjTextFieldBCEmail().setFont(new Font("Tahoma", 0, 12)); // NOI18N
-        getjTextFieldBCEmail().setText("e-mail");
+        getjTextFieldBCEmail().setText(BikeShopParameters.MAIL);
 
         getjTextFieldBCCelular().setFont(new Font("Tahoma", 0, 12)); // NOI18N
-        getjTextFieldBCCelular().setText("celular");
+        getjTextFieldBCCelular().setText(BikeShopParameters.CELULAR);
         
         getjTextFieldBCDob().setFont(new Font("Tahoma", 0, 12)); // NOI18N
-        getjTextFieldBCDob().setText("fecha de nacimiento");
+        getjTextFieldBCDob().setText(BikeShopParameters.DOB);
 
         getjButtonSearchClient().setBackground(UIManager.getDefaults().getColor("InternalFrame.activeTitleGradient"));
         getjButtonSearchClient().setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
-        getjButtonSearchClient().setText("Buscar");
+        getjButtonSearchClient().setText(BikeShopParameters.BOTON_BUSCAR);
         getjButtonSearchClient().setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
         getjButtonSearchClient().setBorderPainted(false);
 

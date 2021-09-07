@@ -3,7 +3,7 @@ CREATE TABLE bicicleta (
 	fabricante_fk VARCHAR(50) UNIQUE NULL,
     precio INT UNIQUE NULL,
     anio_fabrica INT NOT NULL,
-    FOREIGN KEY (fabricante) REFERENCES vehiculo(fabricante));
+    FOREIGN KEY (fabricante_fk) REFERENCES vehiculo(fabricante));
     
 INSERT INTO Bicicleta (fabricante_fk, precio, anio_fabrica) VALUES ("Cannondale", 1200000, 2020);
 INSERT INTO Bicicleta (fabricante_fk, precio, anio_fabrica) VALUES ("Trek", 1450000, 2019);

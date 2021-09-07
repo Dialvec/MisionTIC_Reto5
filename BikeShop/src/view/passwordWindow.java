@@ -10,14 +10,16 @@ import java.awt.Font;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JButton;
+import javax.swing.UIManager;
 import javax.swing.JTextField;
 import javax.swing.GroupLayout;
+import javax.swing.LayoutStyle;
 import javax.swing.JPasswordField;
 import javax.swing.SwingConstants;
-import javax.swing.BorderFactory;
 import javax.swing.WindowConstants;
-import javax.swing.GroupLayout.Alignment;
-import javax.swing.UIManager;
+
+import controller.ClickEvent;
+
 /**
  *
  * @author Dialvec
@@ -30,70 +32,85 @@ public class PasswordWindow extends JFrame {
     }
                         
     private void initComponents() {
-        
-        setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
+        jLabelMainTitleAdmin = new JLabel();
+        jButtonPasswordOk = new JButton();
+        jPasswordFieldAdmin = new JPasswordField();
+        jLabelWelcomeAdmin = new JLabel();
+        clickEvent = new ClickEvent(this);
+
+        setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
+        setBackground(new java.awt.Color(235, 235, 235));
+        setLocation(new java.awt.Point(275, 275));
         setResizable(false);
-        setVisible(true);
 
-        jLabelPasswordTitle = new JLabel();
-        jButtonPassOk = new JButton();
-        jPasswordField = new JPasswordField();
+        jLabelMainTitleAdmin.setFont(new Font("Tahoma", 3, 24)); // NOI18N
+        jLabelMainTitleAdmin.setHorizontalAlignment(SwingConstants.CENTER);
+        jLabelMainTitleAdmin.setText("Excite Bike Shop (Admin)");
 
-        jLabelPasswordTitle.setFont(new Font("Tahoma", 0, 18)); // NOI18N
-        jLabelPasswordTitle.setHorizontalAlignment(SwingConstants.CENTER);
-        jLabelPasswordTitle.setText("Ingrese contraseña");
+        jButtonPasswordOk.setBackground(UIManager.getDefaults().getColor("InternalFrame.activeTitleGradient"));
+        jButtonPasswordOk.setFont(new Font("Tahoma", 0, 14)); // NOI18N
+        jButtonPasswordOk.setText("Ok");
+        jButtonPasswordOk.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        jButtonPasswordOk.setBorderPainted(false);
+        jButtonPasswordOk.addActionListener(clickEvent);
 
-        getjButtonPassOk().setBackground(UIManager.getDefaults().getColor("InternalFrame.activeTitleGradient"));
-        getjButtonPassOk().setFont(new Font("Tahoma", 0, 14)); // NOI18N
-        getjButtonPassOk().setText("OK");
-        getjButtonPassOk().setBorder(BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
-        getjButtonPassOk().setHorizontalTextPosition(SwingConstants.CENTER);
+        getjPasswordFieldAdmin().setFont(new Font("Tahoma", 0, 14)); // NOI18N
+        getjPasswordFieldAdmin().setHorizontalAlignment(JTextField.CENTER);
 
-        getjPasswordField().setFont(new Font("Tahoma", 0, 14)); // NOI18N
-        getjPasswordField().setHorizontalAlignment(JTextField.CENTER);
+        jLabelWelcomeAdmin.setFont(new Font("Tahoma", 0, 12)); // NOI18N
+        jLabelWelcomeAdmin.setText("Bienvenido al modo Administrador. Ingrese su contraseña:");
 
-        javax.swing.GroupLayout layout = new GroupLayout(this);
-        this.setLayout(layout);
-        layout.setHorizontalGroup(layout.createParallelGroup(Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(getjPasswordField(), GroupLayout.PREFERRED_SIZE, 153, GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(getjButtonPassOk(), GroupLayout.PREFERRED_SIZE, 68, GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(45, 45, 45)
-                        .addComponent(jLabelPasswordTitle)))
-                .addContainerGap(12, Short.MAX_VALUE))
-        );
-        layout.setVerticalGroup(layout.createParallelGroup(Alignment.LEADING)
+        GroupLayout layout = new GroupLayout(getContentPane());
+        getContentPane().setLayout(layout);
+        layout.setHorizontalGroup(layout.createParallelGroup(GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jLabelPasswordTitle)
-                .addGap(19, 19, 19)
-                .addGroup(layout.createParallelGroup(Alignment.BASELINE)
-                    .addComponent(getjButtonPassOk(), GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(getjPasswordField()))
+                .addGroup(layout.createParallelGroup(GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabelMainTitleAdmin, GroupLayout.DEFAULT_SIZE, 380, Short.MAX_VALUE)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(GroupLayout.Alignment.TRAILING, false)
+                            .addComponent(getjPasswordFieldAdmin())
+                            .addComponent(jLabelWelcomeAdmin, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(getjButtonPasswordOk(), GroupLayout.PREFERRED_SIZE, 67, GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap())
         );
-    }                      
+        layout.setVerticalGroup(layout.createParallelGroup(GroupLayout.Alignment.LEADING)
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jLabelMainTitleAdmin)
+                .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jLabelWelcomeAdmin)
+                .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(layout.createParallelGroup(GroupLayout.Alignment.BASELINE)
+                    .addComponent(getjButtonPasswordOk(), GroupLayout.PREFERRED_SIZE, 24, GroupLayout.PREFERRED_SIZE)
+                    .addComponent(getjPasswordFieldAdmin(), GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+                .addContainerGap())
+        );
+
+        pack();
+        setVisible(true);
+    }              
                     
-    private javax.swing.JButton jButtonPassOk;
-    private javax.swing.JLabel jLabelPasswordTitle;
-    private javax.swing.JPasswordField jPasswordField;                  
+    private javax.swing.JButton jButtonPasswordOk;
+    private javax.swing.JLabel jLabelMainTitleAdmin;
+    private javax.swing.JLabel jLabelWelcomeAdmin;
+    private javax.swing.JPasswordField jPasswordFieldAdmin;
+    private ClickEvent clickEvent;
 
     /**
-     * @return the jButtonPassOk
+     * @return the jButtonPasswordOk
      */
-    public javax.swing.JButton getjButtonPassOk() {
-        return jButtonPassOk;
+    public javax.swing.JButton getjButtonPasswordOk() {
+        return jButtonPasswordOk;
     }
 
     /**
-     * @return the jPasswordField
+     * @return the jPasswordFieldAdmin
      */
-    public javax.swing.JPasswordField getjPasswordField() {
-        return jPasswordField;
+    public javax.swing.JPasswordField getjPasswordFieldAdmin() {
+        return jPasswordFieldAdmin;
     }
+
+    
 }

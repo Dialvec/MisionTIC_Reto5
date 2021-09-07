@@ -11,6 +11,8 @@ import javax.swing.GroupLayout;
 import javax.swing.SwingConstants;
 import javax.swing.WindowConstants;
 
+import utils.BikeShopParameters;
+
 /**
  *
  * @author Dialvec
@@ -35,47 +37,46 @@ public class VehicleSearchWindow extends JFrame {
         jLabelBicicletas1 = new JLabel();
         jButtonSearchMotorcycle = new JButton();
 
-        setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
         setResizable(false);
-        setVisible(true);
 
         jLabelTituloBuscarCliente.setFont(new Font("Tahoma", 1, 14)); // NOI18N
         jLabelTituloBuscarCliente.setHorizontalAlignment(SwingConstants.CENTER);
-        jLabelTituloBuscarCliente.setText("Buscar Vehículo");
+        jLabelTituloBuscarCliente.setText(BikeShopParameters.BUSCAR_VEHICULO);
 
         jLabelInstrBuscarCliente.setFont(new Font("Tahoma", 0, 12)); // NOI18N
-        jLabelInstrBuscarCliente.setText("Indique información de vehículo que busca");
+        jLabelInstrBuscarCliente.setText(BikeShopParameters.BUSCAR_VEHICULO_INSTR);
 
         getjTextFieldBVPrecio().setFont(new Font("Tahoma", 0, 12)); // NOI18N
-        getjTextFieldBVPrecio().setText("precio");
+        getjTextFieldBVPrecio().setText(BikeShopParameters.PRECIO);
 
         getjTextFieldBVFabricante().setFont(new Font("Tahoma", 0, 12)); // NOI18N
-        getjTextFieldBVFabricante().setText("fabricante");
+        getjTextFieldBVFabricante().setText(BikeShopParameters.FABRICANTE);
 
         getjTextFieldBVBanio().setFont(new Font("Tahoma", 0, 12)); // NOI18N
-        getjTextFieldBVBanio().setText("año de fabricación");
+        getjTextFieldBVBanio().setText(BikeShopParameters.ANIO_FABRICACION);
 
         getjTextFieldBVMProveedor().setFont(new Font("Tahoma", 0, 12)); // NOI18N
-        getjTextFieldBVMProveedor().setText("proveedor del motor");
+        getjTextFieldBVMProveedor().setText(BikeShopParameters.PROVEEDOR_MOTOR);
 
         getjButtonSearchBicycle().setBackground(UIManager.getDefaults().getColor("InternalFrame.activeTitleGradient"));
         getjButtonSearchBicycle().setFont(new Font("Tahoma", 0, 12)); // NOI18N
-        getjButtonSearchBicycle().setText("Buscar Bicicleta");
+        getjButtonSearchBicycle().setText(BikeShopParameters.BUSCAR_BICICLETA);
         getjButtonSearchBicycle().setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
         getjButtonSearchBicycle().setBorderPainted(false);
 
         jLabelBicicletas.setFont(new Font("Tahoma", 1, 14)); // NOI18N
-        jLabelBicicletas.setText("Bicicletas");
+        jLabelBicicletas.setText(BikeShopParameters.BICICLETAS);
 
         getjTextFieldBVMAutonomia().setFont(new Font("Tahoma", 0, 12)); // NOI18N
-        getjTextFieldBVMAutonomia().setText("horas autonomía");
+        getjTextFieldBVMAutonomia().setText(BikeShopParameters.AUTONOMIA);
 
         jLabelBicicletas1.setFont(new Font("Tahoma", 1, 14)); // NOI18N
-        jLabelBicicletas1.setText("Motos Eléctricas");
+        jLabelBicicletas1.setText(BikeShopParameters.MOTOS);
 
         getjButtonSearchMotorcycle().setBackground(UIManager.getDefaults().getColor("InternalFrame.activeTitleGradient"));
         getjButtonSearchMotorcycle().setFont(new Font("Tahoma", 0, 12)); // NOI18N
-        getjButtonSearchMotorcycle().setText("Buscar Moto");
+        getjButtonSearchMotorcycle().setText(BikeShopParameters.BUSCAR_MOTO);
         getjButtonSearchMotorcycle().setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
         getjButtonSearchMotorcycle().setBorderPainted(false);
 
@@ -139,7 +140,7 @@ public class VehicleSearchWindow extends JFrame {
                     .addComponent(getjButtonSearchMotorcycle()))
                 .addContainerGap(GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
-
+        setVisible(true);
         pack();
     }                                                     
                     

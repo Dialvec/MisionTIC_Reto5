@@ -48,53 +48,53 @@ public class MainWindow extends JFrame {
         setjTableData(new JTable());
         jLabelTableTitle = new JLabel();
 
-        setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
         setResizable(false);
         setVisible(true);
 
-        getjButtonEliminar().setBackground(UIManager.getDefaults().getColor("nb.errorForeground"));
-        getjButtonEliminar().setFont(new Font("Tahoma", 1, 14)); // NOI18N
-        getjButtonEliminar().setText("Borrar Selección");
-        getjButtonEliminar().setToolTipText("");
-        getjButtonEliminar().setBorderPainted(false);
+        jButtonEliminar.setBackground(UIManager.getDefaults().getColor("nb.errorForeground"));
+        jButtonEliminar.setFont(new Font("Tahoma", 1, 14)); // NOI18N
+        jButtonEliminar.setText("Borrar Selección");
+        jButtonEliminar.setToolTipText("Use con Extremo cuidado");
+        jButtonEliminar.setBorderPainted(false);
 
-        getjButtonModificar().setBackground(UIManager.getDefaults().getColor("InternalFrame.inactiveTitleGradient"));
-        getjButtonModificar().setFont(new Font("Tahoma", 1, 14)); // NOI18N
-        getjButtonModificar().setText("Modificar");
-        getjButtonModificar().setToolTipText("");
-        getjButtonModificar().setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
-        getjButtonModificar().setBorderPainted(false);
-        getjButtonModificar().setSize(new Dimension(75, 25));
+        jButtonModificar.setBackground(UIManager.getDefaults().getColor("InternalFrame.inactiveTitleGradient"));
+        jButtonModificar.setFont(new Font("Tahoma", 1, 14)); // NOI18N
+        jButtonModificar.setText("Modificar");
+        jButtonModificar.setToolTipText("");
+        jButtonModificar.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        jButtonModificar.setBorderPainted(false);
+        jButtonModificar.setSize(new Dimension(75, 25));
 
-        getjButtonCrear().setBackground(UIManager.getDefaults().getColor("InternalFrame.inactiveTitleGradient"));
-        getjButtonCrear().setFont(new Font("Tahoma", 1, 14)); // NOI18N
-        getjButtonCrear().setText("Crear");
-        getjButtonCrear().setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
-        getjButtonCrear().setBorderPainted(false);
-        getjButtonCrear().setSize(new Dimension(75, 25));
+        jButtonCrear.setBackground(UIManager.getDefaults().getColor("InternalFrame.inactiveTitleGradient"));
+        jButtonCrear.setFont(new Font("Tahoma", 1, 14)); // NOI18N
+        jButtonCrear.setText("Crear");
+        jButtonCrear.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        jButtonCrear.setBorderPainted(false);
+        jButtonCrear.setSize(new Dimension(75, 25));
 
-        getButtonGroupSelection().add(getjRadioButtonCliente());
-        getjRadioButtonCliente().setFont(new Font("Tahoma", 1, 14)); // NOI18N
-        getjRadioButtonCliente().setText("Cliente");
+        buttonGroupSelection.add(jRadioButtonCliente);
+        jRadioButtonCliente.setFont(new Font("Tahoma", 1, 14)); // NOI18N
+        jRadioButtonCliente.setText("Cliente");
 
-        getButtonGroupSelection().add(getjRadioButtonVehiculo());
-        getjRadioButtonVehiculo().setFont(new Font("Tahoma", 1, 14)); // NOI18N
-        getjRadioButtonVehiculo().setText("Vehículo");
+        buttonGroupSelection.add(jRadioButtonVehiculo);
+        jRadioButtonVehiculo.setFont(new Font("Tahoma", 1, 14)); // NOI18N
+        jRadioButtonVehiculo.setText("Vehículo");
 
-        getButtonGroupSelection().add(getjRadioButtonIntencion());
-        getjRadioButtonIntencion().setFont(new Font("Tahoma", 1, 14)); // NOI18N
-        getjRadioButtonIntencion().setText("Intención de Compra");
+        buttonGroupSelection.add(jRadioButtonIntencion);
+        jRadioButtonIntencion.setFont(new Font("Tahoma", 1, 14)); // NOI18N
+        jRadioButtonIntencion.setText("Intención de Compra");
 
         jLabelTextoTipoConsulta.setFont(new Font("Tahoma", 0, 14)); // NOI18N
         jLabelTextoTipoConsulta.setHorizontalAlignment(SwingConstants.CENTER);
         jLabelTextoTipoConsulta.setText("Seleccione consulta");
 
-        getjButtonBuscar().setBackground(UIManager.getDefaults().getColor("InternalFrame.inactiveTitleGradient"));
-        getjButtonBuscar().setFont(new Font("Tahoma", 1, 14)); // NOI18N
-        getjButtonBuscar().setText("Buscar");
-        getjButtonBuscar().setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
-        getjButtonBuscar().setBorderPainted(false);
-        getjButtonBuscar().setSize(new Dimension(75, 25));
+        jButtonBuscar.setBackground(UIManager.getDefaults().getColor("InternalFrame.inactiveTitleGradient"));
+        jButtonBuscar.setFont(new Font("Tahoma", 1, 14)); // NOI18N
+        jButtonBuscar.setText("Buscar");
+        jButtonBuscar.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        jButtonBuscar.setBorderPainted(false);
+        jButtonBuscar.setSize(new Dimension(75, 25));
 
         GroupLayout PanelControlesLayout = new GroupLayout(getPanelControles());
         getPanelControles().setLayout(PanelControlesLayout);
@@ -110,25 +110,25 @@ public class MainWindow extends JFrame {
                 .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(PanelControlesLayout.createParallelGroup(GroupLayout.Alignment.TRAILING)
                     .addGroup(PanelControlesLayout.createSequentialGroup()
-                        .addComponent(getjButtonCrear(), GroupLayout.PREFERRED_SIZE, 151, GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jButtonCrear, GroupLayout.PREFERRED_SIZE, 151, GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(getjButtonEliminar()))
+                        .addComponent(jButtonEliminar))
                     .addGroup(PanelControlesLayout.createSequentialGroup()
-                        .addComponent(getjButtonBuscar(), GroupLayout.PREFERRED_SIZE, 151, GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jButtonBuscar, GroupLayout.PREFERRED_SIZE, 151, GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(getjButtonModificar(), GroupLayout.PREFERRED_SIZE, 151, GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(jButtonModificar, GroupLayout.PREFERRED_SIZE, 151, GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap())
         );
         PanelControlesLayout.setVerticalGroup(PanelControlesLayout.createParallelGroup(GroupLayout.Alignment.LEADING)
             .addGroup(GroupLayout.Alignment.TRAILING, PanelControlesLayout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(PanelControlesLayout.createParallelGroup(GroupLayout.Alignment.BASELINE)
-                    .addComponent(getjButtonModificar(), GroupLayout.PREFERRED_SIZE, 25, GroupLayout.PREFERRED_SIZE)
-                    .addComponent(getjButtonBuscar(), GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jButtonModificar, GroupLayout.PREFERRED_SIZE, 25, GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jButtonBuscar, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(PanelControlesLayout.createParallelGroup(GroupLayout.Alignment.BASELINE)
-                    .addComponent(getjButtonEliminar())
-                    .addComponent(getjButtonCrear(), GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jButtonEliminar)
+                    .addComponent(jButtonCrear, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
                 .addGap(0, 0, Short.MAX_VALUE))
             .addGroup(GroupLayout.Alignment.TRAILING, PanelControlesLayout.createSequentialGroup()
                 .addGap(0, 1, Short.MAX_VALUE)

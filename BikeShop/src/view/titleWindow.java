@@ -6,14 +6,17 @@
 package view;
 
 import java.awt.Font;
-import java.awt.Color;
 import java.awt.Dimension;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JButton;
+import javax.swing.UIManager;
+import javax.swing.GroupLayout;
+import javax.swing.LayoutStyle;
 import javax.swing.SwingConstants;
 import javax.swing.WindowConstants;
-import org.netbeans.lib.awtextra.AbsoluteConstraints;
+
+import controller.ClickEvent;
 /**
  *
  * @author Dialvec
@@ -26,52 +29,85 @@ public class TitleWindow extends JFrame {
     
     private void initComponents() {
         
-        setSize(new Dimension(400, 100));
-        setResizable(false);
-        setBackground(new Color(235, 235, 235));
-        setVisible(true);
-        setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
-        
         jLabelMainTitle = new JLabel();
-        JButtonIngresoVentas = new JButton();
-        JButtonIngresoAdmin = new JButton();
+        jButtonIngresoVentas = new JButton();
+        jButtonIngresoAdmin = new JButton();
+        clickEvent = new ClickEvent(this);
 
-        jLabelMainTitle.setFont(new Font("Tahoma", 3, 24));
+        setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
+        setBackground(new java.awt.Color(235, 235, 235));
+        setLocation(new java.awt.Point(250, 250));
+        setResizable(false);
+
+        jLabelMainTitle.setFont(new Font("Tahoma", 3, 24)); // NOI18N
         jLabelMainTitle.setHorizontalAlignment(SwingConstants.CENTER);
         jLabelMainTitle.setText("Excite Bike Shop");
-        jLabelMainTitle.setSize(new Dimension(100, 20));
-        add(jLabelMainTitle, new AbsoluteConstraints(85, 12, 216, -1));
 
-        getJButtonIngresoVentas().setBackground(new Color(153, 204, 255));
-        getJButtonIngresoVentas().setFont(new Font("Tahoma", 0, 14));
-        getJButtonIngresoVentas().setText("Ingreso Ventas");
-        getJButtonIngresoVentas().setBorderPainted(false);
-        getJButtonIngresoVentas().setSize(new Dimension(75, 25));
-        add(getJButtonIngresoVentas(), new AbsoluteConstraints(15, 59, 173, -1));
+        jButtonIngresoVentas.setBackground(UIManager.getDefaults().getColor("InternalFrame.activeTitleGradient"));
+        jButtonIngresoVentas.setFont(new Font("Tahoma", 0, 14)); // NOI18N
+        jButtonIngresoVentas.setText("Ingreso Ventas");
+        jButtonIngresoVentas.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        jButtonIngresoVentas.setBorderPainted(false);
+        jButtonIngresoVentas.setMaximumSize(new Dimension(100, 25));
+        jButtonIngresoVentas.setMinimumSize(new Dimension(100, 25));
+        jButtonIngresoVentas.setPreferredSize(new Dimension(100, 25));
+        jButtonIngresoVentas.addActionListener(clickEvent);
 
-        getJButtonIngresoAdmin().setBackground(new Color(153, 204, 255));
-        getJButtonIngresoAdmin().setFont(new Font("Tahoma", 0, 14));
-        getJButtonIngresoAdmin().setText("Ingreso Administrador");
-        getJButtonIngresoAdmin().setBorderPainted(false);
-        getJButtonIngresoAdmin().setSize(new Dimension(75, 25));
-        add(getJButtonIngresoAdmin(), new AbsoluteConstraints(206, 59, -1, -1));
+        jButtonIngresoAdmin.setBackground(UIManager.getDefaults().getColor("InternalFrame.activeTitleGradient"));
+        jButtonIngresoAdmin.setFont(new Font("Tahoma", 0, 14)); // NOI18N
+        jButtonIngresoAdmin.setText("Ingreso Administrador");
+        jButtonIngresoAdmin.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        jButtonIngresoAdmin.setBorderPainted(false);
+        jButtonIngresoAdmin.addActionListener(clickEvent);
+
+        GroupLayout layout = new GroupLayout(getContentPane());
+        getContentPane().setLayout(layout);
+        layout.setHorizontalGroup(
+            layout.createParallelGroup(GroupLayout.Alignment.LEADING)
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(layout.createParallelGroup(GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabelMainTitle, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jButtonIngresoVentas, GroupLayout.PREFERRED_SIZE, 170, GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED, 40, Short.MAX_VALUE)
+                        .addComponent(jButtonIngresoAdmin, GroupLayout.PREFERRED_SIZE, 170, GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap())
+        );
+        layout.setVerticalGroup(
+            layout.createParallelGroup(GroupLayout.Alignment.LEADING)
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jLabelMainTitle)
+                .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED, 24, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(GroupLayout.Alignment.LEADING, false)
+                    .addComponent(jButtonIngresoVentas, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(1, 1, 1)
+                        .addComponent(jButtonIngresoAdmin, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                .addContainerGap())
+        );
+
+        pack();
+        setVisible(true);
     }
 
-    private javax.swing.JButton JButtonIngresoAdmin;
-    private javax.swing.JButton JButtonIngresoVentas;
-    private javax.swing.JLabel jLabelMainTitle;
+    private JButton jButtonIngresoAdmin;
+    private JButton jButtonIngresoVentas;
+    private JLabel jLabelMainTitle;
+    private ClickEvent clickEvent;
 
     /**
      * @return the JButtonIngresoAdmin
      */
-    public javax.swing.JButton getJButtonIngresoAdmin() {
-        return JButtonIngresoAdmin;
+    public JButton getJButtonIngresoAdmin() {
+        return jButtonIngresoAdmin;
     }
 
     /**
      * @return the JButtonIngresoVentas
      */
-    public javax.swing.JButton getJButtonIngresoVentas() {
-        return JButtonIngresoVentas;
+    public JButton getJButtonIngresoVentas() {
+        return jButtonIngresoVentas;
     }
 }

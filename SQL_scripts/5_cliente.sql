@@ -1,4 +1,3 @@
-USE datos;
 CREATE TABLE cliente (
 	alias VARCHAR(20) NOT NULL PRIMARY KEY,
     nombres VARCHAR(50) NOT NULL,

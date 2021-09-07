@@ -30,7 +30,7 @@ public class IntentionSearchWindow extends JFrame {
         jTextFieldBIFabricante = new JTextField();
         jButtonSearchClient = new JButton();
 
-        setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
         setResizable(false);
         setVisible(true);
 
