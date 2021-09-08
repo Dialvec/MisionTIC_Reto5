@@ -7,15 +7,19 @@ package controller;
 
 import java.io.FileReader;
 import javax.swing.JFrame;
+import javax.swing.JTable;
 import java.io.IOException;
-import java.util.ArrayList;
 import javax.swing.JOptionPane;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+
 import java.sql.SQLException;
+
 import java.util.Arrays;
+import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+
 
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
@@ -29,6 +33,9 @@ import view.PasswordWindow; // mode 3
 import view.ClientWindow;   // mode 4
 import view.VehicleWindow;  // mode 5
 import view.IntentionWindow;// mode 6
+
+import access.*;
+
 
 import utils.BikeShopParameters;
 
@@ -122,9 +129,38 @@ public class ClickEvent implements ActionListener{
     
     // mode 1
     private void processMainWindowActionEvents(ActionEvent actionEvent){
-        String mode = null;
-        String rButtonSelection = null;
-        System.out.println();
+        String mode;
+        String rButtonSelection;
+        String currentJTableModel;
+        
+        //ClienteModel
+        String alias;
+        String nombres;
+        String apellidos;
+        String email;
+        String contrasena;
+        String celular;
+        String dob;
+        
+        //VehiculoModel
+        String idVehiculo;
+        String fabricante_fk;
+        String precio;
+        //Bicicleta
+        String anio_fabrica;
+        //Moto
+        String proveedor_motor_fk;
+        String autonomia;
+        
+        //IntencionModel
+        String idIntencion;
+        String alias_cliente_fk;
+        // String fabricante_fk;
+        String fechahora;
+        
+        JTable jTableData;
+        int selectedRowIndex;
+        
         //CREATE_MODE
         if(actionEvent.getSource() == getMainWindow().getjButtonCrear() ){
             mode = BikeShopParameters.CREATE_MODE;
@@ -154,7 +190,7 @@ public class ClickEvent implements ActionListener{
         //SEARCH_MODE
         else if(actionEvent.getSource() == getMainWindow().getjButtonBuscar() ){
             mode = BikeShopParameters.SEARCH_MODE;
-            rButtonSelection =this.getMainWindow().getButtonGroupSelection().getSelection().getActionCommand();
+            rButtonSelection = this.getMainWindow().getButtonGroupSelection().getSelection().getActionCommand();
 
             switch (rButtonSelection){
                 case BikeShopParameters.RBUTTON_CLIENTE:
@@ -180,6 +216,59 @@ public class ClickEvent implements ActionListener{
         // DELETE_MODE
         else if(actionEvent.getSource() == getMainWindow().getjButtonEliminar() ){
             mode = BikeShopParameters.DELETE_MODE;
+            
+            currentJTableModel = this.getMainWindow().getCurrentJTableModel();
+            selectedRowIndex = getMainWindow().getjTableData().getSelectedRow();
+            
+            switch (currentJTableModel){
+                    
+                case BikeShopParameters.MODEL_CLIENTE:
+                    jTableData = getMainWindow().getjTableData();
+                    ClienteDAO clienteDAO = new ClienteDAO();
+                    
+                    alias = jTableData.getValueAt(selectedRowIndex, 0).toString();
+                    
+                    try {
+                        clienteDAO.deleteClientes(alias);
+                    } catch (SQLException ex) {
+                        Logger.getLogger(ClickEvent.class.getName()).log(Level.SEVERE, null, ex);
+                    }
+                    
+                    break;
+
+
+                case BikeShopParameters.MODEL_BICICLETA:
+                    jTableData = getMainWindow().getjTableData();
+                    BicicletaDAO bicicletaDAO = new BicicletaDAO();
+                    
+                    idVehiculo = jTableData.getValueAt(selectedRowIndex, 0).toString();
+                    bicicletaDAO.deleteBicicleta( Integer.parseInt(idVehiculo) );
+                    break;
+
+                case BikeShopParameters.MODEL_MOTO:
+                    jTableData = getMainWindow().getjTableData();
+                    MotoElectricaDAO motoElectricaDAO = new MotoElectricaDAO();
+                    
+                    idVehiculo = jTableData.getValueAt(selectedRowIndex, 0).toString();
+                    motoElectricaDAO.deleteMoto( Integer.parseInt(idVehiculo) );
+                    
+                    break;
+
+                case BikeShopParameters.MODEL_INTENCION:
+                    jTableData = getMainWindow().getjTableData();
+                    IntencionDAO intencionDAO = new IntencionDAO();
+                    
+                    idIntencion = jTableData.getValueAt(selectedRowIndex, 0).toString();
+                    intencionDAO.deleteIntencion( Integer.parseInt(idIntencion) );
+                    break;
+                
+                default:
+                    JOptionPane.showMessageDialog(null, 
+                            "Delete Mode No tiene Model Asignado", 
+                            "Debug", 
+                            JOptionPane.ERROR_MESSAGE);
+                    break;
+            }
 
             //DAO Delete Mode
 
@@ -187,7 +276,7 @@ public class ClickEvent implements ActionListener{
         // EDIT_MODE
         else if(actionEvent.getSource() == getMainWindow().getjButtonModificar() ){
             mode = BikeShopParameters.EDIT_MODE;
-            String currentJTableModel = this.getMainWindow().getCurrentJTableModel();
+            currentJTableModel = this.getMainWindow().getCurrentJTableModel();
 
             switch (currentJTableModel){
                 case BikeShopParameters.MODEL_CLIENTE:
