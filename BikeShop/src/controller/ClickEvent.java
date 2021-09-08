@@ -233,7 +233,6 @@ public class ClickEvent implements ActionListener{
                     } catch (SQLException ex) {
                         Logger.getLogger(ClickEvent.class.getName()).log(Level.SEVERE, null, ex);
                     }
-                    
                     break;
 
 
@@ -356,6 +355,7 @@ public class ClickEvent implements ActionListener{
             String celular = (String) getClientWindow().getjTextFieldBCCelular().getText();
             String dob = (String) getClientWindow().getjTextFieldBCDob().getText();
             
+            //DAO Crear Cliente
             //DAO Modificar Cliente
         }
     } // mode 4
@@ -380,12 +380,13 @@ public class ClickEvent implements ActionListener{
             if(tipoVehiculo.equals(BikeShopParameters.BICICLETAS)){
                 anio = Integer.parseInt(getVehicleWindow().getjTextFieldBVBanio().getText());
                 
+                //DAO Crear Bicicleta
                 //DAO Modificar Bicicleta
             }
             else if(tipoVehiculo.equals(BikeShopParameters.MOTOS)){
                 proveedor = (String) getVehicleWindow().getjTextFieldBVMProveedor().getText();
                 autonomia = Integer.parseInt(getVehicleWindow().getjTextFieldBVMAutonomia().getText());
-                
+                //DAO Crear Moto
                 //DAO Modificar Moto
             }
         }
@@ -406,7 +407,7 @@ public class ClickEvent implements ActionListener{
             apellido = utils.filterJTextField(apellido, BikeShopParameters.APELLIDO_CLIENTE);
             fabricante = utils.filterJTextField(fabricante, BikeShopParameters.FABRICANTE);
         }
-        
+        //DAO Modificar Intencion
         //DAO Buscar Intención
 
     }
