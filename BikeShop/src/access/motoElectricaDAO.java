@@ -10,7 +10,7 @@ import javax.swing.JOptionPane;
 import model.ModelMotoElectrica;
 import utils.ConnectionDB;
 
-public class motoElectricaDAO {
+public class MotoElectricaDAO {
     
 private Connection conn = null;
         
@@ -24,7 +24,7 @@ private Connection conn = null;
             if(conn == null)
                 conn = ConnectionDB.getConnection();
             
-            String sql          = "SELECT * FROM moto_electrica;";
+            String sql          = "SELECT id_moto, fabricante_fk, precio, proveedor_motor, autonomia FROM moto_electrica;";
             Statement statement = conn.createStatement();
             ResultSet result    = statement.executeQuery(sql);
             
@@ -47,11 +47,11 @@ private Connection conn = null;
         return motos;
     }
 
-    public static void create (Connection conn,int id_moto, String fabricante,int precio, String proveedor_motor, String autonomia) throws SQLException
+    public static void create (Connection conn,int id_moto, String fabricante_fk, int precio, String proveedor_motor, String autonomia) throws SQLException
     {
-        String create = "INSERT INTO moto_electrica(fabricante, precio, proveedor_motor, autonomia) VALUES (?,?,?,?)";
+        String create = "INSERT INTO moto_electrica(fabricante_fk, precio, proveedor_motor, autonomia) VALUES (?,?,?,?)";
         PreparedStatement Statement = conn.prepareStatement(create);
-        Statement.setString(1, fabricante);
+        Statement.setString(1, fabricante_fk);
         Statement.setInt(2, precio);
         Statement.setString(3, proveedor_motor);
         Statement.setString(4,autonomia);
@@ -77,6 +77,7 @@ private Connection conn = null;
             statement.setInt(2, motos.getPrecio());
             statement.setString(3, motos.getProveedor_motor_fk());
             statement.setInt(4, motos.getAutonomia());
+            statement.setString(5, motos.getFabricante_fk());
             
             int rowsUpdated = statement.executeUpdate();
             if (rowsUpdated > 0) 

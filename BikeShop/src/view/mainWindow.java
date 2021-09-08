@@ -1,6 +1,7 @@
 package view;
 
 import java.awt.Font;
+import java.awt.Point;
 import javax.swing.JTable;
 import java.awt.Dimension;
 import javax.swing.JFrame;
@@ -21,6 +22,15 @@ import utils.BikeShopParameters;
 import controller.ClickEvent;
 import controller.MainListelectionEvent;
 
+import access.*;
+import controller.*;
+import model.*;
+
+
+import java.sql.SQLException;
+import java.util.ArrayList;
+import javax.swing.table.DefaultTableModel;
+
 /**
  *
  * @author Dialvec
@@ -30,16 +40,17 @@ public final class MainWindow extends JFrame {
     /**
      * Creates new form operations
      * @param adminsession
+     * @throws java.sql.SQLException
      */
-    public MainWindow(boolean adminsession) {
+    public MainWindow(boolean adminsession) throws SQLException {
         initComponents();
         setIdVehiculo(0);
         setIdIntencion(0);
         this.adminSession = adminsession;
-        setCurrentJTableModel(BikeShopParameters.MODEL_CLIENTE);
+        this.EnableAdminButtons(adminsession);
     }
 
-    private void initComponents() {
+    private void initComponents() throws SQLException {
 
         buttonGroupSelection = new ButtonGroup();
         PanelControles = new JPanel();
@@ -52,15 +63,16 @@ public final class MainWindow extends JFrame {
         jLabelTextoTipoConsulta = new JLabel();
         jButtonBuscar = new JButton();
         jScrollPaneTable = new JScrollPane();
-        jTableData = new JTable();
         jLabelTableTitle = new JLabel();
+        jTableData = new JTable();
+        
+        initialData = new InitialData();
         
         clickEvent = new ClickEvent(this);
         mainListelectionEvent = new MainListelectionEvent(this);
-        
-        setCurrentJTableModel(BikeShopParameters.MODEL_CLIENTE);
 
         setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
+        setLocation(new Point(300, 300));
         setResizable(false);
         setVisible(true);
 
@@ -69,7 +81,7 @@ public final class MainWindow extends JFrame {
         jButtonEliminar.setText(BikeShopParameters.BOTON_BORRAR);
         jButtonEliminar.setToolTipText("Use con Extremo cuidado");
         jButtonEliminar.setBorderPainted(false);
-        jButtonEliminar.addActionListener(clickEvent);
+        jButtonEliminar.addActionListener(getClickEvent());
         jButtonEliminar.setEnabled(false);
 
         jButtonModificar.setBackground(UIManager.getDefaults().getColor("InternalFrame.inactiveTitleGradient"));
@@ -78,7 +90,7 @@ public final class MainWindow extends JFrame {
         jButtonModificar.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
         jButtonModificar.setBorderPainted(false);
         jButtonModificar.setSize(new Dimension(75, 25));
-        jButtonModificar.addActionListener(clickEvent);
+        jButtonModificar.addActionListener(getClickEvent());
         jButtonModificar.setEnabled(false);
 
         jButtonCrear.setBackground(UIManager.getDefaults().getColor("InternalFrame.inactiveTitleGradient"));
@@ -87,7 +99,7 @@ public final class MainWindow extends JFrame {
         jButtonCrear.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
         jButtonCrear.setBorderPainted(false);
         jButtonCrear.setSize(new Dimension(75, 25));
-        jButtonCrear.addActionListener(clickEvent);
+        jButtonCrear.addActionListener(getClickEvent());
         
         jButtonBuscar.setBackground(UIManager.getDefaults().getColor("InternalFrame.inactiveTitleGradient"));
         jButtonBuscar.setFont(new Font("Tahoma", 1, 14)); // NOI18N
@@ -95,7 +107,7 @@ public final class MainWindow extends JFrame {
         jButtonBuscar.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
         jButtonBuscar.setBorderPainted(false);
         jButtonBuscar.setSize(new Dimension(75, 25));
-        jButtonBuscar.addActionListener(clickEvent);
+        jButtonBuscar.addActionListener(getClickEvent());
 
         buttonGroupSelection.add(jRadioButtonCliente);
         jRadioButtonCliente.setFont(new Font("Tahoma", 1, 14)); // NOI18N
@@ -164,18 +176,7 @@ public final class MainWindow extends JFrame {
                 .addContainerGap())
         );
 
-        jTableData.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
-            },
-            new String [] {
-                "Columna 1", "Columna 2", "Columna 3", "Columna 4"
-            }
-        ));
-        jTableData.getSelectionModel().addListSelectionListener(mainListelectionEvent);
+        jTableData.getSelectionModel().addListSelectionListener(getMainListelectionEvent());
         jScrollPaneTable.setViewportView(jTableData);
         jLabelTableTitle.setFont(new Font("Tahoma", 0, 18)); // NOI18N
         jLabelTableTitle.setHorizontalAlignment(SwingConstants.CENTER);
@@ -205,8 +206,10 @@ public final class MainWindow extends JFrame {
                 .addComponent(getPanelControles(), GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
                 .addGap(5, 5, 5))
         );
-
+        
+        this.setJtableClients(initialData.getClientes());
         pack();
+        setVisible(true);
     }
              
     private JPanel PanelControles;
@@ -226,6 +229,8 @@ public final class MainWindow extends JFrame {
     private ClickEvent clickEvent;
     private MainListelectionEvent mainListelectionEvent;
     
+    private InitialData initialData;
+    
     private String currentJTableModel;
     private int idVehiculo;
     private int idIntencion;
@@ -242,74 +247,135 @@ public final class MainWindow extends JFrame {
         }
     }
     
+
+    public void setJtableClients(ArrayList<ModelCliente> clientes){
+        this.jTableData.removeAll();
+        String[] headers = {"Alias", "Nombres", "Apellidos", "E-mail", "Contraseña", "Celular", "Fecha nacimiento"};
+        
+        DefaultTableModel tableModel = new DefaultTableModel();
+        tableModel.setColumnIdentifiers(headers);
+        this.jTableData.setModel(tableModel);
+        
+        for(int i=0; i<clientes.size(); i++){
+            tableModel.addRow(clientes.get(i).toArray() );
+        }
+        
+        this.setCurrentJTableModel(BikeShopParameters.MODEL_CLIENTE);
+    }
+    
+    public void setJtableBicycles(ArrayList<ModelBicicleta> bicicletas){
+        this.jTableData.removeAll();
+        String[] headers = {"Id", "Fabricante", "Precio", "Año fabricación"};
+        
+        DefaultTableModel tableModel = new DefaultTableModel();
+        tableModel.setColumnIdentifiers(headers);
+        this.jTableData.setModel(tableModel);
+        
+        for(int i=0; i<bicicletas.size(); i++){
+            tableModel.addRow(bicicletas.get(i).toArray() );
+        }
+        
+        this.setCurrentJTableModel(BikeShopParameters.MODEL_BICICLETA);
+    }
+    
+    public void setJtableMotorcycles(ArrayList<ModelMotoElectrica> motos){
+        this.jTableData.removeAll();
+        String[] headers = {"Id", "Fabricante", "Precio", "Proveedor Motor", "Horas Autonomía"};
+        
+        DefaultTableModel tableModel = new DefaultTableModel();
+        tableModel.setColumnIdentifiers(headers);
+        this.jTableData.setModel(tableModel);
+        
+        for(int i=0; i<motos.size(); i++){
+            tableModel.addRow(motos.get(i).toArray() );
+        }
+        
+        this.setCurrentJTableModel(BikeShopParameters.MODEL_MOTO);
+    }
+    
+    public void setJtableIntention(ArrayList<ModelIntencion> intenciones){
+        this.jTableData.removeAll();
+        String[] headers = {"Id", "Fabricante", "Precio", "Proveedor Motor", "Horas Autonomía"};
+        
+        DefaultTableModel tableModel = new DefaultTableModel();
+        tableModel.setColumnIdentifiers(headers);
+        this.jTableData.setModel(tableModel);
+        
+        for(int i=0; i<intenciones.size(); i++){
+            tableModel.addRow(intenciones.get(i).toArray() );
+        }
+        
+        this.setCurrentJTableModel(BikeShopParameters.MODEL_INTENCION);
+    }
+    
     /**
      * @return the PanelControles
      */
     public JPanel getPanelControles() {
-        return PanelControles;
+        return this.PanelControles;
     }
 
     /**
      * @return the buttonGroupSelection
      */
     public ButtonGroup getButtonGroupSelection() {
-        return buttonGroupSelection;
+        return this.buttonGroupSelection;
     }
 
     /**
      * @return the jButtonBuscar
      */
     public JButton getjButtonBuscar() {
-        return jButtonBuscar;
+        return this.jButtonBuscar;
     }
 
     /**
      * @return the jButtonCrear
      */
     public JButton getjButtonCrear() {
-        return jButtonCrear;
+        return this.jButtonCrear;
     }
 
     /**
      * @return the jButtonModificar
      */
     public JButton getjButtonModificar() {
-        return jButtonModificar;
+        return this.jButtonModificar;
     }
 
     /**
      * @return the jButtonEliminar
      */
     public JButton getjButtonEliminar() {
-        return jButtonEliminar;
+        return this.jButtonEliminar;
     }
 
     /**
      * @return the jRadioButtonCliente
      */
     public JRadioButton getjRadioButtonCliente() {
-        return jRadioButtonCliente;
+        return this.jRadioButtonCliente;
     }
 
     /**
      * @return the jRadioButtonIntencion
      */
     public JRadioButton getjRadioButtonIntencion() {
-        return jRadioButtonIntencion;
+        return this.jRadioButtonIntencion;
     }
 
     /**
      * @return the jRadioButtonVehiculo
      */
     public JRadioButton getjRadioButtonVehiculo() {
-        return jRadioButtonVehiculo;
+        return this.jRadioButtonVehiculo;
     }
 
     /**
      * @return the jTableData
      */
     public JTable getjTableData() {
-        return jTableData;
+        return this.jTableData;
     }
 
     /**
@@ -323,7 +389,7 @@ public final class MainWindow extends JFrame {
      * @return the currentJTableModel
      */
     public String getCurrentJTableModel() {
-        return currentJTableModel;
+        return this.currentJTableModel;
     }
 
     /**
@@ -337,7 +403,7 @@ public final class MainWindow extends JFrame {
      * @return the idVehiculo
      */
     public int getIdVehiculo() {
-        return idVehiculo;
+        return this.idVehiculo;
     }
 
     /**
@@ -351,7 +417,7 @@ public final class MainWindow extends JFrame {
      * @return the idIntencion
      */
     public int getIdIntencion() {
-        return idIntencion;
+        return this.idIntencion;
     }
 
     /**
@@ -365,7 +431,21 @@ public final class MainWindow extends JFrame {
      * @return the adminSession
      */
     public boolean isAdminSession() {
-        return adminSession;
+        return this.adminSession;
+    }
+
+    /**
+     * @return the clickEvent
+     */
+    public ClickEvent getClickEvent() {
+        return this.clickEvent;
+    }
+
+    /**
+     * @return the mainListelectionEvent
+     */
+    public MainListelectionEvent getMainListelectionEvent() {
+        return mainListelectionEvent;
     }
                  
 }

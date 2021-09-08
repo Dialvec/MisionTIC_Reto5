@@ -46,14 +46,14 @@ public class ModelIntencion {
     /**
      * @return the fechahora
      */
-    public String getDatetime() {
+    public String getFechahora() {
         return fechahora;
     }
 
     /**
      * @param fechahora the fechahora to set
      */
-    public void setDatetime(String fechahora) {
+    public void setFechahora(String fechahora) {
         this.fechahora = fechahora;
     }
     

@@ -5,7 +5,8 @@ CREATE TABLE cliente (
     email VARCHAR(50) DEFAULT '',
 	contrasena INT(8) NULL,
     celular VARCHAR(20) NULL,
-    dob DATE NULL);
+    dob DATE NULL
+    );
     
 INSERT INTO cliente(alias, nombres, apellidos) VALUES ("lucky", "Pedro", "Perez");
 INSERT INTO cliente(alias, nombres, apellidos) VALUES ("malopez", "Maria", "Lopez");

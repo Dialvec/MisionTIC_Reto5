@@ -12,7 +12,10 @@ import java.util.ArrayList;
 import javax.swing.JOptionPane;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.sql.SQLException;
 import java.util.Arrays;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
@@ -83,12 +86,36 @@ public class ClickEvent implements ActionListener{
         
         switch(getMode()){
             
-            case 1: processMainWindowActionEvents(actionEvent); break;
-            case 2: processTitleWindowActionEvents(actionEvent); break;
-            case 3: processPasswordWindowActionEvents(actionEvent); break;
-            case 4: processClientWindowActionEvents(actionEvent); break;
-            case 5: processVehicleWindowActionEvents(actionEvent); break;
-            case 6: processIntentionWindowActionEvents(actionEvent); break;
+            case 1: 
+                processMainWindowActionEvents(actionEvent); 
+            break;
+
+            case 2: 
+                try {
+                    processTitleWindowActionEvents(actionEvent);
+                } catch (SQLException ex) {
+                    Logger.getLogger(ClickEvent.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            break;
+
+            case 3: 
+                try {
+                    processPasswordWindowActionEvents(actionEvent);
+                } catch (SQLException ex) {
+                    Logger.getLogger(ClickEvent.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            break;
+
+            case 4: 
+                processClientWindowActionEvents(actionEvent); 
+            break;
+            
+            case 5: 
+                processVehicleWindowActionEvents(actionEvent); 
+            break;
+            case 6: 
+                processIntentionWindowActionEvents(actionEvent); 
+            break;
         }
         
     }
@@ -96,26 +123,24 @@ public class ClickEvent implements ActionListener{
     // mode 1
     private void processMainWindowActionEvents(ActionEvent actionEvent){
         String mode = null;
-        
-        if(actionEvent.getSource() == getMainWindow().getjButtonCrear() ) mode = BikeShopParameters.CREATE_MODE;
-        else if(actionEvent.getSource() == getMainWindow().getjButtonBuscar() ) mode = BikeShopParameters.SEARCH_MODE;
-        else if(actionEvent.getSource() == getMainWindow().getjButtonEliminar() ) mode = BikeShopParameters.DELETE_MODE;
-        else if(actionEvent.getSource() == getMainWindow().getjButtonModificar() ) mode = BikeShopParameters.EDIT_MODE;
-        
-        if(!mode.equals(BikeShopParameters.DELETE_MODE)){
-            String rButtonSelection = getMainWindow().getButtonGroupSelection().getSelection().getActionCommand();
-        
+        String rButtonSelection = null;
+        System.out.println();
+        //CREATE_MODE
+        if(actionEvent.getSource() == getMainWindow().getjButtonCrear() ){
+            mode = BikeShopParameters.CREATE_MODE;
+            rButtonSelection = this.getMainWindow().getButtonGroupSelection().getSelection().getActionCommand();
+
             switch (rButtonSelection){
                 case BikeShopParameters.RBUTTON_CLIENTE:
                     clientWindow = new ClientWindow(mode);
                     break;
 
                 case BikeShopParameters.RBUTTON_VEHICULO:
-                    vehicleWindow = new VehicleWindow( getMainWindow().getCurrentJTableModel() , getMainWindow().getIdVehiculo(), mode);
+                    vehicleWindow = new VehicleWindow( this.getMainWindow().getCurrentJTableModel() , this.getMainWindow().getIdVehiculo(), mode);
                     break;
 
                 case BikeShopParameters.RBUTTON_INTENCION:
-                    intentionWindow = new IntentionWindow(mode, getMainWindow().getIdIntencion());
+                    intentionWindow = new IntentionWindow(mode, this.getMainWindow().getIdIntencion());
                     break;
 
                 default:
@@ -125,15 +150,82 @@ public class ClickEvent implements ActionListener{
                             JOptionPane.INFORMATION_MESSAGE);
                     break;
             }
-        }
-        else if(mode.equals(BikeShopParameters.DELETE_MODE)){
-            //DAO Delete
-        }
+        } // CREATE_MODE
+        //SEARCH_MODE
+        else if(actionEvent.getSource() == getMainWindow().getjButtonBuscar() ){
+            mode = BikeShopParameters.SEARCH_MODE;
+            rButtonSelection =this.getMainWindow().getButtonGroupSelection().getSelection().getActionCommand();
+
+            switch (rButtonSelection){
+                case BikeShopParameters.RBUTTON_CLIENTE:
+                    clientWindow = new ClientWindow(mode);
+                    break;
+
+                case BikeShopParameters.RBUTTON_VEHICULO:
+                    vehicleWindow = new VehicleWindow( this.getMainWindow().getCurrentJTableModel() , this.getMainWindow().getIdVehiculo(), mode);
+                    break;
+
+                case BikeShopParameters.RBUTTON_INTENCION:
+                    intentionWindow = new IntentionWindow(mode, this.getMainWindow().getIdIntencion());
+                    break;
+
+                default:
+                    JOptionPane.showMessageDialog(null, 
+                            "No se encuentra selección de ButtonGroup", 
+                            "Debug", 
+                            JOptionPane.INFORMATION_MESSAGE);
+                    break;
+            }
+        } // SEARCH_MODE
+        // DELETE_MODE
+        else if(actionEvent.getSource() == getMainWindow().getjButtonEliminar() ){
+            mode = BikeShopParameters.DELETE_MODE;
+
+            //DAO Delete Mode
+
+        }// DELETE_MODE
+        // EDIT_MODE
+        else if(actionEvent.getSource() == getMainWindow().getjButtonModificar() ){
+            mode = BikeShopParameters.EDIT_MODE;
+            String currentJTableModel = this.getMainWindow().getCurrentJTableModel();
+
+            switch (currentJTableModel){
+                case BikeShopParameters.MODEL_CLIENTE:
+                    clientWindow = new ClientWindow(mode);
+                    break;
+
+                case BikeShopParameters.MODEL_BICICLETA:
+                    vehicleWindow = new VehicleWindow( currentJTableModel , getMainWindow().getIdVehiculo(), mode);
+                    break;
+
+                case BikeShopParameters.MODEL_MOTO:
+                    vehicleWindow = new VehicleWindow( currentJTableModel , getMainWindow().getIdVehiculo(), mode);
+                    break;
+
+                case BikeShopParameters.MODEL_INTENCION:
+                    intentionWindow = new IntentionWindow(mode, getMainWindow().getIdIntencion());
+                    break;
+                
+                default:
+                    JOptionPane.showMessageDialog(null, 
+                            "MainWindow No tiene Model Asignado", 
+                            "Debug", 
+                            JOptionPane.ERROR_MESSAGE);
+                    break;
+            }
+        }// EDIT_MODE
+        // NO MODE
+        else {
+        JOptionPane.showMessageDialog(null, 
+                            "No existen datos Cargados para modificar", 
+                            "Debug", 
+                            JOptionPane.ERROR_MESSAGE);
+        }// NO MODE
         
     } // mode 1
     
     // mode 2 
-    private void processTitleWindowActionEvents(ActionEvent actionEvent){
+    private void processTitleWindowActionEvents(ActionEvent actionEvent) throws SQLException{
         // Solicitar sesion como ventas
         if(actionEvent.getSource() == getTitleWindow().getJButtonIngresoVentas()){
             mainWindow = new MainWindow(false);    
@@ -146,7 +238,7 @@ public class ClickEvent implements ActionListener{
     } // mode 2
     
     // mode 3
-    private void processPasswordWindowActionEvents(ActionEvent actionEvent){
+    private void processPasswordWindowActionEvents(ActionEvent actionEvent) throws SQLException{
         if(actionEvent.getSource() == getPasswordWindow().getjButtonPasswordOk() ){
             String passwordInput = String.valueOf(getPasswordWindow().getjPasswordFieldAdmin().getPassword());
             String truePassword = getPassword();
@@ -215,10 +307,10 @@ public class ClickEvent implements ActionListener{
     private void processIntentionWindowActionEvents(ActionEvent actionEvent){
         
         if(actionEvent.getSource() == getIntentionWindow().getjButtonAction() ){
-            String alias = (String) getIntentionWindow().getjTextFieldBIAlias().getText();
-            String nombre = (String) getIntentionWindow().getjTextFieldBINombre().getText();
-            String apellido = (String) getIntentionWindow().getjTextFieldBIApellido().getText();
-            String fabricante = (String) getIntentionWindow().getjTextFieldBIFabricante().getText();
+            String alias = (String) getIntentionWindow().getjTextFieldAlias().getText();
+            String nombre = (String) getIntentionWindow().getjTextFieldNombre().getText();
+            String apellido = (String) getIntentionWindow().getjTextFieldApellido().getText();
+            String fabricante = (String) getIntentionWindow().getjTextFieldFabricante().getText();
             
             alias = utils.filterJTextField(alias, BikeShopParameters.ALIAS_CLIENTE);
             nombre = utils.filterJTextField(nombre, BikeShopParameters.NOMBRE_CLIENTE);
@@ -278,21 +370,21 @@ public class ClickEvent implements ActionListener{
      * @return the clientModifyWindow
      */
     public ClientWindow getClientWindow() {
-        return clientWindow;
+        return this.clientWindow;
     }
 
     /**
      * @return the vehicleModifyWindow
      */
     public VehicleWindow getVehicleWindow() {
-        return vehicleWindow;
+        return this.vehicleWindow;
     }
     
     /**
      * @return the intentionSearchWindow
      */
     public IntentionWindow getIntentionWindow() {
-        return intentionWindow;
+        return this.intentionWindow;
     }
     
     

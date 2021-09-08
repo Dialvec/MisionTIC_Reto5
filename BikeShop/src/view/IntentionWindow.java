@@ -37,15 +37,17 @@ public class IntentionWindow extends JFrame {
 
         jLabelTitulo = new JLabel();
         jLabelInstr = new JLabel();
-        jTextFieldBINombre = new JTextField();
-        jTextFieldBIAlias = new JTextField();
-        jTextFieldBIApellido = new JTextField();
-        jTextFieldBIFabricante = new JTextField();
-        jButtonAction = new javax.swing.JButton();
+        jTextFieldNombre = new JTextField();
+        jTextFieldAlias = new JTextField();
+        jTextFieldApellido = new JTextField();
+        jTextFieldFabricante = new JTextField();
+        jTextFieldFechahora = new JTextField();
+        jButtonAction = new JButton();
         jLabelAlias = new JLabel();
         jLabelNombre = new JLabel();
         jLabelApellido = new JLabel();
         jLabelFabricante = new JLabel();
+        jLabelFechahora = new JLabel();
         
         clickEvent = new ClickEvent(this);
 
@@ -59,20 +61,25 @@ public class IntentionWindow extends JFrame {
         jLabelInstr.setFont(new Font("Tahoma", 0, 12)); // NOI18N
         jLabelInstr.setText(BikeShopParameters.BUSCAR_INTENCION_INSTR);
 
-        getjTextFieldBINombre().setFont(new Font("Tahoma", 0, 12)); // NOI18N
+        jTextFieldNombre.setFont(new Font("Tahoma", 0, 12)); // NOI18N
 
-        getjTextFieldBIAlias().setFont(new Font("Tahoma", 0, 12)); // NOI18N
+        jTextFieldAlias.setFont(new Font("Tahoma", 0, 12)); // NOI18N
 
-        getjTextFieldBIApellido().setFont(new Font("Tahoma", 0, 12)); // NOI18N
+        jTextFieldApellido.setFont(new Font("Tahoma", 0, 12)); // NOI18N
 
-        getjTextFieldBIFabricante().setFont(new Font("Tahoma", 0, 12)); // NOI18N
+        jTextFieldFabricante.setFont(new Font("Tahoma", 0, 12)); // NOI18N
+        
+        jLabelFechahora.setFont(new Font("Tahoma", 0, 12)); // NOI18N
+        jLabelFechahora.setText(BikeShopParameters.FECHA);
+        
+        jTextFieldFechahora.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
 
-        getjButtonAction().setBackground(UIManager.getDefaults().getColor("InternalFrame.activeTitleGradient"));
-        getjButtonAction().setFont(new Font("Tahoma", 0, 12)); // NOI18N
-        getjButtonAction().setText(BikeShopParameters.BOTON_GUARDAR_CAMBIOS);
-        getjButtonAction().setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
-        getjButtonAction().setBorderPainted(false);
-        getjButtonAction().addActionListener(clickEvent);
+        jButtonAction.setBackground(UIManager.getDefaults().getColor("InternalFrame.activeTitleGradient"));
+        jButtonAction.setFont(new Font("Tahoma", 0, 12)); // NOI18N
+        jButtonAction.setText(BikeShopParameters.BOTON_GUARDAR_CAMBIOS);
+        jButtonAction.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        jButtonAction.setBorderPainted(false);
+        jButtonAction.addActionListener(clickEvent);
 
         jLabelAlias.setFont(new Font("Tahoma", 0, 14)); // NOI18N
         jLabelAlias.setText(BikeShopParameters.ALIAS_CLIENTE);
@@ -92,28 +99,31 @@ public class IntentionWindow extends JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(GroupLayout.Alignment.LEADING)
-                    .addGroup(GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabelNombre)
-                            .addComponent(jLabelApellido)
-                            .addComponent(jLabelFabricante))
-                        .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addGroup(layout.createParallelGroup(GroupLayout.Alignment.LEADING)
-                            .addComponent(getjTextFieldBIAlias(), GroupLayout.PREFERRED_SIZE, 159, GroupLayout.PREFERRED_SIZE)
-                            .addComponent(getjTextFieldBINombre(), GroupLayout.PREFERRED_SIZE, 159, GroupLayout.PREFERRED_SIZE)
-                            .addComponent(getjTextFieldBIApellido(), GroupLayout.PREFERRED_SIZE, 159, GroupLayout.PREFERRED_SIZE)
-                            .addComponent(getjTextFieldBIFabricante(), GroupLayout.PREFERRED_SIZE, 159, GroupLayout.PREFERRED_SIZE)))
+                    .addComponent(jLabelTitulo, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jLabelInstr, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabelInstr)
-                            .addComponent(jLabelTitulo, GroupLayout.PREFERRED_SIZE, 239, GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabelAlias))
-                        .addGap(0, 3, Short.MAX_VALUE)))
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(11, 11, 11)
+                                .addGroup(layout.createParallelGroup(GroupLayout.Alignment.LEADING)
+                                    .addComponent(jLabelNombre)
+                                    .addComponent(jLabelApellido)
+                                    .addComponent(jLabelFabricante)
+                                    .addComponent(jLabelFechahora))
+                                .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
+                                .addGroup(layout.createParallelGroup(GroupLayout.Alignment.LEADING, false)
+                                    .addComponent(jTextFieldAlias)
+                                    .addComponent(jTextFieldNombre)
+                                    .addComponent(jTextFieldApellido)
+                                    .addComponent(jTextFieldFabricante, GroupLayout.DEFAULT_SIZE, 159, Short.MAX_VALUE)
+                                    .addComponent(getjTextFieldFechahora())))
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(10, 10, 10)
+                                .addComponent(jLabelAlias)
+                                .addGap(3, 3, 3)
+                                .addComponent(jButtonAction, GroupLayout.PREFERRED_SIZE, 164, GroupLayout.PREFERRED_SIZE)))
+                        .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
-            .addGroup(GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(getjButtonAction(), GroupLayout.PREFERRED_SIZE, 112, GroupLayout.PREFERRED_SIZE)
-                .addGap(74, 74, 74))
         );
         layout.setVerticalGroup(layout.createParallelGroup(GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
@@ -121,24 +131,28 @@ public class IntentionWindow extends JFrame {
                 .addComponent(jLabelTitulo)
                 .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabelInstr)
+                .addGap(9, 9, 9)
+                .addGroup(layout.createParallelGroup(GroupLayout.Alignment.TRAILING)
+                    .addComponent(jLabelAlias)
+                    .addComponent(jTextFieldAlias, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(GroupLayout.Alignment.BASELINE)
-                    .addComponent(getjTextFieldBIAlias(), GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabelAlias))
-                .addGap(11, 11, 11)
+                    .addComponent(jLabelNombre)
+                    .addComponent(jTextFieldNombre, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(GroupLayout.Alignment.BASELINE)
-                    .addComponent(getjTextFieldBINombre(), GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabelNombre))
-                .addGap(11, 11, 11)
+                    .addComponent(jLabelApellido)
+                    .addComponent(jTextFieldApellido, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(GroupLayout.Alignment.BASELINE)
-                    .addComponent(getjTextFieldBIApellido(), GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabelApellido))
-                .addGap(9, 9, 9)
+                    .addComponent(jLabelFabricante)
+                    .addComponent(jTextFieldFabricante, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(GroupLayout.Alignment.BASELINE)
-                    .addComponent(getjTextFieldBIFabricante(), GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabelFabricante))
+                    .addComponent(jLabelFechahora)
+                    .addComponent(getjTextFieldFechahora(), GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
-                .addComponent(getjButtonAction())
+                .addComponent(jButtonAction)
                 .addContainerGap(GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         
@@ -147,44 +161,46 @@ public class IntentionWindow extends JFrame {
         setVisible(true);
     }
     
-    private JButton jButtonAction;
-    private JLabel jLabelAlias;
-    private JLabel jLabelApellido;
-    private JLabel jLabelFabricante;
-    private JLabel jLabelInstr;
-    private JLabel jLabelNombre;
-    private JLabel jLabelTitulo;
-    private JTextField jTextFieldBIAlias;
-    private JTextField jTextFieldBIApellido;
-    private JTextField jTextFieldBIFabricante;
-    private JTextField jTextFieldBINombre;
+    private javax.swing.JButton jButtonAction;
+    private javax.swing.JLabel jLabelAlias;
+    private javax.swing.JLabel jLabelApellido;
+    private javax.swing.JLabel jLabelFabricante;
+    private javax.swing.JLabel jLabelFechahora;
+    private javax.swing.JLabel jLabelInstr;
+    private javax.swing.JLabel jLabelNombre;
+    private javax.swing.JLabel jLabelTitulo;
+    private javax.swing.JTextField jTextFieldAlias;
+    private javax.swing.JTextField jTextFieldApellido;
+    private javax.swing.JTextField jTextFieldFabricante;
+    private javax.swing.JTextField jTextFieldFechahora;
+    private javax.swing.JTextField jTextFieldNombre;
     
     private ClickEvent clickEvent;
     
     private final String mode;
-    private final int idIntention;
+    private int idIntention;
     
     private void setWindowMode(String mode){
         switch (mode) {
             case BikeShopParameters.CREATE_MODE:
                 jLabelTitulo.setText(BikeShopParameters.CREAR_INTENCION);
                 jButtonAction.setText(BikeShopParameters.BOTON_CREAR);
-                jTextFieldBIAlias.setEditable(true);
-                jTextFieldBIFabricante.setEditable(true);
+                jTextFieldAlias.setEditable(true);
+                jTextFieldFabricante.setEditable(true);
                 break;
                 
             case BikeShopParameters.EDIT_MODE:
                 jLabelTitulo.setText(BikeShopParameters.MODIF_INTENCION);
                 jButtonAction.setText(BikeShopParameters.BOTON_GUARDAR_CAMBIOS);
-                jTextFieldBIAlias.setEditable(false);
-                jTextFieldBIFabricante.setEditable(false);
+                jTextFieldAlias.setEditable(false);
+                jTextFieldFabricante.setEditable(false);
                 break;
                 
             case BikeShopParameters.SEARCH_MODE:
                 jLabelTitulo.setText(BikeShopParameters.BUSCAR_INTENCION);
                 jButtonAction.setText(BikeShopParameters.BOTON_BUSCAR);
-                jTextFieldBIAlias.setEditable(true);
-                jTextFieldBIFabricante.setEditable(true);
+                jTextFieldAlias.setEditable(true);
+                jTextFieldFabricante.setEditable(true);
                 break;
                 
             default:
@@ -204,31 +220,31 @@ public class IntentionWindow extends JFrame {
     }
 
     /**
-     * @return the jTextFieldBIAlias
+     * @return the jTextFieldAlias
      */
-    public JTextField getjTextFieldBIAlias() {
-        return jTextFieldBIAlias;
+    public JTextField getjTextFieldAlias() {
+        return jTextFieldAlias;
     }
 
     /**
-     * @return the jTextFieldBIApellido
+     * @return the jTextFieldApellido
      */
-    public JTextField getjTextFieldBIApellido() {
-        return jTextFieldBIApellido;
+    public JTextField getjTextFieldApellido() {
+        return jTextFieldApellido;
     }
 
     /**
-     * @return the jTextFieldBIFabricante
+     * @return the jTextFieldFabricante
      */
-    public JTextField getjTextFieldBIFabricante() {
-        return jTextFieldBIFabricante;
+    public JTextField getjTextFieldFabricante() {
+        return jTextFieldFabricante;
     }
 
     /**
-     * @return the jTextFieldBINombre
+     * @return the jTextFieldNombre
      */
-    public JTextField getjTextFieldBINombre() {
-        return jTextFieldBINombre;
+    public JTextField getjTextFieldNombre() {
+        return jTextFieldNombre;
     }
 
     /**
@@ -250,6 +266,20 @@ public class IntentionWindow extends JFrame {
      */
     public int getIdIntention() {
         return idIntention;
+    }
+
+    /**
+     * @param idIntention the idIntention to set
+     */
+    public void setIdIntention(int idIntention) {
+        this.idIntention = idIntention;
+    }
+
+    /**
+     * @return the jTextFieldFechahora
+     */
+    public javax.swing.JTextField getjTextFieldFechahora() {
+        return jTextFieldFechahora;
     }
                   
 }

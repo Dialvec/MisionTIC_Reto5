@@ -10,9 +10,26 @@ import javax.swing.JOptionPane;
 import model.ModelProveedorMotor;
 import utils.ConnectionDB;
 
-public class proveedorDAO {
+public class ProveedorDAO {
     
 private Connection conn = null;
+
+    public static boolean existeProveedor(Connection conn, String nombre) throws SQLException 
+    {
+        boolean proveedorExiste = false;
+        
+        String sql = "SELECT nombre\n" +
+                     "FROM proveedor_motor\n" +
+                     "WHERE nombre = ?;";
+        
+        PreparedStatement statement = conn.prepareStatement(sql);
+        statement.setString(1, nombre);
+        int rows = statement.executeUpdate();
+        
+        if (rows > 0) proveedorExiste = true;
+        
+        return proveedorExiste;
+    }
         
     /**
      * 

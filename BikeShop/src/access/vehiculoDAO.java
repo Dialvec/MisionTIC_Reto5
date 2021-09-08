@@ -10,7 +10,7 @@ import java.util.ArrayList;
 import model.ModelVehiculo;
 import utils.ConnectionDB;
 
-public class vehiculoDAO {
+public class VehiculoDAO {
     
 private Connection conn = null;
         
@@ -48,8 +48,25 @@ private Connection conn = null;
         int arrows = Statement.executeUpdate();
         if (arrows > 0)
         {
-            System.out.println("Se agregó información");
+            System.out.println("Se agregó nuevo vehículo");
         }
+    }
+    
+    public static boolean existeFabricante(Connection conn, String fabricante) throws SQLException 
+    {
+        boolean fabricanteExiste = false;
+        
+        String sql = "SELECT fabricante\n" +
+                     "FROM vehiculo\n" +
+                     "WHERE fabricante = ?;";
+        
+        PreparedStatement statement = conn.prepareStatement(sql);
+        statement.setString(1, fabricante);
+        int rows = statement.executeUpdate();
+        
+        if (rows > 0) fabricanteExiste = true;
+        
+        return fabricanteExiste;
     }
 
     

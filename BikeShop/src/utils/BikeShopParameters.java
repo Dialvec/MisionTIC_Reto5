@@ -13,7 +13,7 @@ public interface BikeShopParameters {
     //Database Connection
     public final String DB_CRED_PATH = "/src/utils/db_credentials.json";
     public final String PW_PATH = "/src/utils/pswrd.json";
-    public final String SCHEMA = "datos";
+    public final String SCHEMA = "BikeShop";
     
     //ModelNames para MainWindow
     public final String MODEL_CLIENTE = "ModelCliente";
@@ -89,6 +89,7 @@ public interface BikeShopParameters {
     public final String CREAR_INTENCION = "Crear Cotización";
     public final String MODIF_INTENCION = "Modificar Cotización";
     public final String BUSCAR_INTENCION_INSTR = "Indique información de la cotización.";
+    public final String FECHA = "Fecha y hora";
     
     //Ventana Contraseñas
     public final String WRONG_PASS_MSG = "La contrseña ingresada no es correcta";

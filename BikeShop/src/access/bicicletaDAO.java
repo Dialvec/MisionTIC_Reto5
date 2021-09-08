@@ -11,7 +11,7 @@ import model.ModelBicicleta;
 
 import utils.ConnectionDB;
 
-public class bicicletaDAO {
+public class BicicletaDAO {
     
 private Connection conn = null;
         
@@ -25,12 +25,18 @@ private Connection conn = null;
             if(conn == null)
                 conn = ConnectionDB.getConnection();
             
-            String sql          = "SELECT * FROM bicicleta;";
+            String sql          = "SELECT id_bicicleta, fabricante_fk, precio, anio_fabrica FROM bicicleta;";
             Statement statement = conn.createStatement();
             ResultSet result    = statement.executeQuery(sql);
             
             while (result.next()) {
-                ModelBicicleta bicicleta = new ModelBicicleta(result.getInt(1), result.getString(2),result.getInt(3),result.getInt(4));
+                
+                int id_bicicleta = result.getInt(1);
+                String fabricante_fk = result.getString(2);
+                int precio = result.getInt(3);
+                int anio_fabrica = result.getInt(4);
+                
+                ModelBicicleta bicicleta = new ModelBicicleta(id_bicicleta, fabricante_fk, precio, anio_fabrica);
                 bicicletas.add(bicicleta);
             }
         } 
@@ -41,17 +47,20 @@ private Connection conn = null;
         return bicicletas;
     }
 
-    public static void create (Connection conn,int idBicicleta, String fabricante_fk,int precio, int Anio_fabrica) throws SQLException
+    public static void create (Connection conn, int idBicicleta, String fabricante_fk, int precio, int anio_fabrica) throws SQLException
     {
-        String create = "INSERT INTO bicicleta(fabricante_fk, precio, Anio_fabrica) VALUES (?,?,?)";
+        String create = "INSERT INTO bicicleta(fabricante_fk, precio, anio_fabrica) VALUES (?,?,?)";
         PreparedStatement Statement = conn.prepareStatement(create);
         Statement.setString(1, fabricante_fk);
         Statement.setInt(2, precio);
-        Statement.setInt(3, Anio_fabrica);
+        Statement.setInt(3, anio_fabrica);
         int arrows = Statement.executeUpdate();
         if (arrows > 0)
         {
-            System.out.println("Se agregó información");
+            JOptionPane.showMessageDialog(null, 
+                        "La nueva bicicleta se agregó satisfactoriamente", 
+                        "Operación Exitosa", 
+                        JOptionPane.INFORMATION_MESSAGE);
         }
     }
 
@@ -69,6 +78,7 @@ private Connection conn = null;
             statement.setString(1, bicicletas.getFabricante_fk());
             statement.setInt(2, bicicletas.getPrecio());
             statement.setInt(3, bicicletas.getAnio_fabrica());
+            statement.setString(4, bicicletas.getFabricante_fk());
             
             int rowsUpdated = statement.executeUpdate();
             if (rowsUpdated > 0) 

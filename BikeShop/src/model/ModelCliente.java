@@ -119,7 +119,7 @@ public class ModelCliente {
     
     // Retorma arreglo con campos de la clase
     public Object[] toArray(){
-        Object[] data = {alias, nombres, apellidos, email, contrasena, dob};
+        Object[] data = {alias, nombres, apellidos, email, contrasena, celular, dob};
         return data;
     }
 

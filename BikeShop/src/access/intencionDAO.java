@@ -11,7 +11,7 @@ import model.ModelIntencion;
 
 import utils.ConnectionDB;
 
-public class intencionDAO {
+public class IntencionDAO {
     
 private Connection conn = null;
         
@@ -25,7 +25,7 @@ private Connection conn = null;
             if(conn == null)
                 conn = ConnectionDB.getConnection();
             
-            String sql          = "SELECT * FROM intencion;";
+            String sql          = "SELECT id_intencion, alias_cliente_fk, fabricante_fk, fechahora FROM intencion;";
             Statement statement = conn.createStatement();
             ResultSet result    = statement.executeQuery(sql);
             
@@ -34,6 +34,7 @@ private Connection conn = null;
                 String alias_cliente_fk = result.getString(2);
                 String fabricante_fk = result.getString(3);
                 String fechahora = result.getString(4);
+                
                 ModelIntencion intencion = new ModelIntencion(id_intencion, alias_cliente_fk, fabricante_fk, fechahora);
                 intenciones.add(intencion);
             }
@@ -68,11 +69,12 @@ private Connection conn = null;
             if(conn == null)
                 conn = ConnectionDB.getConnection();
             
-            String sql = "UPDATE intencion SET alias_cliente=?, fabricante =?, datetime=? WHERE alias_cliente=?;";
+            String sql = "UPDATE intencion SET alias_cliente=?, fabricante = ?, datetime=? WHERE alias_cliente=?;";
             PreparedStatement statement = conn.prepareStatement(sql);
             statement.setString(1, intenciones.getAlias_cliente_fk());
             statement.setString(2, intenciones.getFabricante_fk());
-            statement.setString(3, intenciones.getDatetime());
+            statement.setString(3, intenciones.getFechahora());
+            statement.setString(4, intenciones.getAlias_cliente_fk());
             
             int rowsUpdated = statement.executeUpdate();
             if (rowsUpdated > 0) 

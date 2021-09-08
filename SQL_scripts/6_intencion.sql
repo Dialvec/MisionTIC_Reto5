@@ -4,7 +4,8 @@ CREATE TABLE intencion (
     fabricante_fk VARCHAR(50) NOT NULL,
     fechahora TIMESTAMP NOT NULL,
     FOREIGN KEY (fabricante_fk) REFERENCES vehiculo(fabricante),
-    FOREIGN KEY (alias_cliente_fk) REFERENCES cliente(alias));
+    FOREIGN KEY (alias_cliente_fk) REFERENCES cliente(alias)
+    );
     
 INSERT INTO intencion (alias_cliente_fk, fabricante_fk, fechahora) VALUES ("lucky","Cannondale", '2017-10-25 20:00:00');
 INSERT INTO intencion (alias_cliente_fk, fabricante_fk, fechahora) VALUES ("lucky", "Trek", '2019-03-15 18:30:00');
