@@ -16,11 +16,16 @@ import javax.swing.JRadioButton;
 import javax.swing.SwingConstants;
 import javax.swing.WindowConstants;
 
+import utils.BikeShopParameters;
+
+import controller.ClickEvent;
+import controller.MainListelectionEvent;
+
 /**
  *
  * @author Dialvec
  */
-public class MainWindow extends JFrame {
+public final class MainWindow extends JFrame {
 
     /**
      * Creates new form operations
@@ -28,8 +33,10 @@ public class MainWindow extends JFrame {
      */
     public MainWindow(boolean adminsession) {
         initComponents();
-        setjButtonModificarEnabled(adminsession);
-        setjButtonEliminarEnabled(adminsession);
+        setIdVehiculo(0);
+        setIdIntencion(0);
+        this.adminSession = adminsession;
+        setCurrentJTableModel(BikeShopParameters.MODEL_CLIENTE);
     }
 
     private void initComponents() {
@@ -45,8 +52,13 @@ public class MainWindow extends JFrame {
         jLabelTextoTipoConsulta = new JLabel();
         jButtonBuscar = new JButton();
         jScrollPaneTable = new JScrollPane();
-        setjTableData(new JTable());
+        jTableData = new JTable();
         jLabelTableTitle = new JLabel();
+        
+        clickEvent = new ClickEvent(this);
+        mainListelectionEvent = new MainListelectionEvent(this);
+        
+        setCurrentJTableModel(BikeShopParameters.MODEL_CLIENTE);
 
         setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
         setResizable(false);
@@ -54,47 +66,56 @@ public class MainWindow extends JFrame {
 
         jButtonEliminar.setBackground(UIManager.getDefaults().getColor("nb.errorForeground"));
         jButtonEliminar.setFont(new Font("Tahoma", 1, 14)); // NOI18N
-        jButtonEliminar.setText("Borrar Selección");
+        jButtonEliminar.setText(BikeShopParameters.BOTON_BORRAR);
         jButtonEliminar.setToolTipText("Use con Extremo cuidado");
         jButtonEliminar.setBorderPainted(false);
+        jButtonEliminar.addActionListener(clickEvent);
+        jButtonEliminar.setEnabled(false);
 
         jButtonModificar.setBackground(UIManager.getDefaults().getColor("InternalFrame.inactiveTitleGradient"));
         jButtonModificar.setFont(new Font("Tahoma", 1, 14)); // NOI18N
-        jButtonModificar.setText("Modificar");
-        jButtonModificar.setToolTipText("");
+        jButtonModificar.setText(BikeShopParameters.BOTON_MODIFICAR);
         jButtonModificar.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
         jButtonModificar.setBorderPainted(false);
         jButtonModificar.setSize(new Dimension(75, 25));
+        jButtonModificar.addActionListener(clickEvent);
+        jButtonModificar.setEnabled(false);
 
         jButtonCrear.setBackground(UIManager.getDefaults().getColor("InternalFrame.inactiveTitleGradient"));
         jButtonCrear.setFont(new Font("Tahoma", 1, 14)); // NOI18N
-        jButtonCrear.setText("Crear");
+        jButtonCrear.setText(BikeShopParameters.BOTON_CREAR);
         jButtonCrear.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
         jButtonCrear.setBorderPainted(false);
         jButtonCrear.setSize(new Dimension(75, 25));
-
-        buttonGroupSelection.add(jRadioButtonCliente);
-        jRadioButtonCliente.setFont(new Font("Tahoma", 1, 14)); // NOI18N
-        jRadioButtonCliente.setText("Cliente");
-
-        buttonGroupSelection.add(jRadioButtonVehiculo);
-        jRadioButtonVehiculo.setFont(new Font("Tahoma", 1, 14)); // NOI18N
-        jRadioButtonVehiculo.setText("Vehículo");
-
-        buttonGroupSelection.add(jRadioButtonIntencion);
-        jRadioButtonIntencion.setFont(new Font("Tahoma", 1, 14)); // NOI18N
-        jRadioButtonIntencion.setText("Intención de Compra");
-
-        jLabelTextoTipoConsulta.setFont(new Font("Tahoma", 0, 14)); // NOI18N
-        jLabelTextoTipoConsulta.setHorizontalAlignment(SwingConstants.CENTER);
-        jLabelTextoTipoConsulta.setText("Seleccione consulta");
-
+        jButtonCrear.addActionListener(clickEvent);
+        
         jButtonBuscar.setBackground(UIManager.getDefaults().getColor("InternalFrame.inactiveTitleGradient"));
         jButtonBuscar.setFont(new Font("Tahoma", 1, 14)); // NOI18N
-        jButtonBuscar.setText("Buscar");
+        jButtonBuscar.setText(BikeShopParameters.BOTON_BUSCAR);
         jButtonBuscar.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
         jButtonBuscar.setBorderPainted(false);
         jButtonBuscar.setSize(new Dimension(75, 25));
+        jButtonBuscar.addActionListener(clickEvent);
+
+        buttonGroupSelection.add(jRadioButtonCliente);
+        jRadioButtonCliente.setFont(new Font("Tahoma", 1, 14)); // NOI18N
+        jRadioButtonCliente.setText(BikeShopParameters.RBUTTON_CLIENTE);
+        jRadioButtonCliente.setActionCommand(BikeShopParameters.RBUTTON_CLIENTE);
+        jRadioButtonCliente.setSelected(true);
+
+        buttonGroupSelection.add(jRadioButtonVehiculo);
+        jRadioButtonVehiculo.setFont(new Font("Tahoma", 1, 14)); // NOI18N
+        jRadioButtonVehiculo.setText(BikeShopParameters.RBUTTON_VEHICULO);
+        jRadioButtonVehiculo.setActionCommand(BikeShopParameters.RBUTTON_VEHICULO);
+
+        buttonGroupSelection.add(jRadioButtonIntencion);
+        jRadioButtonIntencion.setFont(new Font("Tahoma", 1, 14)); // NOI18N
+        jRadioButtonIntencion.setText(BikeShopParameters.RBUTTON_INTENCION);
+        jRadioButtonIntencion.setActionCommand(BikeShopParameters.RBUTTON_INTENCION);
+
+        jLabelTextoTipoConsulta.setFont(new Font("Tahoma", 0, 14)); // NOI18N
+        jLabelTextoTipoConsulta.setHorizontalAlignment(SwingConstants.CENTER);
+        jLabelTextoTipoConsulta.setText(BikeShopParameters.MAIN_INSTR);
 
         GroupLayout PanelControlesLayout = new GroupLayout(getPanelControles());
         getPanelControles().setLayout(PanelControlesLayout);
@@ -143,10 +164,7 @@ public class MainWindow extends JFrame {
                 .addContainerGap())
         );
 
-        jLabelTextoTipoConsulta.getAccessibleContext().setAccessibleName("");
-        jLabelTextoTipoConsulta.getAccessibleContext().setAccessibleDescription("");
-
-        getjTableData().setModel(new javax.swing.table.DefaultTableModel(
+        jTableData.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null},
                 {null, null, null, null},
@@ -157,11 +175,11 @@ public class MainWindow extends JFrame {
                 "Columna 1", "Columna 2", "Columna 3", "Columna 4"
             }
         ));
-        jScrollPaneTable.setViewportView(getjTableData());
-
+        jTableData.getSelectionModel().addListSelectionListener(mainListelectionEvent);
+        jScrollPaneTable.setViewportView(jTableData);
         jLabelTableTitle.setFont(new Font("Tahoma", 0, 18)); // NOI18N
         jLabelTableTitle.setHorizontalAlignment(SwingConstants.CENTER);
-        jLabelTableTitle.setText("Resultado consulta");
+        jLabelTableTitle.setText(BikeShopParameters.RESULT_QUERY);
 
         GroupLayout layout = new GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -204,7 +222,26 @@ public class MainWindow extends JFrame {
     private JRadioButton jRadioButtonVehiculo;
     private JScrollPane jScrollPaneTable;
     private JTable jTableData;
+    
+    private ClickEvent clickEvent;
+    private MainListelectionEvent mainListelectionEvent;
+    
+    private String currentJTableModel;
+    private int idVehiculo;
+    private int idIntencion;
+    private final boolean adminSession;
+    
 
+    public void EnableAdminButtons(boolean newStatus){
+        if(isAdminSession() == true){
+            this.jButtonModificar.setEnabled(newStatus);
+            this.jButtonEliminar.setEnabled(newStatus);
+        } else{
+            this.jButtonModificar.setEnabled(false);
+            this.jButtonEliminar.setEnabled(false);
+        }
+    }
+    
     /**
      * @return the PanelControles
      */
@@ -281,13 +318,54 @@ public class MainWindow extends JFrame {
     public void setjTableData(JTable jTableData) {
         this.jTableData = jTableData;
     }
-    
-    private void setjButtonEliminarEnabled(boolean enabled){
-        jButtonEliminar.setEnabled(enabled);
+
+    /**
+     * @return the currentJTableModel
+     */
+    public String getCurrentJTableModel() {
+        return currentJTableModel;
     }
-    
-    private void setjButtonModificarEnabled(boolean enabled){
-        jButtonModificar.setEnabled(enabled);
+
+    /**
+     * @param currentJTableModel the currentJTableModel to set
+     */
+    public void setCurrentJTableModel(String currentJTableModel) {
+        this.currentJTableModel = currentJTableModel;
+    }
+
+    /**
+     * @return the idVehiculo
+     */
+    public int getIdVehiculo() {
+        return idVehiculo;
+    }
+
+    /**
+     * @param idVehiculo the idVehiculo to set
+     */
+    public void setIdVehiculo(int idVehiculo) {
+        this.idVehiculo = idVehiculo;
+    }
+
+    /**
+     * @return the idIntencion
+     */
+    public int getIdIntencion() {
+        return idIntencion;
+    }
+
+    /**
+     * @param idIntencion the idIntencion to set
+     */
+    public void setIdIntencion(int idIntencion) {
+        this.idIntencion = idIntencion;
+    }
+
+    /**
+     * @return the adminSession
+     */
+    public boolean isAdminSession() {
+        return adminSession;
     }
                  
 }

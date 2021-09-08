@@ -30,7 +30,11 @@ private Connection conn = null;
             ResultSet result    = statement.executeQuery(sql);
             
             while (result.next()) {
-                ModelIntencion intencion = new ModelIntencion(result.getInt(1), result.getString(2), result.getInt(3),result.getString(4), result.getString(5));
+                int id_intencion = result.getInt(1);
+                String alias_cliente_fk = result.getString(2);
+                String fabricante_fk = result.getString(3);
+                String fechahora = result.getString(4);
+                ModelIntencion intencion = new ModelIntencion(id_intencion, alias_cliente_fk, fabricante_fk, fechahora);
                 intenciones.add(intencion);
             }
         } 
@@ -43,7 +47,7 @@ private Connection conn = null;
 
     public static void create (Connection conn, int id_intencion, String alias_cliente, String fabricante, String datetime) throws SQLException
     {
-        String create = "INSERT INTO intencion(alias_cliente, fabricante_fk, precio, datetime) VALUES (?,?,?)";
+        String create = "INSERT INTO intencion(alias_cliente_fk, fabricante_fk, datetime) VALUES (?,?,?)";
         PreparedStatement Statement = conn.prepareStatement(create);
         Statement.setString(1, alias_cliente);
         Statement.setString(2, fabricante);
@@ -66,8 +70,8 @@ private Connection conn = null;
             
             String sql = "UPDATE intencion SET alias_cliente=?, fabricante =?, datetime=? WHERE alias_cliente=?;";
             PreparedStatement statement = conn.prepareStatement(sql);
-            statement.setString(1, intenciones.getAlias_cliente());
-            statement.setString(2, intenciones.getFabricante());
+            statement.setString(1, intenciones.getAlias_cliente_fk());
+            statement.setString(2, intenciones.getFabricante_fk());
             statement.setString(3, intenciones.getDatetime());
             
             int rowsUpdated = statement.executeUpdate();

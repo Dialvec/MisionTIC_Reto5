@@ -40,13 +40,15 @@ public class clientModify extends javax.swing.JFrame {
         jLabelApellido = new javax.swing.JLabel();
         jLabelemail = new javax.swing.JLabel();
         jLabelCelular = new javax.swing.JLabel();
-        jLabel1 = new javax.swing.JLabel();
+        jLabelDob = new javax.swing.JLabel();
+        jLabelContrasena = new javax.swing.JLabel();
+        jTextFieldContrasena = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
         jLabelTituloBuscarCliente.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jLabelTituloBuscarCliente.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabelTituloBuscarCliente.setText("Modificar Cliente");
+        jLabelTituloBuscarCliente.setText("Crear/Modificar Cliente");
 
         jTextFieldBCNombre.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
 
@@ -102,40 +104,53 @@ public class clientModify extends javax.swing.JFrame {
         jLabelCelular.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jLabelCelular.setText("Celular");
 
-        jLabel1.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        jLabel1.setText("Fecha nacimiento");
+        jLabelDob.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        jLabelDob.setText("Fecha nacimiento");
+
+        jLabelContrasena.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        jLabelContrasena.setText("Contraseña");
+
+        jTextFieldContrasena.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(59, 59, 59)
-                .addComponent(jButtonModify, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-            .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabelTituloBuscarCliente, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addGroup(layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabelTituloBuscarCliente, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addGroup(layout.createSequentialGroup()
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jLabelAlias)
+                                    .addComponent(jLabelNombre)
+                                    .addComponent(jLabelApellido)
+                                    .addComponent(jLabelemail)
+                                    .addComponent(jLabelCelular)
+                                    .addComponent(jLabelDob))
+                                .addGap(14, 14, 14)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jTextFieldBCDob, javax.swing.GroupLayout.Alignment.TRAILING)
+                                    .addComponent(jTextFieldBCCelular)
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                            .addComponent(jTextFieldBCAlias, javax.swing.GroupLayout.DEFAULT_SIZE, 149, Short.MAX_VALUE)
+                                            .addComponent(jTextFieldBCApellido)
+                                            .addComponent(jTextFieldBCEmail)
+                                            .addComponent(jTextFieldBCNombre)
+                                            .addComponent(jTextFieldContrasena))
+                                        .addGap(0, 0, Short.MAX_VALUE))))))
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabelAlias)
-                            .addComponent(jLabelNombre)
-                            .addComponent(jLabelApellido)
-                            .addComponent(jLabelemail)
-                            .addComponent(jLabelCelular)
-                            .addComponent(jLabel1))
-                        .addGap(14, 14, 14)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jTextFieldBCDob, javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(jTextFieldBCCelular)
                             .addGroup(layout.createSequentialGroup()
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                    .addComponent(jTextFieldBCAlias, javax.swing.GroupLayout.DEFAULT_SIZE, 149, Short.MAX_VALUE)
-                                    .addComponent(jTextFieldBCApellido)
-                                    .addComponent(jTextFieldBCEmail)
-                                    .addComponent(jTextFieldBCNombre))
-                                .addGap(0, 0, Short.MAX_VALUE)))))
+                                .addGap(59, 59, 59)
+                                .addComponent(jButtonModify, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(layout.createSequentialGroup()
+                                .addContainerGap()
+                                .addComponent(jLabelContrasena)))
+                        .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -159,15 +174,19 @@ public class clientModify extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jTextFieldBCEmail, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabelemail))
-                .addGap(11, 11, 11)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabelContrasena)
+                    .addComponent(jTextFieldContrasena, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jTextFieldBCCelular, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabelCelular))
                 .addGap(11, 11, 11)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jTextFieldBCDob, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel1))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 11, Short.MAX_VALUE)
+                    .addComponent(jLabelDob))
+                .addGap(18, 18, 18)
                 .addComponent(jButtonModify)
                 .addContainerGap())
         );
@@ -229,10 +248,11 @@ public class clientModify extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButtonModify;
-    private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabelAlias;
     private javax.swing.JLabel jLabelApellido;
     private javax.swing.JLabel jLabelCelular;
+    private javax.swing.JLabel jLabelContrasena;
+    private javax.swing.JLabel jLabelDob;
     private javax.swing.JLabel jLabelNombre;
     private javax.swing.JLabel jLabelTituloBuscarCliente;
     private javax.swing.JLabel jLabelemail;
@@ -242,5 +262,6 @@ public class clientModify extends javax.swing.JFrame {
     private javax.swing.JTextField jTextFieldBCDob;
     private javax.swing.JTextField jTextFieldBCEmail;
     private javax.swing.JTextField jTextFieldBCNombre;
+    private javax.swing.JTextField jTextFieldContrasena;
     // End of variables declaration//GEN-END:variables
 }

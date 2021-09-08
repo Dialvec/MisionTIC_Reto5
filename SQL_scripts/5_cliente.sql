@@ -3,7 +3,7 @@ CREATE TABLE cliente (
     nombres VARCHAR(50) NOT NULL,
     apellidos VARCHAR(50) NOT NULL,
     email VARCHAR(50) DEFAULT '',
-	contraseña INT(8) NULL,
+	contrasena INT(8) NULL,
     celular VARCHAR(20) NULL,
     dob DATE NULL);
     

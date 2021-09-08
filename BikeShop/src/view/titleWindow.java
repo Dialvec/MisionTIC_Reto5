@@ -34,7 +34,7 @@ public class TitleWindow extends JFrame {
         jButtonIngresoAdmin = new JButton();
         clickEvent = new ClickEvent(this);
 
-        setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
+        setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         setBackground(new java.awt.Color(235, 235, 235));
         setLocation(new java.awt.Point(250, 250));
         setResizable(false);

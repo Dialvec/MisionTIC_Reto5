@@ -7,7 +7,8 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 import javax.swing.JOptionPane;
-import model.motoElectricaModel;
+import model.ModelMotoElectrica;
+import utils.ConnectionDB;
 
 public class motoElectricaDAO {
     
@@ -17,8 +18,8 @@ private Connection conn = null;
      * 
      * @return 
      */
-    public ArrayList<motoElectricaModel> getAllMotos() {
-        ArrayList<motoElectricaModel> motos = new ArrayList();
+    public ArrayList<ModelMotoElectrica> getAllMotos() {
+        ArrayList<ModelMotoElectrica> motos = new ArrayList();
         try {
             if(conn == null)
                 conn = ConnectionDB.getConnection();
@@ -28,7 +29,14 @@ private Connection conn = null;
             ResultSet result    = statement.executeQuery(sql);
             
             while (result.next()) {
-                motoElectricaModel moto = new motoElectricaModel(result.getInt(1), result.getString(2),result.getInt(3),result.getString(4), result.getString(5));
+                
+                int id_moto = result.getInt(1);
+                String fabricante_fk = result.getString(2);
+                int precio = result.getInt(3);
+                String proveedor_motor_fk = result.getString(4);
+                int autonomia = result.getInt(5);
+                
+                ModelMotoElectrica moto = new ModelMotoElectrica(id_moto, fabricante_fk, precio, proveedor_motor_fk, autonomia);
                 motos.add(moto);
             }
         } 
@@ -58,17 +66,17 @@ private Connection conn = null;
      * 
      * @param motos 
      */
-    public void updateMotos(motoElectricaModel motos) {
+    public void updateMotos(ModelMotoElectrica motos) {
         try {
             if(conn == null)
                 conn = ConnectionDB.getConnection();
             
             String sql = "UPDATE moto_electrica SET fabricante =?, precio =?, proveedor_motor=?, autonomia=? WHERE fabricante=?;";
             PreparedStatement statement = conn.prepareStatement(sql);
-            statement.setString(1, motos.getFabricante());
+            statement.setString(1, motos.getFabricante_fk());
             statement.setInt(2, motos.getPrecio());
-            statement.setString(3, motos.getProveedor_motor());
-            statement.setString(4, motos.getAutonomia());
+            statement.setString(3, motos.getProveedor_motor_fk());
+            statement.setInt(4, motos.getAutonomia());
             
             int rowsUpdated = statement.executeUpdate();
             if (rowsUpdated > 0) 

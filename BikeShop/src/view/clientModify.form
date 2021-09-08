@@ -23,38 +23,51 @@
   <Layout>
     <DimensionLayout dim="0">
       <Group type="103" groupAlignment="0" attributes="0">
-          <Group type="102" alignment="0" attributes="0">
-              <EmptySpace min="-2" pref="59" max="-2" attributes="0"/>
-              <Component id="jButtonModify" min="-2" pref="150" max="-2" attributes="0"/>
-              <EmptySpace max="32767" attributes="0"/>
-          </Group>
-          <Group type="102" alignment="0" attributes="0">
-              <EmptySpace max="-2" attributes="0"/>
+          <Group type="102" attributes="0">
               <Group type="103" groupAlignment="0" attributes="0">
-                  <Component id="jLabelTituloBuscarCliente" max="32767" attributes="0"/>
-                  <Group type="102" attributes="0">
+                  <Group type="102" alignment="0" attributes="0">
+                      <EmptySpace max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="0" attributes="0">
-                          <Component id="jLabelAlias" min="-2" max="-2" attributes="0"/>
-                          <Component id="jLabelNombre" alignment="0" min="-2" max="-2" attributes="0"/>
-                          <Component id="jLabelApellido" alignment="0" min="-2" max="-2" attributes="0"/>
-                          <Component id="jLabelemail" alignment="0" min="-2" max="-2" attributes="0"/>
-                          <Component id="jLabelCelular" alignment="0" min="-2" max="-2" attributes="0"/>
-                          <Component id="jLabel1" alignment="0" min="-2" max="-2" attributes="0"/>
-                      </Group>
-                      <EmptySpace min="-2" pref="14" max="-2" attributes="0"/>
-                      <Group type="103" groupAlignment="0" attributes="0">
-                          <Component id="jTextFieldBCDob" alignment="1" max="32767" attributes="0"/>
-                          <Component id="jTextFieldBCCelular" max="32767" attributes="0"/>
+                          <Component id="jLabelTituloBuscarCliente" max="32767" attributes="0"/>
                           <Group type="102" attributes="0">
-                              <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                                  <Component id="jTextFieldBCAlias" pref="149" max="32767" attributes="0"/>
-                                  <Component id="jTextFieldBCApellido" alignment="0" max="32767" attributes="0"/>
-                                  <Component id="jTextFieldBCEmail" alignment="0" max="32767" attributes="0"/>
-                                  <Component id="jTextFieldBCNombre" alignment="0" max="32767" attributes="0"/>
+                              <Group type="103" groupAlignment="0" attributes="0">
+                                  <Component id="jLabelAlias" min="-2" max="-2" attributes="0"/>
+                                  <Component id="jLabelNombre" alignment="0" min="-2" max="-2" attributes="0"/>
+                                  <Component id="jLabelApellido" alignment="0" min="-2" max="-2" attributes="0"/>
+                                  <Component id="jLabelemail" alignment="0" min="-2" max="-2" attributes="0"/>
+                                  <Component id="jLabelCelular" alignment="0" min="-2" max="-2" attributes="0"/>
+                                  <Component id="jLabelDob" alignment="0" min="-2" max="-2" attributes="0"/>
                               </Group>
-                              <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
+                              <EmptySpace min="-2" pref="14" max="-2" attributes="0"/>
+                              <Group type="103" groupAlignment="0" attributes="0">
+                                  <Component id="jTextFieldBCDob" alignment="1" max="32767" attributes="0"/>
+                                  <Component id="jTextFieldBCCelular" max="32767" attributes="0"/>
+                                  <Group type="102" attributes="0">
+                                      <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                                          <Component id="jTextFieldBCAlias" pref="149" max="32767" attributes="0"/>
+                                          <Component id="jTextFieldBCApellido" alignment="0" max="32767" attributes="0"/>
+                                          <Component id="jTextFieldBCEmail" alignment="0" max="32767" attributes="0"/>
+                                          <Component id="jTextFieldBCNombre" alignment="0" max="32767" attributes="0"/>
+                                          <Component id="jTextFieldContrasena" max="32767" attributes="0"/>
+                                      </Group>
+                                      <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
+                                  </Group>
+                              </Group>
                           </Group>
                       </Group>
+                  </Group>
+                  <Group type="102" attributes="0">
+                      <Group type="103" groupAlignment="0" attributes="0">
+                          <Group type="102" alignment="0" attributes="0">
+                              <EmptySpace min="-2" pref="59" max="-2" attributes="0"/>
+                              <Component id="jButtonModify" min="-2" pref="150" max="-2" attributes="0"/>
+                          </Group>
+                          <Group type="102" alignment="0" attributes="0">
+                              <EmptySpace max="-2" attributes="0"/>
+                              <Component id="jLabelContrasena" min="-2" max="-2" attributes="0"/>
+                          </Group>
+                      </Group>
+                      <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
                   </Group>
               </Group>
               <EmptySpace max="-2" attributes="0"/>
@@ -86,7 +99,12 @@
                   <Component id="jTextFieldBCEmail" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="jLabelemail" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
-              <EmptySpace min="-2" pref="11" max="-2" attributes="0"/>
+              <EmptySpace type="unrelated" max="32767" attributes="0"/>
+              <Group type="103" groupAlignment="3" attributes="0">
+                  <Component id="jLabelContrasena" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="jTextFieldContrasena" alignment="3" min="-2" max="-2" attributes="0"/>
+              </Group>
+              <EmptySpace type="unrelated" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
                   <Component id="jTextFieldBCCelular" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="jLabelCelular" alignment="3" min="-2" max="-2" attributes="0"/>
@@ -94,9 +112,9 @@
               <EmptySpace min="-2" pref="11" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
                   <Component id="jTextFieldBCDob" alignment="3" min="-2" max="-2" attributes="0"/>
-                  <Component id="jLabel1" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="jLabelDob" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
-              <EmptySpace pref="11" max="32767" attributes="0"/>
+              <EmptySpace type="separate" max="-2" attributes="0"/>
               <Component id="jButtonModify" min="-2" max="-2" attributes="0"/>
               <EmptySpace max="-2" attributes="0"/>
           </Group>
@@ -110,7 +128,7 @@
           <Font name="Tahoma" size="14" style="1"/>
         </Property>
         <Property name="horizontalAlignment" type="int" value="0"/>
-        <Property name="text" type="java.lang.String" value="Modificar Cliente"/>
+        <Property name="text" type="java.lang.String" value="Crear/Modificar Cliente"/>
       </Properties>
     </Component>
     <Component class="javax.swing.JTextField" name="jTextFieldBCNombre">
@@ -225,12 +243,27 @@
         <Property name="text" type="java.lang.String" value="Celular"/>
       </Properties>
     </Component>
-    <Component class="javax.swing.JLabel" name="jLabel1">
+    <Component class="javax.swing.JLabel" name="jLabelDob">
       <Properties>
         <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
           <Font name="Tahoma" size="14" style="0"/>
         </Property>
         <Property name="text" type="java.lang.String" value="Fecha nacimiento"/>
+      </Properties>
+    </Component>
+    <Component class="javax.swing.JLabel" name="jLabelContrasena">
+      <Properties>
+        <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+          <Font name="Tahoma" size="14" style="0"/>
+        </Property>
+        <Property name="text" type="java.lang.String" value="Contrase&#xf1;a"/>
+      </Properties>
+    </Component>
+    <Component class="javax.swing.JTextField" name="jTextFieldContrasena">
+      <Properties>
+        <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+          <Font name="Tahoma" size="12" style="0"/>
+        </Property>
       </Properties>
     </Component>
   </SubComponents>

@@ -33,7 +33,7 @@ public class vehiculoModify extends javax.swing.JFrame {
         jTextFieldBVFabricante = new javax.swing.JTextField();
         jTextFieldBVBanio = new javax.swing.JTextField();
         jTextFieldBVMProveedor = new javax.swing.JTextField();
-        jButtonModifyVehicle = new javax.swing.JButton();
+        jButtonActionMotorcycle = new javax.swing.JButton();
         jLabelBicicletas = new javax.swing.JLabel();
         jTextFieldBVMAutonomia = new javax.swing.JTextField();
         jLabelMotos = new javax.swing.JLabel();
@@ -42,12 +42,13 @@ public class vehiculoModify extends javax.swing.JFrame {
         jLabelAnioFabrica = new javax.swing.JLabel();
         jLabelProveedor = new javax.swing.JLabel();
         jLabelAutonomia = new javax.swing.JLabel();
+        jButtonActionBicycle = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
         jLabelTituloBuscarCliente.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jLabelTituloBuscarCliente.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabelTituloBuscarCliente.setText("Editar Vehículo");
+        jLabelTituloBuscarCliente.setText("Crear/Editar Vehículo");
 
         jLabelInstrBuscarCliente.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         jLabelInstrBuscarCliente.setText("Indique información de vehículo a editar");
@@ -77,11 +78,11 @@ public class vehiculoModify extends javax.swing.JFrame {
             }
         });
 
-        jButtonModifyVehicle.setBackground(javax.swing.UIManager.getDefaults().getColor("InternalFrame.activeTitleGradient"));
-        jButtonModifyVehicle.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
-        jButtonModifyVehicle.setText("Modificar Vehícuo");
-        jButtonModifyVehicle.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
-        jButtonModifyVehicle.setBorderPainted(false);
+        jButtonActionMotorcycle.setBackground(javax.swing.UIManager.getDefaults().getColor("InternalFrame.activeTitleGradient"));
+        jButtonActionMotorcycle.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        jButtonActionMotorcycle.setText("Motocicleta");
+        jButtonActionMotorcycle.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        jButtonActionMotorcycle.setBorderPainted(false);
 
         jLabelBicicletas.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jLabelBicicletas.setText("Bicicletas");
@@ -110,6 +111,12 @@ public class vehiculoModify extends javax.swing.JFrame {
 
         jLabelAutonomia.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jLabelAutonomia.setText("Horas autonomia");
+
+        jButtonActionBicycle.setBackground(javax.swing.UIManager.getDefaults().getColor("InternalFrame.activeTitleGradient"));
+        jButtonActionBicycle.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        jButtonActionBicycle.setText("Bicicleta");
+        jButtonActionBicycle.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        jButtonActionBicycle.setBorderPainted(false);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -145,14 +152,15 @@ public class vehiculoModify extends javax.swing.JFrame {
                                 .addGap(0, 0, Short.MAX_VALUE)))
                         .addContainerGap())))
             .addGroup(layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(20, 20, 20)
-                        .addComponent(jLabelMotos))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(72, 72, 72)
-                        .addComponent(jButtonModifyVehicle, javax.swing.GroupLayout.PREFERRED_SIZE, 126, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(20, 20, 20)
+                .addComponent(jLabelMotos)
                 .addGap(0, 0, Short.MAX_VALUE))
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jButtonActionBicycle, javax.swing.GroupLayout.PREFERRED_SIZE, 126, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jButtonActionMotorcycle, javax.swing.GroupLayout.PREFERRED_SIZE, 126, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(19, 19, 19))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -185,9 +193,11 @@ public class vehiculoModify extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jTextFieldBVMAutonomia, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabelAutonomia))
-                .addGap(18, 18, 18)
-                .addComponent(jButtonModifyVehicle)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 17, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jButtonActionBicycle)
+                    .addComponent(jButtonActionMotorcycle))
+                .addContainerGap())
         );
 
         pack();
@@ -252,7 +262,8 @@ public class vehiculoModify extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButtonModifyVehicle;
+    private javax.swing.JButton jButtonActionBicycle;
+    private javax.swing.JButton jButtonActionMotorcycle;
     private javax.swing.JLabel jLabelAnioFabrica;
     private javax.swing.JLabel jLabelAutonomia;
     private javax.swing.JLabel jLabelBicicletas;

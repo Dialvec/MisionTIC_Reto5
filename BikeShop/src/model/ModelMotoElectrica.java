@@ -41,14 +41,14 @@ public class ModelMotoElectrica {
     /**
      * @return the fabaricante_fk
      */
-    public String getFabaricante_fk() {
+    public String getFabricante_fk() {
         return fabricante_fk;
     }
     
     /**
      * @return the precio
      */
-    public int getFPrecio() {
+    public int getPrecio() {
         return precio;
     }
     

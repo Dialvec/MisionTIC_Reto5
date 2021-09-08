@@ -25,12 +25,20 @@ private Connection conn = null;
             if(conn == null)
                 conn = ConnectionDB.getConnection();
             
-            String sql          = "SELECT * FROM cliente;";
+            String sql          = "SELECT alias, nombres, apellidos, email, contrasena, celular, dob FROM cliente;";
             Statement statement = conn.createStatement();
             ResultSet result    = statement.executeQuery(sql);
             
             while (result.next()) {
-                ModelCliente cliente = new ModelCliente(result.getString(1), result.getString(2),result.getString(3),result.getString(4),result.getInt(5),result.getString(6),result.getString(7));
+                String alias = result.getString(1);
+                String nombres = result.getString(2);
+                String apellidos = result.getString(3);
+                String email = result.getString(4);
+                int contrasena = result.getInt(5);
+                String celular = result.getString(6);
+                String dob = result.getString(7);
+                
+                ModelCliente cliente = new ModelCliente(alias, nombres, apellidos, email, contrasena, celular, dob);
                 clientes.add(cliente);
             }
         } 
@@ -41,15 +49,15 @@ private Connection conn = null;
         return clientes;
     }
 
-    public static void create (Connection conn, String alias, String nombres,String apellidos, String email, int contraseña, String celular, String dob) throws SQLException
+    public static void create (Connection conn, String alias, String nombres,String apellidos, String email, int contrasena, String celular, String dob) throws SQLException
     {
-        String create = "INSERT INTO cliente(alias, nombres, apellidos, email, contraseña, celular, dob) VALUES (?,?,?,?,?,?,?)";
+        String create = "INSERT INTO cliente(alias, nombres, apellidos, email, contrasena, celular, dob) VALUES (?,?,?,?,?,?,?)";
         PreparedStatement Statement = conn.prepareStatement(create);
         Statement.setString(1, alias);
         Statement.setString(2, nombres);
         Statement.setString(3, apellidos);
         Statement.setString(4, email);
-        Statement.setInt(5, contraseña);
+        Statement.setInt(5, contrasena);
         Statement.setString(6, celular);
         Statement.setString(7, dob);
         int arrows = Statement.executeUpdate();
@@ -68,7 +76,7 @@ private Connection conn = null;
             if(conn == null)
                 conn = ConnectionDB.getConnection();
             
-            String sql = "UPDATE cliente SET alias =?, nombres=?, apellidos =?, email =?, contraseña =?, celular =?, dob =? WHERE alias=?;";
+            String sql = "UPDATE cliente SET alias =?, nombres=?, apellidos =?, email =?, contrasena =?, celular =?, dob =? WHERE alias=?;";
             PreparedStatement statement = conn.prepareStatement(sql);
             statement.setString(1, clientes.getAlias());
             statement.setString(2, clientes.getNombres());
@@ -109,6 +117,7 @@ private Connection conn = null;
                     + ex.getErrorCode() + "\nError :" + ex.getMessage());
         }
     }
+    
 }
 
 

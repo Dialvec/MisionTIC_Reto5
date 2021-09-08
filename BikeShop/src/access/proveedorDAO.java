@@ -7,8 +7,8 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 import javax.swing.JOptionPane;
-import model.proveedorMotorModel;
-import libs.ConnectionDB;
+import model.ModelProveedorMotor;
+import utils.ConnectionDB;
 
 public class proveedorDAO {
     
@@ -18,8 +18,8 @@ private Connection conn = null;
      * 
      * @return 
      */
-    public ArrayList<proveedorMotorModel> getAllproveedores() {
-        ArrayList<proveedorMotorModel> proveedores = new ArrayList();
+    public ArrayList<ModelProveedorMotor> getAllproveedores() {
+        ArrayList<ModelProveedorMotor> proveedores = new ArrayList();
         try {
             if(conn == null)
                 conn = ConnectionDB.getConnection();
@@ -29,7 +29,7 @@ private Connection conn = null;
             ResultSet result    = statement.executeQuery(sql);
             
             while (result.next()) {
-                proveedorMotorModel proveedor = new proveedorMotorModel(result.getString(1), result.getString(2),result.getString(3));
+                ModelProveedorMotor proveedor = new ModelProveedorMotor(result.getString(1), result.getString(2),result.getString(3));
                 proveedores.add(proveedor);
             }
         } 
@@ -58,7 +58,7 @@ private Connection conn = null;
      * 
      * @param proveedores 
      */
-    public void updateProveedor(proveedorMotorModel proveedores) {
+    public void updateProveedor(ModelProveedorMotor proveedores) {
         try {
             if(conn == null)
                 conn = ConnectionDB.getConnection();

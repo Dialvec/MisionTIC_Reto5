@@ -12,6 +12,7 @@ import java.util.ArrayList;
 import javax.swing.JOptionPane;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.Arrays;
 
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
@@ -19,14 +20,12 @@ import org.json.simple.parser.ParseException;
 
 import utils.utils;
 
-import view.MainWindow;
-import view.TitleWindow;
-import view.PasswordWindow;
-import view.ClientSearchWindow;
-import view.ClientModifyWindow;
-import view.VehicleSearchWindow;
-import view.VehicleModifyWindow;
-import view.IntentionSearchWindow;
+import view.MainWindow;     // mode 1
+import view.TitleWindow;    // mode 2
+import view.PasswordWindow; // mode 3
+import view.ClientWindow;   // mode 4
+import view.VehicleWindow;  // mode 5
+import view.IntentionWindow;// mode 6
 
 import utils.BikeShopParameters;
 
@@ -37,14 +36,13 @@ import utils.BikeShopParameters;
 public class ClickEvent implements ActionListener{
     
     private final int mode; //Helps dealing with NullPointerException due to constructor
-    private MainWindow mainWindow; //mode 1
-    private TitleWindow titleWindow; //mode 2
-    private PasswordWindow passwordWindow; //mode 3
-    private ClientSearchWindow clientSearchWindow; //mode 4
-    private VehicleSearchWindow vehicleSearchWindow; //mode 5
-    private IntentionSearchWindow intentionSearchWindow; //mode 6
-    private ClientModifyWindow clientModifyWindow; //mode 7
-    private VehicleModifyWindow vehicleModifyWindow; //mode 8
+    
+    private MainWindow mainWindow;          // mode 1
+    private TitleWindow titleWindow;        // mode 2
+    private PasswordWindow passwordWindow;  // mode 3
+    private ClientWindow clientWindow;      // mode 4
+    private VehicleWindow vehicleWindow;    // mode 5
+    private IntentionWindow intentionWindow;// mode 6
     
     
     //Constructors
@@ -62,33 +60,23 @@ public class ClickEvent implements ActionListener{
         this.passwordWindow = passwordwindow;
         this.mode = 3;
     }
-
-    public ClickEvent(ClientSearchWindow clientSearchWindow) {
-        this.clientSearchWindow = clientSearchWindow;
+    
+    
+    public ClickEvent(ClientWindow clientWindow) {
+        this.clientWindow = clientWindow;
         this.mode = 4;
     }
-
-    public ClickEvent(VehicleSearchWindow vehicleSearchWindow) {
-        this.vehicleSearchWindow = vehicleSearchWindow;
+    
+    public ClickEvent(VehicleWindow vehicleWindow) {
+        this.vehicleWindow = vehicleWindow;
         this.mode = 5;
     }
 
-    public ClickEvent(IntentionSearchWindow intentionSearchWindow) {
-        this.intentionSearchWindow = intentionSearchWindow;
+    public ClickEvent(IntentionWindow intentionWindow) {
+        this.intentionWindow = intentionWindow;
         this.mode = 6;
     }
-    
-    public ClickEvent(ClientModifyWindow clientModifyWindow) {
-        this.clientModifyWindow = clientModifyWindow;
-        this.mode = 7;
-    }
-    
-    public ClickEvent(VehicleModifyWindow vehicleModifyWindow) {
-        this.vehicleModifyWindow = vehicleModifyWindow;
-        this.mode = 8;
-    }
-
-        
+     
 
     @Override
     public void actionPerformed(ActionEvent actionEvent) {
@@ -98,19 +86,51 @@ public class ClickEvent implements ActionListener{
             case 1: processMainWindowActionEvents(actionEvent); break;
             case 2: processTitleWindowActionEvents(actionEvent); break;
             case 3: processPasswordWindowActionEvents(actionEvent); break;
-            case 4: processClientSearchWindowActionEvents(actionEvent); break;
-            case 5: processVehicleSearchWindowActionEvents(actionEvent); break;
-            case 6: processIntentionSearchWindowActionEvents(actionEvent); break;
-            case 7: processClientModifyWindowActionEvents(actionEvent); break;
-            case 8: processVehicleModifyWindowActionEvents(actionEvent); break;
+            case 4: processClientWindowActionEvents(actionEvent); break;
+            case 5: processVehicleWindowActionEvents(actionEvent); break;
+            case 6: processIntentionWindowActionEvents(actionEvent); break;
         }
         
     }
     
     // mode 1
     private void processMainWindowActionEvents(ActionEvent actionEvent){
+        String mode = null;
         
-    }
+        if(actionEvent.getSource() == getMainWindow().getjButtonCrear() ) mode = BikeShopParameters.CREATE_MODE;
+        else if(actionEvent.getSource() == getMainWindow().getjButtonBuscar() ) mode = BikeShopParameters.SEARCH_MODE;
+        else if(actionEvent.getSource() == getMainWindow().getjButtonEliminar() ) mode = BikeShopParameters.DELETE_MODE;
+        else if(actionEvent.getSource() == getMainWindow().getjButtonModificar() ) mode = BikeShopParameters.EDIT_MODE;
+        
+        if(!mode.equals(BikeShopParameters.DELETE_MODE)){
+            String rButtonSelection = getMainWindow().getButtonGroupSelection().getSelection().getActionCommand();
+        
+            switch (rButtonSelection){
+                case BikeShopParameters.RBUTTON_CLIENTE:
+                    clientWindow = new ClientWindow(mode);
+                    break;
+
+                case BikeShopParameters.RBUTTON_VEHICULO:
+                    vehicleWindow = new VehicleWindow( getMainWindow().getCurrentJTableModel() , getMainWindow().getIdVehiculo(), mode);
+                    break;
+
+                case BikeShopParameters.RBUTTON_INTENCION:
+                    intentionWindow = new IntentionWindow(mode, getMainWindow().getIdIntencion());
+                    break;
+
+                default:
+                    JOptionPane.showMessageDialog(null, 
+                            "No se encuentra selección de ButtonGroup", 
+                            "Debug", 
+                            JOptionPane.INFORMATION_MESSAGE);
+                    break;
+            }
+        }
+        else if(mode.equals(BikeShopParameters.DELETE_MODE)){
+            //DAO Delete
+        }
+        
+    } // mode 1
     
     // mode 2 
     private void processTitleWindowActionEvents(ActionEvent actionEvent){
@@ -123,7 +143,7 @@ public class ClickEvent implements ActionListener{
         else if(actionEvent.getSource() == getTitleWindow().getJButtonIngresoAdmin() ){
             passwordWindow = new PasswordWindow();
         } // Solicitar sesión como administrador
-    }
+    } // mode 2
     
     // mode 3
     private void processPasswordWindowActionEvents(ActionEvent actionEvent){
@@ -141,69 +161,64 @@ public class ClickEvent implements ActionListener{
             }// Contraseña incorrecta
             
         }// Intentar ingreso de contraseña
-    }
+    } // mode 3
+    
     
     // mode 4
-    private void processClientSearchWindowActionEvents(ActionEvent actionEvent){
-        if(actionEvent.getSource() == getClientSearchWindow().getjButtonSearchClient() ){
-            String alias = (String) getClientSearchWindow().getjTextFieldBCAlias().getText();
-            String nombre = (String) getClientSearchWindow().getjTextFieldBCNombre().getText();
-            String apellido = (String) getClientSearchWindow().getjTextFieldBCApellido().getText();
-            String email = (String) getClientSearchWindow().getjTextFieldBCEmail().getText();
-            String celular = (String) getClientSearchWindow().getjTextFieldBCCelular().getText();
-            String dob = (String) getClientSearchWindow().getjTextFieldBCDob().getText();
+    private void processClientWindowActionEvents(ActionEvent actionEvent){
+        if(actionEvent.getSource() == getClientWindow().getjButtonAction() ){
+            String alias = (String) getClientWindow().getjTextFieldBCAlias().getText();
+            String nombre = (String) getClientWindow().getjTextFieldBCNombre().getText();
+            String apellido = (String) getClientWindow().getjTextFieldBCApellido().getText();
+            String email = (String) getClientWindow().getjTextFieldBCEmail().getText();
+            String contrasena = (String) Arrays.toString(getClientWindow().getjPasswordFieldContrasena().getPassword());
+            String celular = (String) getClientWindow().getjTextFieldBCCelular().getText();
+            String dob = (String) getClientWindow().getjTextFieldBCDob().getText();
             
-            alias = utils.filterJTextField(alias, BikeShopParameters.ALIAS_CLIENTE);
-            nombre = utils.filterJTextField(nombre, BikeShopParameters.NOMBRE_CLIENTE);
-            apellido = utils.filterJTextField(apellido, BikeShopParameters.APELLIDO_CLIENTE);
-            email = utils.filterJTextField(email, BikeShopParameters.MAIL);
-            celular = utils.filterJTextField(celular, BikeShopParameters.CELULAR);
-            dob = utils.filterJTextField(dob, BikeShopParameters.DOB);
-            
-            //DAO de Cliente
+            //DAO Modificar Cliente
         }
-    }
+    } // mode 4
+    
     
     // mode 5
-    private void processVehicleSearchWindowActionEvents(ActionEvent actionEvent){
-        
+    private void processVehicleWindowActionEvents(ActionEvent actionEvent){
+        int idVehiculo;
+        int precio;
+        int anio;
+        int autonomia;
         String fabricante = null;
-        String precio = null;
+        String proveedor = null;
+        String tipoVehiculo = null;
         
-        if(actionEvent.getSource() == getVehicleSearchWindow().getjButtonSearchBicycle()){
-            fabricante = (String) getVehicleSearchWindow().getjTextFieldBVFabricante().getText();
-            precio = (String) getVehicleSearchWindow().getjTextFieldBVPrecio().getText();
-            String anio_fab = (String) getVehicleSearchWindow().getjTextFieldBVBanio().getText();
+        if(actionEvent.getSource() == getVehicleWindow().getjButtonActionBicycle() ){
+            idVehiculo = getVehicleWindow().getIdVehiculo();
+            fabricante = (String) getVehicleWindow().getjTextFieldBVFabricante().getText();
+            precio = Integer.parseInt(getVehicleWindow().getjTextFieldBVPrecio().getText());
             
-            fabricante = utils.filterJTextField(fabricante, BikeShopParameters.FABRICANTE);
-            precio = utils.filterJTextField(precio, BikeShopParameters.PRECIO);
-            anio_fab = utils.filterJTextField(anio_fab, BikeShopParameters.ANIO_FABRICACION);
-            
-            //DAO Bicicletas
+            tipoVehiculo = getVehicleWindow().getTipoVehiculo();
+            if(tipoVehiculo.equals(BikeShopParameters.BICICLETAS)){
+                anio = Integer.parseInt(getVehicleWindow().getjTextFieldBVBanio().getText());
+                
+                //DAO Modificar Bicicleta
+            }
+            else if(tipoVehiculo.equals(BikeShopParameters.MOTOS)){
+                proveedor = (String) getVehicleWindow().getjTextFieldBVMProveedor().getText();
+                autonomia = Integer.parseInt(getVehicleWindow().getjTextFieldBVMAutonomia().getText());
+                
+                //DAO Modificar Moto
+            }
         }
-        else if(actionEvent.getSource() == getVehicleSearchWindow().getjButtonSearchMotorcycle() ){
-            fabricante = (String) getVehicleSearchWindow().getjTextFieldBVFabricante().getText();
-            precio = (String) getVehicleSearchWindow().getjTextFieldBVPrecio().getText();
-            String prov_mot = (String) getVehicleSearchWindow().getjTextFieldBVMProveedor().getText();
-            String autonomia = (String) getVehicleSearchWindow().getjTextFieldBVMAutonomia().getText();
-            
-            fabricante = utils.filterJTextField(fabricante, BikeShopParameters.FABRICANTE);
-            precio = utils.filterJTextField(precio, BikeShopParameters.PRECIO);
-            prov_mot = utils.filterJTextField(prov_mot, BikeShopParameters.PROVEEDOR_MOTOR);
-            autonomia = utils.filterJTextField(autonomia, BikeShopParameters.AUTONOMIA);
-            
-            //DAO Motos Eléctricas
-        }
-    }
+    } // mode 5
+    
     
     // mode 6
-    private void processIntentionSearchWindowActionEvents(ActionEvent actionEvent){
+    private void processIntentionWindowActionEvents(ActionEvent actionEvent){
         
-        if(actionEvent.getSource() == getIntentionSearchWindow().getjButtonSearchClient() ){
-            String alias = (String) getIntentionSearchWindow().getjTextFieldBIAlias().getText();
-            String nombre = (String) getIntentionSearchWindow().getjTextFieldBINombre().getText();
-            String apellido = (String) getIntentionSearchWindow().getjTextFieldBIApellido().getText();
-            String fabricante = (String) getIntentionSearchWindow().getjTextFieldBIFabricante().getText();
+        if(actionEvent.getSource() == getIntentionWindow().getjButtonAction() ){
+            String alias = (String) getIntentionWindow().getjTextFieldBIAlias().getText();
+            String nombre = (String) getIntentionWindow().getjTextFieldBINombre().getText();
+            String apellido = (String) getIntentionWindow().getjTextFieldBIApellido().getText();
+            String fabricante = (String) getIntentionWindow().getjTextFieldBIFabricante().getText();
             
             alias = utils.filterJTextField(alias, BikeShopParameters.ALIAS_CLIENTE);
             nombre = utils.filterJTextField(nombre, BikeShopParameters.NOMBRE_CLIENTE);
@@ -214,58 +229,6 @@ public class ClickEvent implements ActionListener{
         //DAO Buscar Intención
 
     }
-    
-    // mode 7
-    private void processClientModifyWindowActionEvents(ActionEvent actionEvent){
-        if(actionEvent.getSource() == getClientModifyWindow().getjButtonModify() ){
-            String alias = (String) getClientModifyWindow().getjTextFieldBCAlias().getText();
-            String nombre = (String) getClientModifyWindow().getjTextFieldBCNombre().getText();
-            String apellido = (String) getClientModifyWindow().getjTextFieldBCApellido().getText();
-            String email = (String) getClientModifyWindow().getjTextFieldBCEmail().getText();
-            String celular = (String) getClientModifyWindow().getjTextFieldBCCelular().getText();
-            String dob = (String) getClientModifyWindow().getjTextFieldBCDob().getText();
-            
-            //DAO Modificar Cliente
-        }
-    }
-    
-    
-    // mode 8
-    private void processVehicleModifyWindowActionEvents(ActionEvent actionEvent){
-        int idVehiculo;
-        int precio;
-        int anio;
-        int autonomia;
-        String fabricante = null;
-        String proveedor = null;
-        String tipoVehiculo = null;
-        
-        if(actionEvent.getSource() == getVehicleModifyWindow().getjButtonModifyVehicle() ){
-            idVehiculo = getVehicleModifyWindow().getIdVehiculo();
-            fabricante = (String) getVehicleModifyWindow().getjTextFieldBVFabricante().getText();
-            precio = Integer.parseInt(getVehicleModifyWindow().getjTextFieldBVPrecio().getText());
-            
-            tipoVehiculo = getVehicleModifyWindow().getTipoVehiculo();
-            if(tipoVehiculo.equals(BikeShopParameters.BICICLETAS)){
-                anio = Integer.parseInt(getVehicleModifyWindow().getjTextFieldBVBanio().getText());
-                
-                //DAO Modificar Bicicleta
-            }
-            else if(tipoVehiculo.equals(BikeShopParameters.MOTOS)){
-                proveedor = (String) getVehicleModifyWindow().getjTextFieldBVMProveedor().getText();
-                autonomia = Integer.parseInt(getVehicleModifyWindow().getjTextFieldBVMAutonomia().getText());
-                
-                //DAO Modificar Moto
-            }
-        }
-    }
-    
-    
-    //mode 9
-    private void processIntetionModifyWindowActionEvents(ActionEvent actionEvent){
-    }
-    
-    
     
     public static String getPassword() {
         JSONParser parser = new JSONParser();
@@ -312,38 +275,24 @@ public class ClickEvent implements ActionListener{
     }
 
     /**
-     * @return the clientSearchWindow
-     */
-    public ClientSearchWindow getClientSearchWindow() {
-        return this.clientSearchWindow;
-    }
-
-    /**
-     * @return the vehicleSearchWindow
-     */
-    public VehicleSearchWindow getVehicleSearchWindow() {
-        return vehicleSearchWindow;
-    }
-
-    /**
-     * @return the intentionSearchWindow
-     */
-    public IntentionSearchWindow getIntentionSearchWindow() {
-        return intentionSearchWindow;
-    }
-
-    /**
      * @return the clientModifyWindow
      */
-    public ClientModifyWindow getClientModifyWindow() {
-        return clientModifyWindow;
+    public ClientWindow getClientWindow() {
+        return clientWindow;
     }
 
     /**
      * @return the vehicleModifyWindow
      */
-    public VehicleModifyWindow getVehicleModifyWindow() {
-        return vehicleModifyWindow;
+    public VehicleWindow getVehicleWindow() {
+        return vehicleWindow;
+    }
+    
+    /**
+     * @return the intentionSearchWindow
+     */
+    public IntentionWindow getIntentionWindow() {
+        return intentionWindow;
     }
     
     

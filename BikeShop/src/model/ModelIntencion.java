@@ -13,15 +13,13 @@ public class ModelIntencion {
     private final int id_intencion;
     private final String alias_cliente_fk;
     private final String fabricante_fk;
-    private int precio;
-    private String datetime;
+    private String fechahora;
 
-    public ModelIntencion(int id_intencion, String alias_cliente_fk, int precio, String fabricante_fk, String datetime) {
+    public ModelIntencion(int id_intencion, String alias_cliente_fk, String fabricante_fk, String fechahora) {
         this.id_intencion = id_intencion;
         this.alias_cliente_fk = alias_cliente_fk;
         this.fabricante_fk = fabricante_fk;
-        this.precio = precio;
-        this.datetime = datetime;
+        this.fechahora = fechahora;
     }
 
     /**
@@ -46,22 +44,22 @@ public class ModelIntencion {
     }
 
     /**
-     * @return the datetime
+     * @return the fechahora
      */
     public String getDatetime() {
-        return datetime;
+        return fechahora;
     }
 
     /**
-     * @param datetime the datetime to set
+     * @param fechahora the fechahora to set
      */
-    public void setDatetime(String datetime) {
-        this.datetime = datetime;
+    public void setDatetime(String fechahora) {
+        this.fechahora = fechahora;
     }
     
     // Retorma arreglo con campos de la clase
     public Object[] toArray(){
-        Object[] data = {id_intencion, alias_cliente_fk, fabricante_fk, precio, datetime};
+        Object[] data = {id_intencion, alias_cliente_fk, fabricante_fk, fechahora};
         return data;
     }
 }
