@@ -1,7 +1,7 @@
 CREATE TABLE Proveedor_motor(
 	nombre VARCHAR(50) NOT NULL PRIMARY KEY,
-    direccion VARCHAR(100) NOT NULL,
-    telefono VARCHAR(30) NOT NULL
+    direccion VARCHAR(100) NULL,
+    telefono VARCHAR(30) NULL
     );
     
 INSERT INTO proveedor_motor(nombre, direccion, Telefono) VALUES ("Auteco", "calle 7 No. 45-17", "05713224459");

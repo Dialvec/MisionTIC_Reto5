@@ -29,13 +29,13 @@ public class VehicleWindow extends JFrame {
     /**
      * Creates new form clientSearch
      * @param tipoVehiculo
-     * @param idVehiculo
      * @param mode
+     * @param mainWindowParent
      */
-    public VehicleWindow(String tipoVehiculo, int idVehiculo, String mode) {
+    public VehicleWindow(String tipoVehiculo, String mode, MainWindow mainWindowParent) {
         this.mode = mode;
         this.tipoVehiculo = (mode.equals(BikeShopParameters.CREAR_VEHICULO))? mode:tipoVehiculo;
-        this.idVehiculo = idVehiculo;
+        this.mainWindowParent = mainWindowParent;
         initComponents();
     }
                          
@@ -221,7 +221,8 @@ public class VehicleWindow extends JFrame {
     
     private final String tipoVehiculo;
     private final String mode;
-    private int idVehiculo;
+    
+    private final MainWindow mainWindowParent;
 
     
     private void setWindowMode(String mode, String tipoVehiculo){
@@ -299,18 +300,22 @@ public class VehicleWindow extends JFrame {
         }
     }
     
+    public int getSelectedRowItemId(){
+        int rowItemId;
+        int selectedRowIndex;
+        String selectedRow;
+        
+        selectedRowIndex = this.getMainWindowParent().getjTableData().getSelectedRow();
+        selectedRow = this.getMainWindowParent().getjTableData().getValueAt(selectedRowIndex, 0).toString();
+        rowItemId = Integer.parseInt(selectedRow) ;
+        return rowItemId;
+    }
+    
     /**
      * @return the tipoVehiculo
      */
     public String getTipoVehiculo() {
         return tipoVehiculo;
-    }
-
-    /**
-     * @return the idVehiculo
-     */
-    public int getIdVehiculo() {
-        return idVehiculo;
     }
 
     /**
@@ -370,11 +375,10 @@ public class VehicleWindow extends JFrame {
     }
 
     /**
-     * @param idVehiculo the idVehiculo to set
+     * @return the mainWindowParent
      */
-    public void setIdVehiculo(int idVehiculo) {
-        this.idVehiculo = idVehiculo;
+    public MainWindow getMainWindowParent() {
+        return mainWindowParent;
     }
-    
     
 }

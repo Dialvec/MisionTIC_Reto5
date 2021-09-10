@@ -34,8 +34,8 @@ DROP TABLE IF EXISTS bicicleta;
 CREATE TABLE bicicleta (
     id_bicicleta INT AUTO_INCREMENT PRIMARY KEY,
     fabricante_fk VARCHAR(50) UNIQUE NULL,
-    precio INT UNIQUE NULL,
-    anio_fabrica INT NOT NULL,
+    precio INT DEFAULT 0,
+    anio_fabrica INT NOT NULL DEFAULT 0,
     FOREIGN KEY (fabricante_fk) REFERENCES vehiculo(fabricante)
     );
 INSERT INTO Bicicleta (fabricante_fk, precio, anio_fabrica) VALUES ("Cannondale", 1200000, 2020);
@@ -46,10 +46,10 @@ INSERT INTO Bicicleta (fabricante_fk, precio, anio_fabrica) VALUES ("Bmc", 19500
 
 
 DROP TABLE IF EXISTS proveedor_motor;
-CREATE TABLE proveedor_motor(
+CREATE TABLE Proveedor_motor(
     nombre VARCHAR(50) NOT NULL PRIMARY KEY,
-    direccion VARCHAR(100) NOT NULL,
-    telefono VARCHAR(30) NOT NULL
+    direccion VARCHAR(100) DEFAULT '',
+    telefono VARCHAR(30) DEFAULT ''
     );
 INSERT INTO proveedor_motor(nombre, direccion, Telefono) VALUES ("Auteco", "calle 7 No. 45-17", "05713224459");
 INSERT INTO proveedor_motor(nombre, direccion, telefono) VALUES ("Hitachi", "calle 19 No. 108-26", "05714223344");
@@ -62,29 +62,29 @@ DROP TABLE IF EXISTS moto_electrica;
 CREATE TABLE moto_electrica (
     id_moto INT AUTO_INCREMENT PRIMARY KEY,
     fabricante_fk VARCHAR(50) UNIQUE NOT NULL,
-    precio INT,
-    proveedor_motor VARCHAR(50) NOT NULL,
-    autonomia INT,
+    precio INT DEFAULT 0,
+    proveedor_motor_fk VARCHAR(50) NOT NULL,
+    autonomia INT DEFAULT 0,
     FOREIGN KEY (fabricante_fk) REFERENCES vehiculo(fabricante),
-    FOREIGN KEY (proveedor_motor) REFERENCES proveedor_motor(nombre)
+    FOREIGN KEY (proveedor_motor_fk) REFERENCES proveedor_motor(nombre)
     );
-INSERT INTO moto_electrica (fabricante_fk, precio, autonomia, proveedor_motor) VALUES ("Starker", 4200000, 18, "Auteco");
-INSERT INTO moto_electrica (fabricante_fk, precio, autonomia, proveedor_motor) VALUES ("Lucky Lion", 5600000, 14, "Hitachi");
-INSERT INTO moto_electrica (fabricante_fk, precio, autonomia, proveedor_motor) VALUES ("Be Electric",  4600000, 26, "Auteco");
-INSERT INTO moto_electrica (fabricante_fk, precio, autonomia, proveedor_motor) VALUES ("Aima", 8000000, 36, "Bosch");
-INSERT INTO moto_electrica (fabricante_fk, precio, autonomia, proveedor_motor) VALUES ("Mec de Colombia", 5900000, 20, "Teco");
-INSERT INTO moto_electrica (fabricante_fk, precio, autonomia, proveedor_motor) VALUES ("Atom Electric", 4500000, 12, "General Electric");
+INSERT INTO moto_electrica (fabricante_fk, precio, autonomia, proveedor_motor_fk) VALUES ("Starker", 4200000, 18, "Auteco");
+INSERT INTO moto_electrica (fabricante_fk, precio, autonomia, proveedor_motor_fk) VALUES ("Lucky Lion", 5600000, 14, "Hitachi");
+INSERT INTO moto_electrica (fabricante_fk, precio, autonomia, proveedor_motor_fk) VALUES ("Be Electric",  4600000, 26, "Auteco");
+INSERT INTO moto_electrica (fabricante_fk, precio, autonomia, proveedor_motor_fk) VALUES ("Aima", 8000000, 36, "Bosch");
+INSERT INTO moto_electrica (fabricante_fk, precio, autonomia, proveedor_motor_fk) VALUES ("Mec de Colombia", 5900000, 20, "Teco");
+INSERT INTO moto_electrica (fabricante_fk, precio, autonomia, proveedor_motor_fk) VALUES ("Atom Electric", 4500000, 12, "General Electric");
 
 
 DROP TABLE IF EXISTS cliente;
 CREATE TABLE cliente (
-    alias VARCHAR(20) NOT NULL PRIMARY KEY,
+	alias VARCHAR(20) NOT NULL PRIMARY KEY,
     nombres VARCHAR(50) NOT NULL,
     apellidos VARCHAR(50) NOT NULL,
-    email VARCHAR(50) NULL,
-    contrasena INT(8) NULL,
-    celular VARCHAR(20) NULL,
-    dob DATE NULL
+    email VARCHAR(50) DEFAULT '',
+	contrasena INT(8) DEFAULT 0,
+    celular VARCHAR(20)DEFAULT '',
+    dob DATE DEFAULT '00/00/0000'
     );
 INSERT INTO cliente(alias, nombres, apellidos) VALUES ("lucky", "Pedro", "Perez");
 INSERT INTO cliente(alias, nombres, apellidos) VALUES ("malopez", "Maria", "Lopez");
@@ -95,6 +95,7 @@ INSERT INTO cliente(alias, nombres, apellidos) VALUES ("neon", "Nelson", "Ruiz")
 INSERT INTO cliente(alias, nombres, apellidos) VALUES ("rose", "Claudia", "Mendez");
 INSERT INTO cliente(alias, nombres, apellidos) VALUES ("green", "Jorge", "Rodriguez");
 
+Select * from clientes where dob
 
 DROP TABLE IF EXISTS intencion;
 CREATE TABLE intencion (

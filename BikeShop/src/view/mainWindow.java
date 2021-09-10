@@ -22,7 +22,6 @@ import utils.BikeShopParameters;
 import controller.ClickEvent;
 import controller.MainListelectionEvent;
 
-import access.*;
 import controller.*;
 import model.*;
 
@@ -44,8 +43,6 @@ public final class MainWindow extends JFrame {
      */
     public MainWindow(boolean adminsession) throws SQLException {
         initComponents();
-        setIdVehiculo(0);
-        setIdIntencion(0);
         this.adminSession = adminsession;
         this.EnableAdminButtons(adminsession);
     }
@@ -114,6 +111,7 @@ public final class MainWindow extends JFrame {
         jRadioButtonCliente.setText(BikeShopParameters.RBUTTON_CLIENTE);
         jRadioButtonCliente.setActionCommand(BikeShopParameters.RBUTTON_CLIENTE);
         jRadioButtonCliente.setSelected(true);
+        jRadioButtonCliente.addActionListener(clickEvent);
 
         buttonGroupSelection.add(jRadioButtonVehiculo);
         jRadioButtonVehiculo.setFont(new Font("Tahoma", 1, 14)); // NOI18N
@@ -124,6 +122,7 @@ public final class MainWindow extends JFrame {
         jRadioButtonIntencion.setFont(new Font("Tahoma", 1, 14)); // NOI18N
         jRadioButtonIntencion.setText(BikeShopParameters.RBUTTON_INTENCION);
         jRadioButtonIntencion.setActionCommand(BikeShopParameters.RBUTTON_INTENCION);
+        jRadioButtonIntencion.addActionListener(clickEvent);
 
         jLabelTextoTipoConsulta.setFont(new Font("Tahoma", 0, 14)); // NOI18N
         jLabelTextoTipoConsulta.setHorizontalAlignment(SwingConstants.CENTER);
@@ -232,8 +231,6 @@ public final class MainWindow extends JFrame {
     private InitialData initialData;
     
     private String currentJTableModel;
-    private int idVehiculo;
-    private int idIntencion;
     private final boolean adminSession;
     
 
@@ -249,12 +246,12 @@ public final class MainWindow extends JFrame {
     
 
     public void setJtableClients(ArrayList<ModelCliente> clientes){
-        this.jTableData.removeAll();
+        this.getjTableData().removeAll();
         String[] headers = {"Alias", "Nombres", "Apellidos", "E-mail", "Contraseña", "Celular", "Fecha nacimiento"};
         
         DefaultTableModel tableModel = new DefaultTableModel();
         tableModel.setColumnIdentifiers(headers);
-        this.jTableData.setModel(tableModel);
+        this.getjTableData().setModel(tableModel);
         
         for(int i=0; i<clientes.size(); i++){
             tableModel.addRow(clientes.get(i).toArray() );
@@ -264,12 +261,13 @@ public final class MainWindow extends JFrame {
     }
     
     public void setJtableBicycles(ArrayList<ModelBicicleta> bicicletas){
-        this.jTableData.removeAll();
+        this.getjTableData().removeAll();
+        
         String[] headers = {"Id", "Fabricante", "Precio", "Año fabricación"};
         
         DefaultTableModel tableModel = new DefaultTableModel();
         tableModel.setColumnIdentifiers(headers);
-        this.jTableData.setModel(tableModel);
+        this.getjTableData().setModel(tableModel);
         
         for(int i=0; i<bicicletas.size(); i++){
             tableModel.addRow(bicicletas.get(i).toArray() );
@@ -279,12 +277,12 @@ public final class MainWindow extends JFrame {
     }
     
     public void setJtableMotorcycles(ArrayList<ModelMotoElectrica> motos){
-        this.jTableData.removeAll();
+        this.getjTableData().removeAll();
         String[] headers = {"Id", "Fabricante", "Precio", "Proveedor Motor", "Horas Autonomía"};
         
         DefaultTableModel tableModel = new DefaultTableModel();
         tableModel.setColumnIdentifiers(headers);
-        this.jTableData.setModel(tableModel);
+        this.getjTableData().setModel(tableModel);
         
         for(int i=0; i<motos.size(); i++){
             tableModel.addRow(motos.get(i).toArray() );
@@ -294,18 +292,46 @@ public final class MainWindow extends JFrame {
     }
     
     public void setJtableIntention(ArrayList<ModelIntencion> intenciones){
-        this.jTableData.removeAll();
-        String[] headers = {"Id", "Fabricante", "Precio", "Proveedor Motor", "Horas Autonomía"};
+        this.getjTableData().removeAll();
+        String[] headers = {"Id", "Cliente" ,"Fabricante", "Fecha y Hora"};
         
         DefaultTableModel tableModel = new DefaultTableModel();
         tableModel.setColumnIdentifiers(headers);
-        this.jTableData.setModel(tableModel);
+        this.getjTableData().setModel(tableModel);
         
         for(int i=0; i<intenciones.size(); i++){
             tableModel.addRow(intenciones.get(i).toArray() );
         }
         
         this.setCurrentJTableModel(BikeShopParameters.MODEL_INTENCION);
+    }
+    
+    
+    public int getIntSelectedRowItem(int columnIndex){
+        int selectedRowIndex;
+        int selectedRowItemId;
+        String selectedRowItemIdStr;
+        
+        selectedRowIndex = this.getjTableData().getSelectedRow() ;
+        selectedRowItemIdStr = this.getjTableData().getValueAt(selectedRowIndex, columnIndex).toString();
+        selectedRowItemId = Integer.parseInt(selectedRowItemIdStr);
+        
+        return selectedRowItemId;
+    }
+    
+    /**
+     *
+     * @param columnIndex
+     * @return
+     */
+    public String getStringSelectedRowItem(int columnIndex){
+        int selectedRowIndex;
+        String selectedRowItemIdStr;
+        
+        selectedRowIndex = this.getjTableData().getSelectedRow() ;
+        selectedRowItemIdStr = this.getjTableData().getValueAt(selectedRowIndex, columnIndex).toString();
+        
+        return selectedRowItemIdStr;
     }
     
     /**
@@ -397,34 +423,6 @@ public final class MainWindow extends JFrame {
      */
     public void setCurrentJTableModel(String currentJTableModel) {
         this.currentJTableModel = currentJTableModel;
-    }
-
-    /**
-     * @return the idVehiculo
-     */
-    public int getIdVehiculo() {
-        return this.idVehiculo;
-    }
-
-    /**
-     * @param idVehiculo the idVehiculo to set
-     */
-    public void setIdVehiculo(int idVehiculo) {
-        this.idVehiculo = idVehiculo;
-    }
-
-    /**
-     * @return the idIntencion
-     */
-    public int getIdIntencion() {
-        return this.idIntencion;
-    }
-
-    /**
-     * @param idIntencion the idIntencion to set
-     */
-    public void setIdIntencion(int idIntencion) {
-        this.idIntencion = idIntencion;
     }
 
     /**

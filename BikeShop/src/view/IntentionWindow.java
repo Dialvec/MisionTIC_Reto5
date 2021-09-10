@@ -25,11 +25,11 @@ public class IntentionWindow extends JFrame {
     /**
      * Creates new form clientSearch
      * @param mode
-     * @param idIntention
+     * @param mainWindow
      */
-    public IntentionWindow(String mode, int idIntention) {
+    public IntentionWindow(String mode, MainWindow mainWindow) {
         this.mode = mode;
-        this.idIntention = idIntention;
+        this.mainWindow = mainWindow;
         initComponents();
     }
                          
@@ -178,7 +178,8 @@ public class IntentionWindow extends JFrame {
     private ClickEvent clickEvent;
     
     private final String mode;
-    private int idIntention;
+    
+    private final MainWindow mainWindow;
     
     private void setWindowMode(String mode){
         switch (mode) {
@@ -262,24 +263,24 @@ public class IntentionWindow extends JFrame {
     }
 
     /**
-     * @return the idIntention
-     */
-    public int getIdIntention() {
-        return idIntention;
-    }
-
-    /**
-     * @param idIntention the idIntention to set
-     */
-    public void setIdIntention(int idIntention) {
-        this.idIntention = idIntention;
-    }
-
-    /**
      * @return the jTextFieldFechahora
      */
     public javax.swing.JTextField getjTextFieldFechahora() {
         return jTextFieldFechahora;
+    }
+
+    /**
+     * @return the mainWindow
+     */
+    public MainWindow getParentMainWindow() {
+        return getMainWindow();
+    }
+
+    /**
+     * @return the mainWindow
+     */
+    public MainWindow getMainWindow() {
+        return mainWindow;
     }
                   
 }

@@ -28,8 +28,10 @@ import controller.ClickEvent;
  */
 public class ClientWindow extends JFrame{
     
-    public ClientWindow(String mode){
+    public ClientWindow(String mode, MainWindow mainWindowParent){
         this.mode = mode;
+        this.mainWindowParent = mainWindowParent;
+        this.clickEvent = new ClickEvent(this);
         initComponents();   
     }
     
@@ -49,7 +51,7 @@ public class ClientWindow extends JFrame{
         jLabelCelular = new JLabel();
         jLabelDob = new JLabel();
         jLabelContrasena = new JLabel();
-        jPasswordFieldContrasena = new JPasswordField();
+        jPasswordFieldContrasena = new JPasswordField(4);
 
         setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
 
@@ -95,7 +97,8 @@ public class ClientWindow extends JFrame{
         jLabelContrasena.setFont(new Font("Tahoma", 0, 14)); // NOI18N
         jLabelContrasena.setText(BikeShopParameters.CONTRASENA);
 
-        getjPasswordFieldContrasena().setFont(new Font("Tahoma", 0, 12)); // NOI18N
+        jPasswordFieldContrasena.setFont(new Font("Tahoma", 0, 12)); // NOI18N
+        jPasswordFieldContrasena.setText("0");
 
         GroupLayout layout = new GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -174,6 +177,7 @@ public class ClientWindow extends JFrame{
                 .addContainerGap())
         );
         setWindowMode( this.getMode() );
+        setResizable(false);
         setVisible(true);
         pack();
     }
@@ -194,8 +198,9 @@ public class ClientWindow extends JFrame{
     private JTextField jTextFieldBCEmail;
     private JTextField jTextFieldBCNombre;
     private JPasswordField jPasswordFieldContrasena;
-    private ClickEvent clickEvent;
+    private final ClickEvent clickEvent;
     private final String mode;
+    private final MainWindow mainWindowParent;
     
     private void setWindowMode(String mode){
         switch (mode) {
@@ -336,6 +341,13 @@ public class ClientWindow extends JFrame{
      */
     public String getMode(){
         return this.mode;
+    }
+
+    /**
+     * @return the mainWindowParent
+     */
+    public MainWindow getMainWindowParent() {
+        return mainWindowParent;
     }
     
 }

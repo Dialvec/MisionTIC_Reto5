@@ -15,11 +15,18 @@ public class ModelCliente {
     private final String apellidos;
     private String email;
     private int contrasena;
+    private String contrasenaStr;
     private String celular;
     private String dob;
 
     
-    // Constructor completo
+    public ModelCliente(String alias, String nombres, String apellidos) {
+        this.alias = alias;
+        this.nombres = nombres;
+        this.apellidos = apellidos;
+        this.contrasena = 0;
+    }
+    
     public ModelCliente(String alias, String nombres, String apellidos, String email, int contrasena, String celular, String dob) {
         this.alias = alias;
         this.nombres = nombres;
@@ -30,28 +37,14 @@ public class ModelCliente {
         this.dob = dob;
     }
     
-    // Constructor con alias, nombre y apellido
-    public ModelCliente(String alias, String nombres, String apellidos) {
-        this.alias = alias;
-        this.nombres = nombres;
-        this.apellidos = apellidos;
-    }
-    
-    // Constructor con alias, nombre, apellido y celular
-    public ModelCliente(String alias, String nombres, String apellidos, String celular){
-        this.alias = alias;
-        this.nombres = nombres;
-        this.apellidos = apellidos;
-        this.celular = celular;
-    }
-    
-    //Constructor  con email y contraseña
-    public ModelCliente(String alias, String nombres, String apellidos, String email, int contrasena) {
+    public ModelCliente(String alias, String nombres, String apellidos, String email, String contrasenaStr, String celular, String dob) {
         this.alias = alias;
         this.nombres = nombres;
         this.apellidos = apellidos;
         this.email = email;
-        this.contrasena = contrasena;
+        this.contrasenaStr = contrasenaStr;
+        this.celular = celular;
+        this.dob = dob;
     }
     
     /**
@@ -135,5 +128,12 @@ public class ModelCliente {
      */
     public void setCelular(String celular) {
         this.celular = celular;
+    }
+
+    /**
+     * @return the contrasenaStr
+     */
+    public String getContrasenaStr() {
+        return contrasenaStr;
     }
 }

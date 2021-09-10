@@ -14,14 +14,22 @@ public final class utils {
     /**
      *
      * @param userInput
-     * @param defaultFill
      * @return
      */
-    public static String filterJTextField(String userInput, String defaultFill){
-        String filtered = "%"; //SQL Wildcard in case teh jTextField is not filled
+    public static String JTextFieldToSearchQuery(String userInput){
+        String filtered; //SQL Wildcard in case teh jTextField is not filled
         
-        if( !userInput.trim().equals(defaultFill) ) filtered = userInput;
+         filtered = ( userInput.isBlank() )? "%": "%" + userInput + "%";
         
         return filtered;
     }
+    
+    public static int JPasswordFieldToSearchQuery(int userInput){
+        int filtered; //SQL Wildcard in case teh jTextField is not filled
+        
+        filtered = (userInput != 0 )? userInput : 0;
+        
+        return filtered;
+    }
+    
 }

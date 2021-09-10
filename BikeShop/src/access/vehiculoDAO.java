@@ -8,6 +8,7 @@ import java.sql.Statement;
 import javax.swing.JOptionPane;
 import java.util.ArrayList;
 import model.ModelVehiculo;
+import utils.BikeShopParameters;
 import utils.ConnectionDB;
 
 public class VehiculoDAO {
@@ -21,17 +22,18 @@ private Connection conn = null;
     public ArrayList<ModelVehiculo> getAllvehiculos() {
         ArrayList<ModelVehiculo> vehiculos = new ArrayList();
         try {
-            if(conn == null)
-                conn = ConnectionDB.getConnection();
+            if(getConn() == null)
+                setConn(ConnectionDB.getConnection());
             
             String sql          = "SELECT fabricante FROM vehiculo;";
-            Statement statement = conn.createStatement();
+            Statement statement = getConn().createStatement();
             ResultSet result    = statement.executeQuery(sql);
             
             while (result.next()) {
-                ModelVehiculo vehiculo = new ModelVehiculo(result.getString(1), result.getInt(2));
+                ModelVehiculo vehiculo = new ModelVehiculo(result.getString(1));
                 vehiculos.add(vehiculo);
             }
+            getConn().close();
         } 
         catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, "Código : " + ex.getErrorCode() 
@@ -40,47 +42,91 @@ private Connection conn = null;
         return vehiculos;
     }
 
-    public static void create (Connection conn, String fabricante, int precio) throws SQLException
-    {
-        String create = "INSERT INTO vehiculo(fabricante) VALUES (?)";
-        PreparedStatement Statement = conn.prepareStatement(create);
-        Statement.setString(1, fabricante);
-        int arrows = Statement.executeUpdate();
-        if (arrows > 0)
-        {
-            System.out.println("Se agregó nuevo vehículo");
+    public void createVehiculo (ModelVehiculo vehiculo){
+        try {
+            
+            if(existeFabricante(vehiculo.getFabricante())){
+                JOptionPane.showMessageDialog(null, BikeShopParameters.FABRICANTE_REPETIDO, BikeShopParameters.TITULO_CAMPO_REPETIDO, JOptionPane.INFORMATION_MESSAGE);
+            } else{
+                setConn(ConnectionDB.getConnection());
+
+                String create = "INSERT INTO vehiculo(fabricante) VALUES (?)";
+                PreparedStatement Statement = getConn().prepareStatement(create);
+                Statement.setString(1, vehiculo.getFabricante());
+
+                int arrows = Statement.executeUpdate();
+
+                if (arrows > 0)
+                    JOptionPane.showMessageDialog(null, BikeShopParameters.VEHICULO_CREADO, BikeShopParameters.OP_OK, JOptionPane.INFORMATION_MESSAGE);
+                else
+                     JOptionPane.showMessageDialog(null, "No se crea nuevo Vehìculo", BikeShopParameters.OP_OK, JOptionPane.INFORMATION_MESSAGE);
+            }   
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Código : " + ex.getErrorCode() 
+                                        + "\nError :" + ex.getMessage());
         }
     }
     
-    public static boolean existeFabricante(Connection conn, String fabricante) throws SQLException 
-    {
+    public boolean existeFabricante(String fabricante){
+        
         boolean fabricanteExiste = false;
         
-        String sql = "SELECT fabricante\n" +
-                     "FROM vehiculo\n" +
-                     "WHERE fabricante = ?;";
-        
-        PreparedStatement statement = conn.prepareStatement(sql);
-        statement.setString(1, fabricante);
-        int rows = statement.executeUpdate();
-        
-        if (rows > 0) fabricanteExiste = true;
-        
+        try {
+            setConn(ConnectionDB.getConnection());
+
+            String sql = "SELECT fabricante\n" +
+                    "FROM vehiculo\n" +
+                    "WHERE fabricante = ?;";
+
+            PreparedStatement statement = getConn().prepareStatement(sql);
+            statement.setString(1, fabricante);
+
+            ResultSet SQLresult = statement.executeQuery();
+
+            if(SQLresult.next() == true)
+                fabricanteExiste = true;
+            
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Código : " + ex.getErrorCode()
+                                            + "\nError :" + ex.getMessage());
+        }
         return fabricanteExiste;
     }
 
     
     /**
      * 
-     * @param fabricante 
+     * @param vehiculo
      */
-    public void deleteVehiculo(String fabricante) {
+    public void deleteVehiculo(ModelVehiculo vehiculo) {
         try {
-            if(conn == null)
-                conn = ConnectionDB.getConnection();
+            if(getConn() == null)
+                setConn(ConnectionDB.getConnection());
             
             String sql = "DELETE FROM vehiculo WHERE fabricante=?;";
-            PreparedStatement statement = conn.prepareStatement(sql);
+            PreparedStatement statement = getConn().prepareStatement(sql);
+            statement.setString(1, vehiculo.getFabricante());
+            int rowsDeleted = statement.executeUpdate();
+            if (rowsDeleted > 0) {
+                JOptionPane.showMessageDialog(null, "El registro fue borrado exitosamente !");
+            }
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Código : "
+                    + ex.getErrorCode() + "\nError :" + ex.getMessage());
+        }
+    }
+    
+    /**
+     * 
+     * @param fabricante 
+     */
+    public void deleteVehiculoByFabricante(String fabricante) {
+        try {
+            if(getConn() == null)
+                setConn(ConnectionDB.getConnection());
+            
+            String sql = "DELETE FROM vehiculo WHERE fabricante=?;";
+            PreparedStatement statement = getConn().prepareStatement(sql);
             statement.setString(1, fabricante);
             int rowsDeleted = statement.executeUpdate();
             if (rowsDeleted > 0) {
@@ -90,5 +136,19 @@ private Connection conn = null;
             JOptionPane.showMessageDialog(null, "Código : "
                     + ex.getErrorCode() + "\nError :" + ex.getMessage());
         }
+    }
+
+    /**
+     * @return the conn
+     */
+    public Connection getConn() {
+        return conn;
+    }
+
+    /**
+     * @param conn the conn to set
+     */
+    public void setConn(Connection conn) {
+        this.conn = conn;
     }
 }

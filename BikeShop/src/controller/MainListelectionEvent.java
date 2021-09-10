@@ -62,13 +62,14 @@ public class MainListelectionEvent implements ListSelectionListener {
         switch(currentJTableModel){
             case BikeShopParameters.MODEL_CLIENTE:
                 
-                if(getMainWindow().getClickEvent().getClientWindow() != null){
+                if(getMainWindow().getClickEvent().getClientWindow() != null & selectedRowIndex >=0 ){
                     ClientWindow clientWindow = getMainWindow().getClickEvent().getClientWindow();
                     JTable jTableData = getMainWindow().getjTableData();
                     
                     alias = jTableData.getValueAt(selectedRowIndex, 0).toString();
                     nombres = jTableData.getValueAt(selectedRowIndex, 1).toString();
                     apellidos = jTableData.getValueAt(selectedRowIndex, 2).toString();
+                    
                     try{
                         email = jTableData.getValueAt(selectedRowIndex, 3).toString();
                     } catch (NullPointerException ex){
@@ -105,7 +106,7 @@ public class MainListelectionEvent implements ListSelectionListener {
             
             case BikeShopParameters.MODEL_BICICLETA:
                 
-                if(getMainWindow().getClickEvent().getVehicleWindow() != null){
+                if(getMainWindow().getClickEvent().getVehicleWindow() != null & selectedRowIndex >=0 ){
                     VehicleWindow vehicleWindow = getMainWindow().getClickEvent().getVehicleWindow();
                     JTable jTableData = getMainWindow().getjTableData();
                     
@@ -124,7 +125,6 @@ public class MainListelectionEvent implements ListSelectionListener {
                         anio_fabrica = null;
                     }
                     
-                    vehicleWindow.setIdVehiculo( Integer.parseInt(idVehiculo) );
                     vehicleWindow.getjTextFieldBVFabricante().setText(fabricante_fk);
                     vehicleWindow.getjTextFieldBVPrecio().setText(precio);
                     vehicleWindow.getjTextFieldBVBanio().setText(anio_fabrica);
@@ -134,7 +134,7 @@ public class MainListelectionEvent implements ListSelectionListener {
             
             case BikeShopParameters.MODEL_MOTO:
                 
-                if(getMainWindow().getClickEvent().getVehicleWindow() != null){
+                if(getMainWindow().getClickEvent().getVehicleWindow() != null & selectedRowIndex >=0 ){
                     VehicleWindow vehicleWindow = getMainWindow().getClickEvent().getVehicleWindow();
                     JTable jTableData = getMainWindow().getjTableData();
                     
@@ -159,7 +159,6 @@ public class MainListelectionEvent implements ListSelectionListener {
                         autonomia = null;
                     }
                     
-                    vehicleWindow.setIdVehiculo( Integer.parseInt(idVehiculo) );
                     vehicleWindow.getjTextFieldBVFabricante().setText(fabricante_fk);
                     vehicleWindow.getjTextFieldBVPrecio().setText(precio);
                     vehicleWindow.getjTextFieldBVMProveedor().setText(proveedor_motor_fk);
@@ -169,7 +168,7 @@ public class MainListelectionEvent implements ListSelectionListener {
                 
             case BikeShopParameters.MODEL_INTENCION:
                 
-                if(getMainWindow().getClickEvent().getIntentionWindow() != null){
+                if(getMainWindow().getClickEvent().getIntentionWindow() != null & selectedRowIndex >=0 ){
                     
                     IntentionWindow intentionWindow = getMainWindow().getClickEvent().getIntentionWindow();
                     JTable jTableData = getMainWindow().getjTableData();
@@ -184,7 +183,6 @@ public class MainListelectionEvent implements ListSelectionListener {
                         fechahora = null;
                     }
                     
-                    intentionWindow.setIdIntention( Integer.parseInt(idIntencion));
                     intentionWindow.getjTextFieldAlias().setText(alias_cliente_fk);
                     intentionWindow.getjTextFieldFabricante().setText(fabricante_fk);
                     intentionWindow.getjTextFieldFechahora().setText(fechahora);

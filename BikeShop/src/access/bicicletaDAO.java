@@ -8,12 +8,15 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import javax.swing.JOptionPane;
 import model.ModelBicicleta;
+import model.ModelVehiculo;
+import utils.BikeShopParameters;
 
 import utils.ConnectionDB;
 
 public class BicicletaDAO {
     
 private Connection conn = null;
+private final VehiculoDAO vehiculoDAO = new VehiculoDAO();
         
     /**
      * 
@@ -21,16 +24,15 @@ private Connection conn = null;
      */
     public ArrayList<ModelBicicleta> getAllbicicletas() {
         ArrayList<ModelBicicleta> bicicletas = new ArrayList();
+        
         try {
-            if(conn == null)
-                conn = ConnectionDB.getConnection();
+            setConn(ConnectionDB.getConnection());
             
             String sql          = "SELECT id_bicicleta, fabricante_fk, precio, anio_fabrica FROM bicicleta;";
-            Statement statement = conn.createStatement();
+            Statement statement = getConn().createStatement();
             ResultSet result    = statement.executeQuery(sql);
             
             while (result.next()) {
-                
                 int id_bicicleta = result.getInt(1);
                 String fabricante_fk = result.getString(2);
                 int precio = result.getInt(3);
@@ -46,21 +48,113 @@ private Connection conn = null;
         }
         return bicicletas;
     }
+    
+    
+    /**
+     * 
+     * @param modelBicicleta
+     * @return 
+     */
+    public ArrayList<ModelBicicleta> searchBicicletas(ModelBicicleta modelBicicleta) {
+        ArrayList<ModelBicicleta> bicicletas = new ArrayList();
+        String operadorPrecio;
+        String operadorAnio;
+        
+        operadorPrecio = (modelBicicleta.getPrecio() == 0)?">=":"=";
+        operadorAnio = (modelBicicleta.getAnio_fabrica() == 0)?">=":"=";
+        
+        try {
+            setConn(ConnectionDB.getConnection());
+            
+            String sql = "SELECT\n" + 
+                        "id_bicicleta, fabricante_fk, precio, anio_fabrica\n" +
+                        "FROM bicicleta\n" +
+                        "WHERE\n" +
+                        "fabricante_fk LIKE ?\n" +
+                        "AND precio " + operadorPrecio + " ?\n" +
+                        "AND anio_fabrica " + operadorAnio + " ?;";
+            
+            PreparedStatement statement = getConn().prepareStatement(sql);
+            statement.setString(1, modelBicicleta.getFabricante_fk());
+            statement.setInt(2, modelBicicleta.getPrecio());
+            statement.setInt(3, modelBicicleta.getAnio_fabrica());
+            
+            ResultSet result = statement.executeQuery();
+            
+            while (result.next()) {
+                int id_bicicleta = result.getInt(1);
+                String fabricante_fk = result.getString(2);
+                int precio = result.getInt(3);
+                int anio_fabrica = result.getInt(4);
+                
+                ModelBicicleta bicicleta = new ModelBicicleta(id_bicicleta, fabricante_fk, precio, anio_fabrica);
+                bicicletas.add(bicicleta);
+            }
+            
+            if (bicicletas.isEmpty()) 
+                JOptionPane.showMessageDialog(null, BikeShopParameters.BUSQUEDA_VACIA, BikeShopParameters.OP_OK, JOptionPane.INFORMATION_MESSAGE);
+            
+        } 
+        catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Código : " + ex.getErrorCode() 
+                                        + "\nError :" + ex.getMessage());
+        }
+        return bicicletas;
+    }
+    
 
-    public static void create (Connection conn, int idBicicleta, String fabricante_fk, int precio, int anio_fabrica) throws SQLException
-    {
-        String create = "INSERT INTO bicicleta(fabricante_fk, precio, anio_fabrica) VALUES (?,?,?)";
-        PreparedStatement Statement = conn.prepareStatement(create);
-        Statement.setString(1, fabricante_fk);
-        Statement.setInt(2, precio);
-        Statement.setInt(3, anio_fabrica);
-        int arrows = Statement.executeUpdate();
-        if (arrows > 0)
-        {
-            JOptionPane.showMessageDialog(null, 
-                        "La nueva bicicleta se agregó satisfactoriamente", 
-                        "Operación Exitosa", 
-                        JOptionPane.INFORMATION_MESSAGE);
+    /**
+     *
+     * @param bicicleta
+     */
+    public void createBicicleta( ModelBicicleta bicicleta ){
+        
+        String biciFields = "fabricante_fk";
+        String valuesFields = "?";
+        int fieldCount = 2;
+        
+        try {
+            setConn(ConnectionDB.getConnection());
+
+            if(vehiculoDAO.existeFabricante(bicicleta.getFabricante_fk())){
+                JOptionPane.showMessageDialog(null, BikeShopParameters.FABRICANTE_REPETIDO, BikeShopParameters.TITULO_CAMPO_REPETIDO, JOptionPane.INFORMATION_MESSAGE);
+            } else{
+                vehiculoDAO.createVehiculo(new ModelVehiculo(bicicleta.getFabricante_fk()));
+            
+                if(bicicleta.getPrecio() != 0){
+                    biciFields += ", precio";
+                    valuesFields += ", ?";
+                }
+
+                if(bicicleta.getAnio_fabrica() != 0){
+                    biciFields += ", anio_fabrica";
+                    valuesFields += ", ?";
+                }
+
+
+                String create = "INSERT INTO bicicleta(" + biciFields + ") VALUES (" + valuesFields + ");";
+
+                PreparedStatement Statement = getConn().prepareStatement(create);
+
+                Statement.setString(1, bicicleta.getFabricante_fk());
+
+                if(bicicleta.getPrecio() != 0){
+                    Statement.setInt(fieldCount, bicicleta.getPrecio());
+                    fieldCount ++;
+                }
+
+                if(bicicleta.getAnio_fabrica() != 0){
+                    Statement.setInt(fieldCount, bicicleta.getAnio_fabrica());
+                }
+
+                int arrows = Statement.executeUpdate();
+
+                if (arrows > 0)
+                    JOptionPane.showMessageDialog(null, BikeShopParameters.BICI_CREADO, BikeShopParameters.OP_OK, JOptionPane.INFORMATION_MESSAGE);
+            }
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Código : " + ex.getErrorCode() 
+                                        + "\nError :" + ex.getMessage());
         }
     }
 
@@ -68,21 +162,21 @@ private Connection conn = null;
      * 
      * @param bicicletas 
      */
-    public void updateBicicletas(ModelBicicleta bicicletas) {
+    public void updateBicicletas(ModelBicicleta bicicletas){
         try {
-            if(conn == null)
-                conn = ConnectionDB.getConnection();
+            setConn(ConnectionDB.getConnection());
             
-            String sql = "UPDATE bicicleta SET fabricante_fk =?, precio =?, Anio_fabrica =? WHERE fabricante=?;";
-            PreparedStatement statement = conn.prepareStatement(sql);
-            statement.setString(1, bicicletas.getFabricante_fk());
-            statement.setInt(2, bicicletas.getPrecio());
-            statement.setInt(3, bicicletas.getAnio_fabrica());
-            statement.setString(4, bicicletas.getFabricante_fk());
+            String sql = "UPDATE bicicleta SET precio =?, Anio_fabrica =? WHERE fabricante_fk=?;";
+            PreparedStatement statement = getConn().prepareStatement(sql);
+            statement.setInt(1, bicicletas.getPrecio());
+            statement.setInt(2, bicicletas.getAnio_fabrica());
+            statement.setString(3, bicicletas.getFabricante_fk());
             
             int rowsUpdated = statement.executeUpdate();
             if (rowsUpdated > 0) 
-                JOptionPane.showMessageDialog(null, "El registro fue actualizado exitosamente !");
+                JOptionPane.showMessageDialog(null, BikeShopParameters.BICI_UPDATE, BikeShopParameters.OP_OK, JOptionPane.INFORMATION_MESSAGE);
+            
+            getConn().close();
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, "Código : " + ex.getErrorCode() 
                                         + "\nError :" + ex.getMessage());
@@ -94,22 +188,56 @@ private Connection conn = null;
      * 
      * @param idBicicleta 
      */
-    public void deleteBicicleta(int idBicicleta) {
+    public void deleteBicicletaById(int idBicicleta) {
         try {
-            if(conn == null)
-                conn = ConnectionDB.getConnection();
+            if(getConn() == null)
+                setConn(ConnectionDB.getConnection());
             
-            String sql = "DELETE FROM bicicleta WHERE idBicicleta=?;";
-            PreparedStatement statement = conn.prepareStatement(sql);
+            String sql = "DELETE FROM bicicleta WHERE id_bicicleta=?;";
+            PreparedStatement statement = getConn().prepareStatement(sql);
             statement.setInt(1, idBicicleta);
+            
             int rowsDeleted = statement.executeUpdate();
-            if (rowsDeleted > 0) {
-                JOptionPane.showMessageDialog(null, "El registro fue borrado exitosamente !");
-            }
+            
+            if (rowsDeleted > 0) 
+                JOptionPane.showMessageDialog(null, BikeShopParameters.BICI_BORRADO, BikeShopParameters.OP_OK, JOptionPane.INFORMATION_MESSAGE);
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, "Código : "
                     + ex.getErrorCode() + "\nError :" + ex.getMessage());
         }
+    }
+    
+    public void deleteBicicleta(ModelBicicleta bicicleta) {
+        try {
+            if(getConn() == null)
+                setConn(ConnectionDB.getConnection());
+            
+            String sql = "DELETE FROM bicicleta WHERE idBicicleta=?;";
+            PreparedStatement statement = getConn().prepareStatement(sql);
+            statement.setInt(1, bicicleta.getId_bicicleta());
+            
+            int rowsDeleted = statement.executeUpdate();
+            
+            if (rowsDeleted > 0) 
+                JOptionPane.showMessageDialog(null, BikeShopParameters.BICI_BORRADO, BikeShopParameters.OP_OK, JOptionPane.INFORMATION_MESSAGE);
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Código : "
+                    + ex.getErrorCode() + "\nError :" + ex.getMessage());
+        }
+    }
+
+    /**
+     * @return the conn
+     */
+    public Connection getConn() {
+        return conn;
+    }
+
+    /**
+     * @param conn the conn to set
+     */
+    public void setConn(Connection conn) {
+        this.conn = conn;
     }
 }
 

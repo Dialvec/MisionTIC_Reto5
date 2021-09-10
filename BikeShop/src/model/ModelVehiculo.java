@@ -11,11 +11,9 @@ package model;
  */
 public class ModelVehiculo {
     private final String fabricante;
-    private int precio;
 
-    public ModelVehiculo(String fabricante, int precio) {
+    public ModelVehiculo(String fabricante) {
         this.fabricante = fabricante;
-        this.precio = precio;
     }
 
     /**
@@ -24,24 +22,10 @@ public class ModelVehiculo {
     public String getFabricante() {
         return fabricante;
     }
-
-    /**
-     * @return the precio
-     */
-    public int getPrecio() {
-        return precio;
-    }
-
-    /**
-     * @param precio the precio to set
-     */
-    public void setPrecio(int precio) {
-        this.precio = precio;
-    }
     
     // Retorma arreglo con campos de la clase
     public Object[] toArray(){
-        Object[] data = {fabricante, precio};
+        Object[] data = {fabricante};
         return data;
     }
 }
