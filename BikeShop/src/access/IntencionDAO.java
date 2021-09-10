@@ -253,5 +253,3 @@ private final VehiculoDAO vehiculoDAO = new VehiculoDAO();
         return vehiculoDAO;
     }
 }
-
-

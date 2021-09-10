@@ -177,5 +177,3 @@ private Connection conn = null;
         this.conn = conn;
     }
 }
-
-

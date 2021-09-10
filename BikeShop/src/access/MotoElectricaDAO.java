@@ -233,5 +233,3 @@ private final ProveedorDAO proveedorDAO = new ProveedorDAO();
         this.conn = conn;
     }
 }
-
-

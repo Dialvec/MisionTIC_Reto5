@@ -60,7 +60,4 @@ public class InitialData {
     public ArrayList <ModelIntencion> getIntenciones() {
         return intenciones;
     }
-    
-    
-
 }

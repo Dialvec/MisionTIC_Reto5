@@ -15,11 +15,6 @@ import java.awt.event.ActionListener;
 
 import java.sql.SQLException;
 
-import java.util.Arrays;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-
-
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
@@ -852,8 +847,5 @@ public class ClickEvent implements ActionListener{
      */
     public IntentionWindow getIntentionWindow() {
         return this.intentionWindow;
-    }
-    
-    
-    
+    }   
 }

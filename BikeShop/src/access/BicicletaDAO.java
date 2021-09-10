@@ -240,5 +240,3 @@ private final VehiculoDAO vehiculoDAO = new VehiculoDAO();
         this.conn = conn;
     }
 }
-
-
