@@ -95,8 +95,6 @@ INSERT INTO cliente(alias, nombres, apellidos) VALUES ("neon", "Nelson", "Ruiz")
 INSERT INTO cliente(alias, nombres, apellidos) VALUES ("rose", "Claudia", "Mendez");
 INSERT INTO cliente(alias, nombres, apellidos) VALUES ("green", "Jorge", "Rodriguez");
 
-Select * from clientes where dob
-
 DROP TABLE IF EXISTS intencion;
 CREATE TABLE intencion (
     id_intencion INT AUTO_INCREMENT PRIMARY KEY,
